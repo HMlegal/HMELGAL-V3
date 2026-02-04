@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Gracias | TerritorioIndigena.cl</title>
+  <meta name="description" content="Hemos recibido tu solicitud. Te contactaremos dentro de 24 horas. Si tu caso es urgente, responderemos dentro de 12 horas." />
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hmblue: { 900: '#0f172a', 800: '#1e293b' },
+            hmgold: { 100: '#fef3c7', 500: '#d97706', 600: '#b45309' },
+            hmgray: '#f8fafc',
+            hmalert: '#b91c1c',
+          },
+          fontFamily: {
+            sans: ['Lato', 'sans-serif'],
+            serif: ['Merriweather', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-hero-pattern {
+      background-image:
+        linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.7)),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    :root { scroll-padding-top: 96px; }
+  </style>
+</head>
+
+<body class="text-slate-800 bg-white font-sans antialiased">
+
+  <!-- HEADER -->
+  <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <div class="flex flex-col">
+          <a href="/territorioindigena/index.html"
+             class="text-2xl font-serif font-bold text-hmblue-900 tracking-tight hover:text-hmblue-800 transition">
+            TerritorioIndigena<span class="text-hmgold-500">.cl</span>
+          </a>
+          <span class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
+            Filial de HM Legal Ltda.
+          </span>
+        </div>
+
+        <nav class="hidden lg:flex space-x-6 items-center">
+          <a href="/territorioindigena/index.html#inicio" class="text-sm font-medium text-slate-600 hover:text-hmblue-900">Inicio</a>
+          <a href="/territorioindigena/index.html#servicios" class="text-sm font-medium text-slate-600 hover:text-hmblue-900">Servicios</a>
+          <a href="/territorioindigena/index.html#equipo" class="text-sm font-medium text-slate-600 hover:text-hmblue-900">Equipo</a>
+          <a href="/territorioindigena/index.html#metodologia" class="text-sm font-medium text-slate-600 hover:text-hmblue-900">Metodología</a>
+          <a href="/territorioindigena/index.html#casos" class="text-sm font-medium text-slate-600 hover:text-hmblue-900">Resultados</a>
+
+          <a href="/territorioindigena/index.html#contacto"
+             class="px-5 py-2.5 bg-hmblue-900 text-white text-sm font-bold rounded shadow-lg hover:bg-hmblue-800 transition">
+            Evaluar mi caso
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="pt-28 bg-hero-pattern min-h-screen flex items-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-14">
+
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+        <!-- Card principal -->
+        <div class="lg:col-span-3 bg-white/95 rounded-2xl shadow-2xl overflow-hidden">
+          <div class="p-8 md:p-10">
+            <h1 class="text-2xl md:text-3xl font-serif font-black text-hmblue-900 mb-4">
+              Hemos recibido tu solicitud
+            </h1>
+
+            <p class="text-slate-700 text-lg">
+              Te contactaremos en un plazo máximo de
+              <span class="font-bold text-hmblue-900">24 horas</span>.
+            </p>
+
+            <div class="mt-6 bg-hmgold-100/50 border border-hmgold-500/30 rounded-xl p-5">
+              <p class="text-slate-700">
+                Si marcaste tu caso como <b class="text-hmalert">URGENTE</b>,
+                responderemos en menos de <b>12 horas</b>.
+              </p>
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+              <a href="/territorioindigena/index.html"
+                 class="px-6 py-3 bg-hmblue-900 text-white font-bold rounded-lg shadow hover:bg-hmblue-800">
+                Ir al inicio
+              </a>
+              <a href="/territorioindigena/index.html#contacto"
+                 class="px-6 py-3 bg-white text-hmblue-900 font-bold rounded-lg border border-slate-200 hover:bg-slate-50">
+                Volver al formulario
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lateral -->
+        <aside class="lg:col-span-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-xl p-8 text-white">
+          <h2 class="text-xl font-serif font-bold mb-4">¿Qué sigue ahora?</h2>
+          <ul class="space-y-4 text-sm text-slate-200">
+            <li><b>Revisión jurídica inicial</b> de los antecedentes enviados.</li>
+            <li><b>Contacto directo</b> si se requieren más antecedentes.</li>
+            <li><b>Priorización inmediata</b> si el caso es urgente.</li>
+          </ul>
+
+          <a href="/territorioindigena/index.html#contacto"
+             class="mt-6 inline-flex w-full justify-center py-3 bg-hmgold-500 hover:bg-hmgold-600 text-white font-bold rounded shadow">
+            Volver y agendar
+          </a>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-hmblue-900 border-t border-slate-800 text-slate-400 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+      <p class="text-white font-serif font-bold">TerritorioIndigena.cl</p>
+      <p>Filial de HM Legal Ltda.</p>
+      <p class="mt-2">&copy; 2025 HM Legal. Todos los derechos reservados.</p>
+      <a href="https://hmlegal.cl" class="hover:text-white">Ir a HM Legal</a>
+    </div>
+  </footer>
+
+</body>
+</html>
