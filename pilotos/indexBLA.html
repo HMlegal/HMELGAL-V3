@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGI - Bono Legal de Aguas | INDAP</title>
+    
+    <!-- ========================================== -->
+    <!-- CONFIGURACIÓN SEO Y METADATOS              -->
+    <!-- ========================================== -->
+    <meta name="description" content="Plataforma SGI para la gestión del Bono Legal de Aguas (BLA) de INDAP. Seguimiento de expedientes, pagos de incentivos, regularización DGA y control de consultores de riego.">
+    <meta name="keywords" content="INDAP, Bono Legal de Aguas, BLA, Riego, Derechos de Agua, DGA, Gestión Pública, Consultores Riego, Chile, Agricultura">
+    <meta name="author" content="INDAP - Gobierno de Chile">
+    <meta name="robots" content="index, follow, noarchive">
+    <meta name="theme-color" content="#0f172a"> <!-- Color de la barra en móviles (slate-900) -->
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tu-dominio-indap.cl/sgi-bla/">
+    <meta property="og:title" content="SGI - Bono Legal de Aguas | Gestión de Expedientes">
+    <meta property="og:description" content="Sistema de seguimiento de regularización de derechos de aprovechamiento de aguas y gestión financiera de incentivos INDAP.">
+    <meta property="og:image" content="https://tu-dominio-indap.cl/assets/preview-sgi.jpg"> <!-- Reemplazar con URL real de imagen -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="SGI - Bono Legal de Aguas | INDAP">
+    <meta property="twitter:description" content="Gestión integral de expedientes DGA, pagos y consultores del programa BLA.">
+    
+    <!-- Datos Estructurados (Schema.org) para Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Sistema de Gestión Integral BLA",
+      "alternateName": "SGI Bono Legal de Aguas",
+      "url": "https://tu-dominio-indap.cl/sgi-bla",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "description": "Plataforma para la administración y seguimiento del programa de Bono Legal de Aguas de INDAP.",
+      "provider": {
+        "@type": "GovernmentOrganization",
+        "name": "INDAP",
+        "url": "https://www.indap.gob.cl"
+      }
+    }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- GOOGLE ANALYTICS 4 (GA4)                   -->
+    <!-- ========================================== -->
+    <!-- Reemplaza 'G-XXXXXXXXXX' con tu ID de Medición real -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Configuración básica
+      gtag('config', 'G-XXXXXXXXXX', {
+          'page_title': 'Dashboard SGI',
+          'anonymize_ip': true // Importante para privacidad en sector público
+      });
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Estilos personalizados para scrollbar y transiciones */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans h-screen flex overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0 hidden md:flex">
+        <div class="p-6">
+            <div class="flex items-center gap-2 text-white font-bold text-xl">
+                <i data-lucide="droplet" class="text-blue-400 fill-blue-400"></i>
+                <span>SGI-<span class="text-blue-400">BLA</span></span>
+            </div>
+            <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Gestión Bono Legal</p>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-2 text-sm">
+            <button onclick="router('dashboard')" id="nav-dashboard" class="nav-btn flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-colors hover:bg-slate-800">
+                <i data-lucide="bar-chart-3" size="18"></i> Panel de Control
+            </button>
+            
+            <div class="pt-4 pb-2 px-4 text-[10px] uppercase text-slate-500 font-bold tracking-wider">Operación</div>
+            
+            <button onclick="router('caso_a_caso')" id="nav-caso_a_caso" class="nav-btn flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-colors hover:bg-slate-800">
+                <i data-lucide="eye" size="18"></i> Revisión Caso a Caso
+            </button>
+            <button onclick="router('casos')" id="nav-casos" class="nav-btn flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-colors hover:bg-slate-800">
+                <i data-lucide="list" size="18"></i> Gestión General
+            </button>
+            <button onclick="router('financiero')" id="nav-financiero" class="nav-btn flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-colors hover:bg-slate-800">
+                <i data-lucide="dollar-sign" size="18"></i> Pagos e Incentivos
+            </button>
+        </nav>
+
+        <div class="p-4 bg-slate-950">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/50 flex items-center justify-center font-bold text-xs">AD</div>
+                <div>
+                    <p class="text-sm text-white font-medium">Administrador</p>
+                    <p class="text-xs text-slate-500">INDAP Región Biobío</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <!-- HEADER -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <i data-lucide="menu" class="md:hidden text-slate-500 cursor-pointer"></i>
+                <span class="text-slate-500 text-sm hidden md:inline-block font-medium">Sistema de Gestión Integral - Bono Legal de Aguas</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden md:block">
+                    <p class="text-xs font-bold text-slate-700">Presupuesto 2024</p>
+                    <p class="text-xs text-green-600">65% Ejecutado</p>
+                </div>
+                <div class="w-px h-8 bg-slate-200 mx-2"></div>
+                <button class="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-slate-200">
+                    <i data-lucide="search" size="18"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- DYNAMIC CONTENT CONTAINER -->
+        <div id="app-content" class="flex-1 overflow-y-auto p-6 relative">
+            <!-- El contenido se inyecta aquí con JS -->
+        </div>
+    </main>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- 1. MOCK DATA ---
+        const AREAS_INDAP = ["Los Ángeles", "Yumbel", "Santa Bárbara", "Mulchén"];
+        const COMUNAS = ["Los Ángeles", "Antuco", "Quilleco", "Yumbel", "Cabrero", "Santa Bárbara", "Mulchén"];
+
+        const CONSULTORES_MOCK = [
+            { rut: "76.553.820-3", nombre: "PROMEC INGENIERIA LTDA", region: "Maule", categoria: "Jurídica", estado: "Vigente" },
+            { rut: "11.951.649-8", nombre: "EDMUNDO ANTONIO PEREZ IBARRA", region: "O'Higgins", categoria: "Natural", estado: "Vigente" },
+            { rut: "16.022.089-9", nombre: "SERGIO QUIROZ ALVAREZ", region: "Biobío", categoria: "Natural", estado: "Vigente" },
+            { rut: "12.345.678-K", nombre: "AGUAS DEL SUR SPA", region: "Biobío", categoria: "Jurídica", estado: "Vigente" }
+        ];
+
+        const CASOS_MOCK = [
+            {
+                id: "BLA-2024-0899", usuario: "Susana Troncoso", rutUsuario: "12.345.678-9", areaIndap: "Los Ángeles", comuna: "Antuco",
+                consultor: "SERGIO QUIROZ ALVAREZ", tipoSolicitud: "Regularización Art. 2 Transitorio", estado: "En Trámite DGA",
+                contratoFirmado: true, fechaContrato: "2024-03-15", fechaTerminoContrato: "2025-03-15", avance: 45, dgaExpediente: "ND-1302-2025",
+                cuotas: [
+                    { n: 1, monto: 250000, estado: "Pagado", anioPago: 2024, fecha: "2024-05-13", folioTGR: "99887712", estadoTGR: "Pagado" },
+                    { n: 2, monto: 350000, estado: "Pendiente", anioPago: 2025, requisito: "Resolución DGA", folioTGR: null, estadoTGR: "N/A" }
+                ],
+                acreditacion: { tipo: "Pequeño Productor", vigencia: "Vigente", ultimaActualizacion: "10-03-2024" }
+            },
+            {
+                id: "BLA-2024-0902", usuario: "Lorenzo Hidalgo", rutUsuario: "9.876.543-2", areaIndap: "Yumbel", comuna: "Cabrero",
+                consultor: "PROMEC INGENIERIA LTDA", tipoSolicitud: "Constitución Derechos Subterráneos", estado: "Inscrito CBR",
+                contratoFirmado: true, fechaContrato: "2023-11-01", fechaTerminoContrato: "2024-11-01", avance: 100, dgaExpediente: "V-2023-441",
+                cuotas: [
+                    { n: 1, monto: 250000, estado: "Pagado", anioPago: 2023, fecha: "2023-11-20", folioTGR: "88776655", estadoTGR: "Pagado" },
+                    { n: 2, monto: 400000, estado: "Pagado", anioPago: 2024, fecha: "2024-01-15", folioTGR: "88776699", estadoTGR: "Pagado" }
+                ],
+                acreditacion: { tipo: "Pequeño Productor", vigencia: "Vigente", ultimaActualizacion: "15-01-2024" }
+            },
+            {
+                id: "BLA-2025-0105", usuario: "Maria Gonzalez", rutUsuario: "15.444.333-2", areaIndap: "Santa Bárbara", comuna: "Santa Bárbara",
+                consultor: "EDMUNDO ANTONIO PEREZ IBARRA", tipoSolicitud: "Regularización Art. 5", estado: "Pendiente Ingreso",
+                contratoFirmado: false, fechaContrato: null, fechaTerminoContrato: null, avance: 5, dgaExpediente: null,
+                cuotas: [
+                    { n: 1, monto: 300000, estado: "Pendiente", anioPago: 2025, requisito: "Ingreso DGA", folioTGR: null, estadoTGR: "N/A" },
+                    { n: 2, monto: 300000, estado: "Pendiente", anioPago: 2026, requisito: "Resolución DGA", folioTGR: null, estadoTGR: "N/A" }
+                ],
+                acreditacion: { tipo: "Pequeño Productor", vigencia: "Vigente", ultimaActualizacion: "20-02-2025" }
+            },
+            {
+                id: "BLA-2024-0550", usuario: "Pedro Pascal", rutUsuario: "10.111.222-3", areaIndap: "Mulchén", comuna: "Mulchén",
+                consultor: "AGUAS DEL SUR SPA", tipoSolicitud: "Perfeccionamiento", estado: "Observado",
+                contratoFirmado: true, fechaContrato: "2024-01-20", fechaTerminoContrato: "2024-06-20", avance: 60, dgaExpediente: "ND-500-2024",
+                cuotas: [
+                    { n: 1, monto: 200000, estado: "Pagado", anioPago: 2024, fecha: "2024-02-15", folioTGR: "123123", estadoTGR: "Pagado" },
+                    { n: 2, monto: 200000, estado: "Pendiente", anioPago: 2024, requisito: "Resolución DGA", folioTGR: null, estadoTGR: "N/A" }
+                ],
+                acreditacion: { tipo: "Pequeño Productor", vigencia: "Vigente", ultimaActualizacion: "10-03-2024" }
+            }
+        ];
+
+        // --- 2. STATE & UTILS ---
+        let currentView = 'dashboard';
+        let selectedCaseId = null;
+        let dashMode = 'consultores';
+        let filters = { area: 'Todas', comuna: 'Todas', consultor: 'Todos', estado: 'Todos' };
+
+        // Utility: Status Badge
+        const getStatusBadge = (status) => {
+            const styles = {
+                "En Trámite DGA": "bg-blue-100 text-blue-800",
+                "Inscrito CBR": "bg-green-100 text-green-800",
+                "Observado": "bg-red-100 text-red-800",
+                "Pendiente Ingreso": "bg-gray-100 text-gray-800"
+            };
+            return `<span class="px-2 py-1 rounded-full text-xs font-bold ${styles[status] || "bg-gray-100"}">${status}</span>`;
+        };
+
+        // Utility: Number Format
+        const formatMoney = (amount) => '$' + amount.toLocaleString('es-CL');
+
+        // Logic: Calculate Alerts
+        const getAlerts = () => {
+            const alerts = [];
+            const today = new Date();
+            CASOS_MOCK.forEach(c => {
+                if (c.fechaTerminoContrato) {
+                    const termino = new Date(c.fechaTerminoContrato);
+                    const diffDays = Math.ceil((termino - today) / (1000 * 60 * 60 * 24));
+                    if (diffDays < 0 && c.avance < 100) {
+                        alerts.push({ id: c.id, tipo: 'critica', msg: `Contrato Vencido (${Math.abs(diffDays)} días)`, usuario: c.usuario, consultor: c.consultor });
+                    } else if (diffDays > 0 && diffDays <= 30 && c.avance < 100) {
+                        alerts.push({ id: c.id, tipo: 'advertencia', msg: `Vence en ${diffDays} días`, usuario: c.usuario, consultor: c.consultor });
+                    }
+                }
+                if (c.estado === "Observado") {
+                    alerts.push({ id: c.id, tipo: 'atencion', msg: `Observado por DGA`, usuario: c.usuario, consultor: c.consultor });
+                }
+            });
+            return alerts;
+        };
+
+        // Logic: Filter Cases
+        const getFilteredCases = () => {
+            return CASOS_MOCK.filter(c => {
+                return (filters.area === 'Todas' || c.areaIndap === filters.area) &&
+                       (filters.comuna === 'Todas' || c.comuna === filters.comuna) &&
+                       (filters.consultor === 'Todos' || c.consultor === filters.consultor) &&
+                       (filters.estado === 'Todos' || c.estado === filters.estado);
+            });
+        };
+
+        // --- 3. RENDER FUNCTIONS ---
+
+        // View: Dashboard
+        const renderDashboard = () => {
+            const alerts = getAlerts();
+            const consultorStats = CONSULTORES_MOCK.map(cons => {
+                const casos = CASOS_MOCK.filter(c => c.consultor === cons.nombre);
+                const avancePromedio = casos.length ? Math.round(casos.reduce((a, b) => a + b.avance, 0) / casos.length) : 0;
+                return { ...cons, totalCasos: casos.length, avancePromedio };
+            });
+
+            let alertsHTML = alerts.length > 0 ? alerts.map(a => `
+                <div class="p-4 rounded-lg border flex flex-col gap-2 ${a.tipo === 'critica' ? 'bg-red-50 border-red-100 text-red-800' : a.tipo === 'advertencia' ? 'bg-orange-50 border-orange-100 text-orange-800' : 'bg-yellow-50 border-yellow-100 text-yellow-800'}">
+                    <div class="flex items-center gap-2 font-bold text-sm"><i data-lucide="alert-circle" size="14"></i> ${a.msg}</div>
+                    <div class="text-xs bg-white/60 p-2 rounded">
+                        <p><strong>Usuario:</strong> ${a.usuario}</p>
+                        <p><strong>Consultor:</strong> ${a.consultor}</p>
+                        <button onclick="selectCaseAndRedirect('${a.id}')" class="mt-2 text-blue-700 underline flex items-center gap-1">Ver Expediente <i data-lucide="chevron-right" size="10"></i></button>
+                    </div>
+                </div>`).join('') : '<div class="col-span-3 p-4 bg-green-50 text-green-700 rounded-lg text-center text-sm">No hay alertas críticas pendientes.</div>';
+
+            let tableHTML = '';
+            if (dashMode === 'consultores') {
+                const rows = consultorStats.map(c => `
+                    <tr class="hover:bg-slate-50 border-b border-slate-100">
+                        <td class="px-6 py-4 font-medium text-slate-800">${c.nombre}</td>
+                        <td class="px-6 py-4 text-center">${c.totalCasos}</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2 justify-center">
+                                <div class="w-16 bg-slate-200 rounded-full h-1.5"><div class="bg-blue-600 h-1.5 rounded-full" style="width: ${c.avancePromedio}%"></div></div>
+                                <span class="text-xs text-slate-600">${c.avancePromedio}%</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-center"><span class="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded-full">${c.estado}</span></td>
+                    </tr>`).join('');
+                tableHTML = `<table class="w-full text-sm text-left"><thead class="bg-slate-50 text-slate-500 text-xs uppercase"><tr><th class="px-6 py-3">Consultor</th><th class="px-6 py-3 text-center">Casos Asignados</th><th class="px-6 py-3 text-center">Avance Promedio</th><th class="px-6 py-3 text-center">Estado Reg.</th></tr></thead><tbody>${rows}</tbody></table>`;
+            } else {
+                const cards = CASOS_MOCK.map(caso => `
+                    <div class="border border-slate-100 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer bg-white" onclick="selectCaseAndRedirect('${caso.id}')">
+                        <div class="flex justify-between items-start mb-2"><div><h4 class="font-bold text-slate-800 text-sm">${caso.usuario}</h4><p class="text-xs text-slate-500">${caso.comuna}</p></div>${getStatusBadge(caso.estado)}</div>
+                        <div class="text-xs text-slate-500 mb-2">Consultor: <span class="text-slate-700">${caso.consultor}</span></div>
+                        <div class="w-full bg-slate-100 rounded-full h-1.5 mb-1"><div class="h-1.5 rounded-full ${caso.avance === 100 ? 'bg-green-500' : 'bg-blue-500'}" style="width: ${caso.avance}%"></div></div>
+                        <div class="flex justify-between text-[10px] text-slate-400"><span>Avance: ${caso.avance}%</span><span>Exp: ${caso.dgaExpediente || 'S/N'}</span></div>
+                    </div>`).join('');
+                tableHTML = `<div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</div>`;
+            }
+
+            return `
+            <div class="space-y-6 fade-in">
+                <!-- Alertas -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2 text-red-500">
+                        <i data-lucide="alert-triangle"></i> Centro de Alertas y Urgencias
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">${alertsHTML}</div>
+                </div>
+                <!-- Panel Bifurcado -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-4 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+                        <div class="flex gap-4">
+                            <button onclick="setDashMode('consultores')" class="text-sm font-bold px-3 py-1.5 rounded-md transition-colors ${dashMode === 'consultores' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}">Rendimiento por Consultor</button>
+                            <button onclick="setDashMode('usuarios')" class="text-sm font-bold px-3 py-1.5 rounded-md transition-colors ${dashMode === 'usuarios' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}">Revisión por Usuario</button>
+                        </div>
+                        <button onclick="router('casos')" class="text-xs text-blue-600 hover:underline">Ver Todo</button>
+                    </div>
+                    ${tableHTML}
+                </div>
+            </div>`;
+        };
+
+        // View: General Management (Macro)
+        const renderCasos = () => {
+            const filtered = getFilteredCases();
+            const totalCases = filtered.length;
+            const firmados = filtered.filter(c => c.contratoFirmado).length;
+            const pendientes = totalCases - firmados;
+            const today = new Date();
+            const porVencer = filtered.filter(c => {
+                if(!c.fechaTerminoContrato) return false;
+                const diff = Math.ceil((new Date(c.fechaTerminoContrato) - today) / (1000 * 60 * 60 * 24));
+                return diff > 0 && diff <= 60;
+            }).length;
+
+            const tableRows = filtered.map(c => {
+                const diff = c.fechaTerminoContrato ? Math.ceil((new Date(c.fechaTerminoContrato) - today) / (1000 * 60 * 60 * 24)) : null;
+                const critico = diff !== null && diff < 30;
+                return `
+                <tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+                    <td class="px-6 py-4">
+                        <div class="font-bold text-slate-800">${c.usuario}</div>
+                        <div class="text-xs text-slate-500 font-mono">${c.id}</div>
+                    </td>
+                    <td class="px-6 py-4 text-xs text-slate-600">${c.comuna} (${c.areaIndap})</td>
+                    <td class="px-6 py-4 text-xs font-medium text-slate-700">${c.consultor}</td>
+                    <td class="px-6 py-4">
+                        ${c.contratoFirmado ? `<div class="text-xs p-1 rounded inline-block ${critico ? 'bg-red-50 text-red-700 font-bold' : 'bg-green-50 text-green-700'}">Vence: ${c.fechaTerminoContrato} ${critico ? '<span class="block text-[10px]">¡ATENCIÓN!</span>' : ''}</div>` : '<span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded font-bold">Pendiente Firma</span>'}
+                    </td>
+                    <td class="px-6 py-4 text-center">${getStatusBadge(c.estado)}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button onclick="selectCaseAndRedirect('${c.id}')" class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-full transition-colors"><i data-lucide="eye" size="18"></i></button>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            return `
+            <div class="space-y-6 fade-in">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i data-lucide="list" class="text-blue-600"></i> Gestión General de Casos</h2>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">Total Registros: ${totalCases}</span>
+                </div>
+                <!-- Filtros -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3 text-slate-700 font-bold text-sm"><i data-lucide="filter" size="16"></i> Filtros de Búsqueda</div>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <select onchange="updateFilter('area', this.value)" class="text-sm border border-slate-300 rounded p-2 bg-slate-50"><option value="Todas">Todas las Áreas</option>${AREAS_INDAP.map(a => `<option ${filters.area === a ? 'selected' : ''}>${a}</option>`).join('')}</select>
+                        <select onchange="updateFilter('comuna', this.value)" class="text-sm border border-slate-300 rounded p-2 bg-slate-50"><option value="Todas">Todas las Comunas</option>${COMUNAS.map(c => `<option ${filters.comuna === c ? 'selected' : ''}>${c}</option>`).join('')}</select>
+                        <select onchange="updateFilter('consultor', this.value)" class="text-sm border border-slate-300 rounded p-2 bg-slate-50"><option value="Todos">Todos los Consultores</option>${CONSULTORES_MOCK.map(c => `<option value="${c.nombre}" ${filters.consultor === c.nombre ? 'selected' : ''}>${c.nombre}</option>`).join('')}</select>
+                        <select onchange="updateFilter('estado', this.value)" class="text-sm border border-slate-300 rounded p-2 bg-slate-50"><option value="Todos">Todos los Estados</option><option>En Trámite DGA</option><option>Inscrito CBR</option><option>Observado</option><option>Pendiente Ingreso</option></select>
+                        <button onclick="clearFilters()" class="text-sm bg-slate-200 text-slate-600 rounded hover:bg-slate-300">Limpiar</button>
+                    </div>
+                </div>
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between"><div><p class="text-xs text-slate-500 font-bold uppercase">Contratos Firmados</p><h3 class="text-2xl font-bold text-green-600">${firmados}</h3></div><div class="p-3 bg-green-50 text-green-600 rounded-full"><i data-lucide="file-signature"></i></div></div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between"><div><p class="text-xs text-slate-500 font-bold uppercase">Pendientes Firma</p><h3 class="text-2xl font-bold text-orange-500">${pendientes}</h3></div><div class="p-3 bg-orange-50 text-orange-500 rounded-full"><i data-lucide="clock"></i></div></div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between"><div><p class="text-xs text-slate-500 font-bold uppercase">Vencen &lt; 60 Días</p><h3 class="text-2xl font-bold text-red-500">${porVencer}</h3></div><div class="p-3 bg-red-50 text-red-500 rounded-full"><i data-lucide="alert-triangle"></i></div></div>
+                </div>
+                <!-- Tabla -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden overflow-x-auto">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50 text-slate-500 text-xs uppercase font-bold"><tr><th class="px-6 py-3">Caso</th><th class="px-6 py-3">Ubicación</th><th class="px-6 py-3">Consultor</th><th class="px-6 py-3">Contrato / Vencimiento</th><th class="px-6 py-3 text-center">Estado</th><th class="px-6 py-3"></th></tr></thead><tbody>${tableRows}</tbody></table>
+                </div>
+            </div>`;
+        };
+
+        // View: Financial (Pagos e Incentivos)
+        const renderFinancial = () => {
+            const years = [2024, 2025, 2026];
+            const dataByYear = years.map(year => {
+                const cuotas = CASOS_MOCK.flatMap(c => c.cuotas).filter(cu => cu.anioPago === year);
+                const total = cuotas.reduce((acc, cu) => acc + cu.monto, 0);
+                const pagado = cuotas.filter(cu => cu.estado === 'Pagado').reduce((acc, cu) => acc + cu.monto, 0);
+                const pendiente = total - pagado;
+                return { year, total, pagado, pendiente };
+            });
+
+            const pagosPorConsultor = CONSULTORES_MOCK.map(cons => {
+                const casos = CASOS_MOCK.filter(c => c.consultor === cons.nombre);
+                const total = casos.reduce((acc, c) => acc + c.cuotas.reduce((a, cu) => a + cu.monto, 0), 0);
+                const pagado = casos.reduce((acc, c) => acc + c.cuotas.filter(cu => cu.estado === 'Pagado').reduce((a, cu) => a + cu.monto, 0), 0);
+                return { ...cons, total, pagado, pendiente: total - pagado };
+            });
+
+            // Proyección HTML
+            const chartHTML = dataByYear.map(d => `
+                <div class="flex flex-col items-center w-1/4 group">
+                    <div class="w-full flex flex-col justify-end h-40 gap-1 relative">
+                        <div class="bg-green-500 w-full rounded-t opacity-90 text-center text-[10px] text-white font-bold flex items-end justify-center transition-all hover:opacity-100" style="height: ${(d.pagado / 2500000) * 100}%">${(d.pagado/1000).toFixed(0)}k</div>
+                        <div class="bg-slate-300 w-full rounded-b opacity-80 text-center text-[10px] text-slate-600 font-bold flex items-start justify-center pt-1 transition-all hover:opacity-100" style="height: ${(d.pendiente / 2500000) * 100}%">${(d.pendiente/1000).toFixed(0)}k</div>
+                    </div>
+                    <p class="mt-2 font-bold text-slate-700">${d.year}</p>
+                    <p class="text-xs text-slate-400">Total: $${(d.total/1000000).toFixed(1)}M</p>
+                </div>`).join('');
+            
+            // Próximos vencimientos
+            const pendingHTML = CASOS_MOCK.flatMap(c => c.cuotas.map(cu => ({...cu, caso: c}))).filter(cu => cu.estado === 'Pendiente').slice(0, 4).map(item => `
+                <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-start mb-1"><span class="text-xs font-bold text-slate-800">${item.caso.usuario}</span><span class="text-[10px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded">Cuota ${item.n}</span></div>
+                    <p class="text-xs text-slate-500 mb-2 truncate">${item.caso.consultor}</p>
+                    <div class="flex justify-between items-end"><span class="font-mono text-xs font-bold text-slate-700">${formatMoney(item.monto)}</span><button class="text-[10px] bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition-colors">Pagar</button></div>
+                </div>`).join('');
+
+            // Tabla Consultores
+            const consultorRows = pagosPorConsultor.map(c => `
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="px-6 py-4 font-medium text-slate-800">${c.nombre}</td>
+                    <td class="px-6 py-4 text-right font-bold">${formatMoney(c.total)}</td>
+                    <td class="px-6 py-4 text-right text-green-600">${formatMoney(c.pagado)}</td>
+                    <td class="px-6 py-4 text-right text-orange-500">${formatMoney(c.pendiente)}</td>
+                    <td class="px-6 py-4"><div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-600 h-2 rounded-full" style="width: ${c.total > 0 ? (c.pagado/c.total)*100 : 0}%"></div></div></td>
+                </tr>`).join('');
+
+            return `
+            <div class="space-y-6 fade-in">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i data-lucide="dollar-sign" class="text-green-600"></i> Gestión Financiera</h2>
+                    <div class="flex gap-2">
+                        <button class="flex items-center gap-1 text-xs bg-white border border-slate-300 px-3 py-1.5 rounded hover:bg-slate-50"><i data-lucide="upload-cloud" size="14"></i> Cargar Planilla TGR</button>
+                        <button class="flex items-center gap-1 text-xs bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700"><i data-lucide="file-text" size="14"></i> Reporte PDF</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Gráfica -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-700 mb-6 flex items-center gap-2"><i data-lucide="trending-up" class="text-blue-500"></i> Proyección de Flujo de Caja 2024-2026</h3>
+                        <div class="flex items-end justify-around h-48 w-full px-4 border-b border-slate-100 pb-4">${chartHTML}</div>
+                        <div class="flex justify-center gap-6 mt-4"><div class="flex items-center gap-2 text-xs text-slate-600"><div class="w-3 h-3 bg-green-500 rounded"></div> Pagado / Ejecutado</div><div class="flex items-center gap-2 text-xs text-slate-600"><div class="w-3 h-3 bg-slate-300 rounded"></div> Pendiente / Proyectado</div></div>
+                    </div>
+                    <!-- Vencimientos -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-700 mb-4 text-sm flex items-center gap-2"><i data-lucide="clock" class="text-orange-500"></i> Próximos Vencimientos</h3>
+                        <div class="space-y-3">${pendingHTML}</div>
+                    </div>
+                </div>
+                <!-- Tabla -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden overflow-x-auto">
+                    <div class="p-4 bg-slate-50 border-b border-slate-100"><h3 class="font-bold text-slate-700 text-sm">Estado de Cuentas por Consultor</h3></div>
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50 text-slate-500 text-xs uppercase font-bold"><tr><th class="px-6 py-3">Consultor</th><th class="px-6 py-3 text-right">Total Asignado</th><th class="px-6 py-3 text-right">Pagado</th><th class="px-6 py-3 text-right">Pendiente</th><th class="px-6 py-3 text-center">Ejecución</th></tr></thead><tbody>${consultorRows}</tbody></table>
+                </div>
+            </div>`;
+        };
+
+        // View: Case Review (Caso a Caso)
+        const renderCasoACaso = () => {
+            // Sidebar List
+            const listHTML = CASOS_MOCK.map(c => `
+                <div onclick="selectCaseAndRedirect('${c.id}', true)" class="p-4 border-b border-slate-100 cursor-pointer transition-colors hover:bg-blue-50/50 ${selectedCaseId === c.id ? 'bg-blue-50 border-l-4 border-l-blue-600' : 'border-l-4 border-l-transparent'}">
+                    <div class="flex justify-between items-start"><h4 class="text-sm font-bold ${selectedCaseId === c.id ? 'text-blue-900' : 'text-slate-700'}">${c.usuario}</h4><span class="text-[10px] text-slate-400 font-mono">${c.id}</span></div>
+                    <p class="text-xs text-slate-500 mt-1 truncate">${c.tipoSolicitud}</p>
+                    <div class="flex justify-between items-center mt-2"><span class="text-[10px] px-1.5 py-0.5 rounded font-medium ${c.estado === 'Observado' ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-600'}">${c.estado}</span><span class="text-[10px] text-slate-400">${c.comuna}</span></div>
+                </div>`).join('');
+
+            // Detail View
+            let detailHTML = '<div class="flex flex-col items-center justify-center h-full text-slate-400"><i data-lucide="file-text" size="48" class="mb-4 opacity-50"></i><p>Seleccione un expediente para revisar</p></div>';
+
+            if (selectedCaseId) {
+                const c = CASOS_MOCK.find(x => x.id === selectedCaseId);
+                const cuotasHTML = c.cuotas.map(cu => `
+                    <tr><td class="py-2">Cuota ${cu.n}</td><td class="py-2 text-right">${formatMoney(cu.monto)}</td><td class="py-2 text-center"><span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${cu.estado === 'Pagado' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">${cu.estado}</span></td></tr>
+                `).join('');
+                
+                detailHTML = `
+                <div class="flex flex-col h-full fade-in">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-start">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-800">${c.usuario}</h2>
+                            <div class="flex items-center gap-2 mt-1"><p class="text-sm text-slate-500">${c.rutUsuario}</p><span class="text-slate-300">|</span><p class="text-sm text-slate-500 flex items-center gap-1"><i data-lucide="briefcase" size="12"></i> ${c.consultor}</p></div>
+                        </div>
+                        <div class="text-right"><div class="flex gap-2 justify-end mb-2">${getStatusBadge(c.estado)}</div><div class="text-xs text-slate-500">Contrato vence: <span class="font-mono text-slate-700">${c.fechaTerminoContrato || "N/A"}</span></div></div>
+                    </div>
+                    <div class="flex-1 overflow-y-auto p-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="space-y-6">
+                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                    <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2"><i data-lucide="trending-up" class="text-blue-600"></i> Avance Normativo</h3>
+                                    <div class="w-full bg-slate-200 rounded-full h-2 mb-2"><div class="bg-blue-600 h-2 rounded-full" style="width: ${c.avance}%"></div></div>
+                                    <div class="flex justify-between text-xs text-slate-500 mb-4"><span>Inicio</span><span>${c.avance}% Completado</span><span>Término</span></div>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2 text-xs"><i data-lucide="check-circle" size="14" class="text-green-500"></i> <span class="text-slate-700">Contrato Firmado (${c.fechaContrato})</span></div>
+                                        <div class="flex items-center gap-2 text-xs">${c.dgaExpediente ? '<i data-lucide="check-circle" size="14" class="text-green-500"></i>' : '<i data-lucide="alert-circle" size="14" class="text-orange-500"></i>'} <span class="text-slate-700">Ingreso DGA ${c.dgaExpediente ? `(${c.dgaExpediente})` : '(Pendiente)'}</span></div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                    <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2"><i data-lucide="dollar-sign" class="text-green-600"></i> Pagos e Incentivos</h3>
+                                    <table class="w-full text-xs"><thead><tr class="text-slate-500 text-left border-b border-slate-200"><th class="pb-2">Cuota</th><th class="pb-2 text-right">Monto</th><th class="pb-2 text-center">Estado</th></tr></thead><tbody class="divide-y divide-slate-200">${cuotasHTML}</tbody></table>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h3 class="text-sm font-bold text-slate-700 mb-1 flex items-center gap-2"><i data-lucide="database" class="text-purple-600"></i> Interoperabilidad</h3>
+                                <!-- DGA Mock -->
+                                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm">
+                                    <div class="flex justify-between items-center mb-2"><span class="font-bold text-slate-700 flex items-center gap-1"><i data-lucide="external-link" size="12"></i> Expediente DGA</span><button onclick="simulateDGA('${c.dgaExpediente}')" id="btn-dga" class="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 disabled:opacity-50">Sincronizar</button></div>
+                                    ${!c.dgaExpediente ? '<span class="text-slate-400 text-xs">Sin N° Expediente asociado</span>' : `<div id="dga-result" class="hidden space-y-1 fade-in"><div class="flex justify-between border-b border-slate-200 pb-1"><span class="text-slate-500">Expediente:</span><span class="font-mono font-bold text-slate-800">${c.dgaExpediente}</span></div><div class="flex justify-between"><span class="text-slate-500">Estado:</span><span class="text-blue-700 font-medium">En Análisis Técnico</span></div></div>`}
+                                </div>
+                                <!-- INDAP Mock -->
+                                <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col items-center justify-center text-center p-4 min-h-[150px]" id="indap-container">
+                                    <div class="bg-slate-100 p-3 rounded-full mb-3"><i data-lucide="database" size="20" class="text-slate-400"></i></div>
+                                    <button onclick="simulateIndap('${c.id}')" class="bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-green-800 transition-all">Conectar Sistemas INDAP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            return `
+            <div class="flex h-[calc(100vh-140px)] gap-6">
+                <div class="w-1/3 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 bg-slate-50">
+                        <h3 class="font-bold text-slate-700 text-sm mb-2">Explorador de Expedientes</h3>
+                        <div class="relative"><input type="text" placeholder="Buscar..." class="w-full pl-8 pr-3 py-2 text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"><i data-lucide="search" class="absolute left-2.5 top-2.5 text-slate-400" size="14"></i></div>
+                    </div>
+                    <div class="flex-1 overflow-y-auto">${listHTML}</div>
+                </div>
+                <div class="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">${detailHTML}</div>
+            </div>`;
+        };
+
+        // --- 4. APP LOGIC & ROUTING ---
+
+        function router(view) {
+            currentView = view;
+            
+            // Update UI Active State
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.add('hover:bg-slate-800'));
+            const activeBtn = document.getElementById(`nav-${view}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+                activeBtn.classList.remove('hover:bg-slate-800');
+            }
+
+            // Render Content
+            const container = document.getElementById('app-content');
+            container.innerHTML = '';
+            
+            if (view === 'dashboard') container.innerHTML = renderDashboard();
+            else if (view === 'casos') container.innerHTML = renderCasos();
+            else if (view === 'caso_a_caso') container.innerHTML = renderCasoACaso();
+            else if (view === 'financiero') container.innerHTML = renderFinancial();
+
+            // Re-init Icons
+            lucide.createIcons();
+        }
+
+        // --- Actions ---
+
+        function setDashMode(mode) {
+            dashMode = mode;
+            router('dashboard');
+        }
+
+        function updateFilter(key, value) {
+            filters[key] = value;
+            router('casos');
+        }
+
+        function clearFilters() {
+            filters = { area: 'Todas', comuna: 'Todas', consultor: 'Todos', estado: 'Todos' };
+            router('casos');
+        }
+
+        function selectCaseAndRedirect(id, stayInView = false) {
+            selectedCaseId = id;
+            if (!stayInView) {
+                router('caso_a_caso');
+            } else {
+                router('caso_a_caso'); // Re-render to show selection
+            }
+        }
+
+        // Simulations
+        function simulateDGA(exp) {
+            if (!exp || exp === 'null') return;
+            const btn = document.getElementById('btn-dga');
+            const res = document.getElementById('dga-result');
+            btn.textContent = '...';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.textContent = 'Sincronizar';
+                btn.disabled = false;
+                if(res) res.classList.remove('hidden');
+            }, 1000);
+        }
+
+        function simulateIndap(caseId) {
+            const container = document.getElementById('indap-container');
+            const c = CASOS_MOCK.find(x => x.id === caseId);
+            container.innerHTML = '<div class="text-blue-600 font-bold animate-pulse">Conectando...</div>';
+            
+            setTimeout(() => {
+                container.classList.remove('items-center', 'justify-center', 'text-center', 'min-h-[150px]');
+                container.innerHTML = `
+                <div class="space-y-4 w-full fade-in text-left">
+                    <div class="bg-white p-3 rounded-lg shadow-sm border-l-4 border-l-green-600 border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-800 flex items-center gap-2 mb-2"><i data-lucide="user" size="14" class="text-green-600"></i> Acreditación INDAP</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs"><div><span class="text-slate-500">Categoría:</span> <span class="font-medium">${c.acreditacion.tipo}</span></div><div><span class="text-slate-500">Vigencia:</span> <span class="text-green-600 font-bold">${c.acreditacion.vigencia}</span></div></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-800 mb-2 flex items-center gap-2"><i data-lucide="landmark" size="14" class="text-orange-600"></i> Pagos TGR</h4>
+                        <div class="space-y-2">${c.cuotas.map(cu => `<div class="flex justify-between p-2 border border-slate-100 rounded bg-slate-50 text-xs"><div><span class="font-bold text-slate-700">Cuota ${cu.n}</span><div class="text-[10px] text-slate-500">${cu.folioTGR || "Sin Folio"}</div></div><div class="text-right"><div class="font-mono">${formatMoney(cu.monto)}</div><span class="text-[10px] font-bold ${cu.estadoTGR === 'Pagado' ? 'text-green-600' : 'text-orange-600'}">${cu.estadoTGR}</span></div></div>`).join('')}</div>
+                    </div>
+                </div>`;
+                lucide.createIcons();
+            }, 1500);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            router('dashboard');
+            
+            // Inicializar GA si existe
+            if (typeof gtag === 'function') {
+                gtag('event', 'app_load');
+            }
+        });
+
+    </script>
+</body>
+</html>

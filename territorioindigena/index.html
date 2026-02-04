@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO & Metadatos Avanzados -->
+  <title>TerritorioIndigena.cl – Defensa Territorial y Litigación Estratégica</title>
+  <meta name="description" content="Estudio jurídico especializado en defensa territorial indígena, conflictos forestales y protección de patrimonio. Equipo multidisciplinario: Abogados, Arqueólogos y Geógrafos.">
+  <meta name="keywords" content="abogados indigenas chile, defensa territorial mapuche, conflicto forestal, medidas cautelares, ley 19253, arqueologia legal, peritaje antropologico, paralizacion de obras">
+  <meta name="author" content="HM Legal Ltda.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook & WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.territorioindigena.cl/">
+  <meta property="og:title" content="TerritorioIndigena.cl – Defensa con Evidencia Científica">
+  <meta property="og:description" content="Protegemos territorios ancestrales integrando Derecho, Ciencia y Estrategia. Filial de HM Legal.">
+  <meta property="og:image" content="https://www.territorioindigena.cl/images/social-share.jpg">
+
+  <!-- Google Analytics (GA4) - Reemplaza G-XXXXXXXXXX con tu ID de medición -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hmblue: { 900: '#0f172a', 800: '#1e293b' },
+            hmgold: { 100: '#fef3c7', 500: '#d97706', 600: '#b45309' },
+            hmgray: '#f8fafc',
+            hmalert: '#b91c1c',
+          },
+          fontFamily: { sans: ['Lato', 'sans-serif'], serif: ['Merriweather', 'serif'] },
+          animation: {
+            'flash': 'flash 1s ease-in-out',
+            'float': 'float 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2s infinite',
+          },
+          keyframes: {
+            flash: {
+              '0%, 100%': { borderColor: 'transparent' },
+              '50%': { borderColor: '#ef4444', boxShadow: '0 0 0 4px rgba(239, 68, 68, 0.3)' },
+            },
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-5px)' } },
+            shimmer: { '100%': { transform: 'translateX(100%)' } }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-hero-pattern {
+      background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.7)),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    /* Honeypot antispam */
+    .hidden-visually { display: none; visibility: hidden; }
+    /* Offset para header fijo al navegar a anchors */
+    :root { scroll-padding-top: 96px; }
+  </style>
+</head>
+
+<body class="text-slate-800 bg-white font-sans antialiased relative">
+
+  <!-- HEADER -->
+  <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <div class="flex flex-col">
+          <a href="#inicio" class="text-2xl font-serif font-bold text-hmblue-900 tracking-tight hover:text-hmblue-800 transition">
+            TerritorioIndigena<span class="text-hmgold-500">.cl</span>
+          </a>
+          <span class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold" data-en="Subsidiary of HM Legal Ltda." data-es="Filial de HM Legal Ltda.">Filial de HM Legal Ltda.</span>
+        </div>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden lg:flex space-x-6 items-center">
+          <a href="#inicio" class="text-sm font-medium text-slate-600 hover:text-hmblue-900 transition" data-en="Home" data-es="Inicio">Inicio</a>
+          <a href="#servicios" class="text-sm font-medium text-slate-600 hover:text-hmblue-900 transition" data-en="Services" data-es="Servicios">Servicios</a>
+          <a href="#equipo" class="text-sm font-medium text-slate-600 hover:text-hmblue-900 transition" data-en="Team" data-es="Equipo">Equipo</a>
+          <a href="#metodologia" class="text-sm font-medium text-slate-600 hover:text-hmblue-900 transition" data-en="Methodology" data-es="Metodología">Metodología</a>
+          <a href="#casos" class="text-sm font-medium text-slate-600 hover:text-hmblue-900 transition" data-en="Results" data-es="Resultados">Resultados</a>
+
+          <!-- Language Toggle -->
+          <button type="button" onclick="toggleLanguage()" class="flex items-center gap-1 px-3 py-1 border border-slate-300 rounded-full text-xs font-bold text-hmblue-900 hover:bg-slate-100 transition" aria-label="Cambiar idioma">
+            <i class="fas fa-globe"></i> <span id="lang-label">ES</span>
+          </button>
+
+          <a href="#contacto" class="px-5 py-2.5 bg-hmblue-900 text-white text-sm font-bold rounded shadow-lg hover:bg-hmblue-800 transition transform hover:-translate-y-0.5" data-en="Evaluate My Case" data-es="Evaluar mi caso">
+            Evaluar mi caso
+          </a>
+        </nav>
+
+        <!-- Mobile menu button -->
+        <div class="lg:hidden flex items-center gap-4">
+          <button type="button" onclick="toggleLanguage()" class="px-2 py-1 border border-slate-300 rounded text-xs font-bold text-hmblue-900" aria-label="ES/EN">
+            <span id="lang-label-mobile">ES/EN</span>
+          </button>
+          <button type="button" onclick="toggleMobileMenu()" class="text-slate-600 hover:text-hmblue-900 focus:outline-none" aria-label="Abrir menú">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Panel (reparado) -->
+      <div id="mobileMenu" class="lg:hidden hidden pb-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-2">
+          <a href="#inicio" onclick="closeMobileMenu()" class="block px-3 py-2 rounded hover:bg-slate-50 text-sm font-semibold text-slate-700" data-en="Home" data-es="Inicio">Inicio</a>
+          <a href="#servicios" onclick="closeMobileMenu()" class="block px-3 py-2 rounded hover:bg-slate-50 text-sm font-semibold text-slate-700" data-en="Services" data-es="Servicios">Servicios</a>
+          <a href="#equipo" onclick="closeMobileMenu()" class="block px-3 py-2 rounded hover:bg-slate-50 text-sm font-semibold text-slate-700" data-en="Team" data-es="Equipo">Equipo</a>
+          <a href="#metodologia" onclick="closeMobileMenu()" class="block px-3 py-2 rounded hover:bg-slate-50 text-sm font-semibold text-slate-700" data-en="Methodology" data-es="Metodología">Metodología</a>
+          <a href="#casos" onclick="closeMobileMenu()" class="block px-3 py-2 rounded hover:bg-slate-50 text-sm font-semibold text-slate-700" data-en="Results" data-es="Resultados">Resultados</a>
+          <a href="#contacto" onclick="closeMobileMenu()" class="block px-3 py-2 rounded bg-hmblue-900 text-white text-sm font-bold text-center" data-en="Evaluate My Case" data-es="Evaluar mi caso">Evaluar mi caso</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="inicio" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-hero-pattern text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="lg:w-3/4">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-6">
+          <span data-en="Indigenous Territorial Defense with" data-es="Defensa Territorial Indígena con">Defensa Territorial Indígena con</span>
+          <span class="text-hmgold-500" data-en="Scientific Evidence" data-es="Evidencia Científica">Evidencia Científica</span>
+          <span data-en="and Strategic Litigation" data-es="y Litigación Estratégica">y Litigación Estratégica</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-200 mb-8 font-light leading-relaxed"
+           data-en="We protect ancestral territories through a unique model in Chile that integrates Law, Archaeology, Geography, Anthropology, and Environmental Science."
+           data-es="Protegemos territorios ancestrales mediante un modelo único en Chile que integra Derecho, Arqueología, Geografía, Antropología y Ciencia Ambiental.">
+          Protegemos territorios ancestrales mediante un modelo único en Chile que integra Derecho, Arqueología, Geografía, Antropología y Ciencia Ambiental.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-10 items-start sm:items-center">
+          <a href="#contacto" class="inline-flex justify-center items-center px-8 py-3 bg-hmgold-500 text-white font-bold rounded hover:bg-hmgold-600 transition shadow-lg w-full sm:w-auto text-center"
+             data-en="Request Initial Evaluation" data-es="Solicitar Evaluación Inicial">
+            Solicitar Evaluación Inicial
+          </a>
+
+          <!-- EMERGENCY BUTTON -->
+          <button type="button" onclick="activateUrgentMode()"
+            class="inline-flex justify-center items-center px-8 py-3 bg-red-600/50 hover:bg-red-600/70 border-2 border-red-500 backdrop-blur-sm text-white font-bold rounded transition w-full sm:w-auto text-center gap-2 shadow-md group cursor-pointer">
+            <i class="fas fa-exclamation-circle group-hover:animate-pulse"></i>
+            <span data-en="URGENT REVIEW" data-es="REVISIÓN URGENTE">REVISIÓN URGENTE</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-300 border-t border-slate-600 pt-6">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check-circle text-hmgold-500"></i> <span data-en="Urgent Precautionary Measures" data-es="Medidas Cautelares Urgentes">Medidas Cautelares Urgentes</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check-circle text-hmgold-500"></i> <span data-en="Probative Scientific Reports" data-es="Informes Científicos Probatorios">Informes Científicos Probatorios</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check-circle text-hmgold-500"></i> <span data-en="Complex Litigation" data-es="Litigación Compleja">Litigación Compleja</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="py-20 bg-hmgray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-hmblue-900 mb-4" data-en="What We Do" data-es="Qué Hacemos">Qué Hacemos</h2>
+        <p class="max-w-2xl mx-auto text-slate-600"
+           data-en="We transform scientific knowledge into decisive legal arguments for territory protection."
+           data-es="Transformamos el conocimiento científico en argumentos legales decisivos para la protección del territorio.">
+          Transformamos el conocimiento científico en argumentos legales decisivos para la protección del territorio.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <!-- Servicio 1 -->
+        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-hmgold-500">
+          <div class="text-hmblue-900 mb-4 text-3xl"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="text-xl font-bold text-hmblue-900 mb-3" data-en="Territorial Protection Measures" data-es="Medidas Cautelares de Protección">Medidas Cautelares de Protección</h3>
+          <ul class="text-slate-600 space-y-2 text-sm">
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Stoppage of works and operations" data-es="Paralización de obras y faenas">Paralización de obras y faenas</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Prohibition to innovate (ONIs)" data-es="Prohibición de innovar (ONIs)">Prohibición de innovar (ONIs)</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Protection of ceremonial sites" data-es="Protección de sitios ceremoniales">Protección de sitios ceremoniales</span></li>
+          </ul>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-hmblue-900">
+          <div class="text-hmblue-900 mb-4 text-3xl"><i class="fas fa-microscope"></i></div>
+          <h3 class="text-xl font-bold text-hmblue-900 mb-3" data-en="Scientific Reports & Expert Opinions" data-es="Informes Científicos y Peritajes">Informes Científicos y Peritajes</h3>
+          <ul class="text-slate-600 space-y-2 text-sm">
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Landscape Archaeology" data-es="Arqueología del paisaje">Arqueología del paisaje</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Geography & GIS Cartography" data-es="Geografía y Cartografía SIG">Geografía y Cartografía SIG</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Territorial Anthropology" data-es="Antropología territorial">Antropología territorial</span></li>
+          </ul>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-hmblue-900">
+          <div class="text-hmblue-900 mb-4 text-3xl"><i class="fas fa-gavel"></i></div>
+          <h3 class="text-xl font-bold text-hmblue-900 mb-3" data-en="Strategic Indigenous Litigation" data-es="Litigación Estratégica Indígena">Litigación Estratégica Indígena</h3>
+          <ul class="text-slate-600 space-y-2 text-sm">
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Special Procedure Law 19.253" data-es="Procedimiento especial Ley 19.253">Procedimiento especial Ley 19.253</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Defense against forestry companies" data-es="Defensa ante empresas forestales">Defensa ante empresas forestales</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="IACHR and ILO 169 Standards" data-es="Estándares CIDH y OIT 169">Estándares CIDH y OIT 169</span></li>
+          </ul>
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition border-l-4 border-hmgold-500">
+          <div class="text-hmblue-900 mb-4 text-3xl"><i class="fas fa-map-marked-alt"></i></div>
+          <h3 class="text-xl font-bold text-hmblue-900 mb-3" data-en="Advanced Territorial Investigations" data-es="Investigaciones Territoriales">Investigaciones Territoriales</h3>
+          <ul class="text-slate-600 space-y-2 text-sm">
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="3D Maps and Drone Flights" data-es="Mapas 3D y vuelos de dron">Mapas 3D y vuelos de dron</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Historical reconstruction" data-es="Reconstrucción histórica">Reconstrucción histórica</span></li>
+            <li><i class="fas fa-angle-right text-hmgold-500 mr-2"></i><span data-en="Ancestral occupation models" data-es="Modelos de ocupación">Modelos de ocupación</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-hmblue-900 mb-4" data-en="A Unique Team in Chile" data-es="Un Equipo Único en Chile">Un Equipo Único en Chile</h2>
+        <p class="text-slate-600 text-lg" data-en="Law + Science + Territory" data-es="Derecho + Ciencia + Territorio">Derecho + Ciencia + Territorio</p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-8 items-start">
+        <!-- Horacio -->
+        <div class="text-center group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] flex flex-col items-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-hmblue-900 text-white flex items-center justify-center text-2xl font-serif font-bold mb-4 border-4 border-hmgold-500 shadow-lg relative z-10">HM</div>
+          <h3 class="text-lg font-bold text-hmblue-900">Horacio Morales Nancavil</h3>
+          <p class="text-hmgold-600 font-semibold text-sm mb-2" data-en="Lawyer" data-es="Abogado">Abogado</p>
+          <p class="text-slate-600 text-sm px-4 mb-3"
+             data-en="Specialist in indigenous litigation, precautionary measures and territorial conflicts."
+             data-es="Especialista en litigación indígena, cautelares y conflictos territoriales.">
+            Especialista en litigación indígena, cautelares y conflictos territoriales.
+          </p>
+
+          <button type="button" onclick="toggleBio('bio-horacio')" class="text-hmgold-600 text-sm font-bold mt-auto hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1">
+            <span data-en="See more" data-es="Ver más">Ver más</span> <i class="fas fa-chevron-down transition-transform duration-300" id="icon-bio-horacio"></i>
+          </button>
+
+          <div id="bio-horacio" class="hidden mt-4 text-left w-full bg-slate-50 p-5 rounded-lg border border-slate-100 shadow-inner text-sm text-slate-600 space-y-3 transition-all duration-500 ease-in-out">
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Focus:" data-es="Enfoque:">Enfoque:</span>
+              <span data-en="Strategic litigation for land recovery and high-complexity appeals." data-es="Litigación estratégica para recuperación de tierras y apelaciones de alta complejidad.">Litigación estratégica para recuperación de tierras y apelaciones de alta complejidad.</span>
+            </div>
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Expertise:" data-es="Experiencia Clave:">Experiencia Clave:</span>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li data-en="Precautionary measures against forestry companies." data-es="Medidas precautorias contra forestales.">Medidas precautorias contra forestales.</li>
+                <li data-en="Application of ILO Convention 169." data-es="Aplicación Convenio 169 OIT.">Aplicación Convenio 169 OIT.</li>
+                <li data-en="Supreme Court pleadings." data-es="Alegatos en Corte Suprema.">Alegatos en Corte Suprema.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Juan Pablo -->
+        <div class="text-center group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] flex flex-col items-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-slate-200 text-hmblue-900 flex items-center justify-center text-2xl font-serif font-bold mb-4 relative z-10">JP</div>
+          <h3 class="text-lg font-bold text-hmblue-900">Juan Pablo Lavín Huerur</h3>
+          <p class="text-slate-500 font-semibold text-sm mb-2" data-en="Environmental Engineer" data-es="Ingeniero Ambiental">Ingeniero Ambiental</p>
+          <p class="text-slate-600 text-sm px-4 mb-3" data-en="Territorial environmental diagnosis, ecological impacts and ecosystems." data-es="Diagnóstico ambiental territorial, impactos ecológicos y ecosistemas.">Diagnóstico ambiental territorial, impactos ecológicos y ecosistemas.</p>
+
+          <button type="button" onclick="toggleBio('bio-jp')" class="text-hmgold-600 text-sm font-bold mt-auto hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1">
+            <span data-en="See more" data-es="Ver más">Ver más</span> <i class="fas fa-chevron-down transition-transform duration-300" id="icon-bio-jp"></i>
+          </button>
+
+          <div id="bio-jp" class="hidden mt-4 text-left w-full bg-slate-50 p-5 rounded-lg border border-slate-100 shadow-inner text-sm text-slate-600 space-y-3 transition-all duration-500 ease-in-out">
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Focus:" data-es="Enfoque:">Enfoque:</span>
+              <span data-en="Evaluation of environmental damage in ancestral territories." data-es="Evaluación de daño ambiental en territorios ancestrales.">Evaluación de daño ambiental en territorios ancestrales.</span>
+            </div>
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Expertise:" data-es="Experiencia Clave:">Experiencia Clave:</span>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li data-en="Environmental Impact Assessment System (SEIA)." data-es="Sistema de Evaluación de Impacto Ambiental (SEIA).">Sistema de Evaluación de Impacto Ambiental (SEIA).</li>
+                <li data-en="Water and soil quality analysis." data-es="Análisis de calidad de aguas y suelos.">Análisis de calidad de aguas y suelos.</li>
+                <li data-en="Emissions regulations compliance." data-es="Cumplimiento de normas de emisión.">Cumplimiento de normas de emisión.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nuriluz -->
+        <div class="text-center group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] flex flex-col items-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-slate-200 text-hmblue-900 flex items-center justify-center text-2xl font-serif font-bold mb-4 relative z-10">NH</div>
+          <h3 class="text-lg font-bold text-hmblue-900">Nuriluz Hermosilla Osorio</h3>
+          <p class="text-slate-500 font-semibold text-sm mb-2" data-en="Archaeologist" data-es="Arqueóloga">Arqueóloga</p>
+          <p class="text-slate-600 text-sm px-4 mb-3" data-en="Landscape archaeology, Mapuche cultural heritage, historical continuity." data-es="Arqueología del paisaje, patrimonio cultural mapuche, continuidad histórica.">Arqueología del paisaje, patrimonio cultural mapuche, continuidad histórica.</p>
+
+          <button type="button" onclick="toggleBio('bio-nuriluz')" class="text-hmgold-600 text-sm font-bold mt-auto hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1">
+            <span data-en="See more" data-es="Ver más">Ver más</span> <i class="fas fa-chevron-down transition-transform duration-300" id="icon-bio-nuriluz"></i>
+          </button>
+
+          <div id="bio-nuriluz" class="hidden mt-4 text-left w-full bg-slate-50 p-5 rounded-lg border border-slate-100 shadow-inner text-sm text-slate-600 space-y-3 transition-all duration-500 ease-in-out">
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Focus:" data-es="Enfoque:">Enfoque:</span>
+              <span data-en="Identification and rescue of ceremonial sites and heritage protection." data-es="Identificación y rescate de sitios ceremoniales y protección patrimonial.">Identificación y rescate de sitios ceremoniales y protección patrimonial.</span>
+            </div>
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Expertise:" data-es="Experiencia Clave:">Experiencia Clave:</span>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li data-en="National Monuments Law (17.288)." data-es="Ley de Monumentos Nacionales (17.288).">Ley de Monumentos Nacionales (17.288).</li>
+                <li data-en="Non-intrusive archaeological survey." data-es="Prospección arqueológica no intrusiva.">Prospección arqueológica no intrusiva.</li>
+                <li data-en="Heritage Impact Reports." data-es="Informes de Impacto Patrimonial.">Informes de Impacto Patrimonial.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Natalia -->
+        <div class="text-center group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] flex flex-col items-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-slate-200 text-hmblue-900 flex items-center justify-center text-2xl font-serif font-bold mb-4 relative z-10">NV</div>
+          <h3 class="text-lg font-bold text-hmblue-900">Natalia Alejandra Vergara</h3>
+          <p class="text-slate-500 font-semibold text-sm mb-2" data-en="Geographer" data-es="Geógrafa">Geógrafa</p>
+          <p class="text-slate-600 text-sm px-4 mb-3" data-en="Digital cartography, GIS, georeferencing and spatial analysis for litigation." data-es="Cartografía digital, SIG, georreferenciación y análisis espacial para litigios.">Cartografía digital, SIG, georreferenciación y análisis espacial para litigios.</p>
+
+          <button type="button" onclick="toggleBio('bio-natalia')" class="text-hmgold-600 text-sm font-bold mt-auto hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1">
+            <span data-en="See more" data-es="Ver más">Ver más</span> <i class="fas fa-chevron-down transition-transform duration-300" id="icon-bio-natalia"></i>
+          </button>
+
+          <div id="bio-natalia" class="hidden mt-4 text-left w-full bg-slate-50 p-5 rounded-lg border border-slate-100 shadow-inner text-sm text-slate-600 space-y-3 transition-all duration-500 ease-in-out">
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Focus:" data-es="Enfoque:">Enfoque:</span>
+              <span data-en="Reconstruction of historical cartography and land title overlap." data-es="Reconstrucción de cartografía histórica y superposición de títulos.">Reconstrucción de cartografía histórica y superposición de títulos.</span>
+            </div>
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Expertise:" data-es="Experiencia Clave:">Experiencia Clave:</span>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li data-en="ArcGIS & QGIS Pro." data-es="Manejo experto de ArcGIS y QGIS.">Manejo experto de ArcGIS y QGIS.</li>
+                <li data-en="Georeferencing of Títulos de Merced." data-es="Georreferenciación de Títulos de Merced.">Georreferenciación de Títulos de Merced.</li>
+                <li data-en="Satellite image analysis." data-es="Análisis de imagen satelital.">Análisis de imagen satelital.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Makarena -->
+        <div class="text-center group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] flex flex-col items-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-slate-200 text-hmblue-900 flex items-center justify-center text-2xl font-serif font-bold mb-4 relative z-10">MV</div>
+          <h3 class="text-lg font-bold text-hmblue-900">Makarena Vargas Garai</h3>
+          <p class="text-slate-500 font-semibold text-sm mb-2" data-en="Anthropologist" data-es="Antropóloga">Antropóloga</p>
+          <p class="text-slate-600 text-sm px-4 mb-3" data-en="Ancestral occupation, territorial memory, cultural practices and analysis." data-es="Ocupación ancestral, memoria territorial, prácticas culturales y análisis.">Ocupación ancestral, memoria territorial, prácticas culturales y análisis.</p>
+
+          <button type="button" onclick="toggleBio('bio-maka')" class="text-hmgold-600 text-sm font-bold mt-auto hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1">
+            <span data-en="See more" data-es="Ver más">Ver más</span> <i class="fas fa-chevron-down transition-transform duration-300" id="icon-bio-maka"></i>
+          </button>
+
+          <div id="bio-maka" class="hidden mt-4 text-left w-full bg-slate-50 p-5 rounded-lg border border-slate-100 shadow-inner text-sm text-slate-600 space-y-3 transition-all duration-500 ease-in-out">
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Focus:" data-es="Enfoque:">Enfoque:</span>
+              <span data-en="Sociocultural reports on customary use and worldview." data-es="Informes socioculturales sobre uso consuetudinario y cosmovisión.">Informes socioculturales sobre uso consuetudinario y cosmovisión.</span>
+            </div>
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Expertise:" data-es="Experiencia Clave:">Experiencia Clave:</span>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li data-en="Participatory methodologies." data-es="Metodologías participativas.">Metodologías participativas.</li>
+                <li data-en="Reports for Law 19.253." data-es="Informes periciales Ley 19.253.">Informes periciales Ley 19.253.</li>
+                <li data-en="Oral history and territorial memory." data-es="Historia oral y memoria territorial.">Historia oral y memoria territorial.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vicente -->
+        <div class="text-center group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] flex flex-col items-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-slate-200 text-hmblue-900 flex items-center justify-center text-2xl font-serif font-bold mb-4 relative z-10">VG</div>
+          <h3 class="text-lg font-bold text-hmblue-900">Vicente Gatica Viveros</h3>
+          <p class="text-slate-500 font-semibold text-sm mb-2" data-en="Law Student (5th Year)" data-es="Estudiante de 5° año de Derecho">Estudiante de 5° año de Derecho</p>
+          <p class="text-slate-600 text-sm px-4 mb-3" data-en="Legal assistant specialized in indigenous communities." data-es="Asistente jurídico especializado en comunidades indígenas.">Asistente jurídico especializado en comunidades indígenas.</p>
+
+          <button type="button" onclick="toggleBio('bio-vicente')" class="text-hmgold-600 text-sm font-bold mt-auto hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1">
+            <span data-en="See more" data-es="Ver más">Ver más</span> <i class="fas fa-chevron-down transition-transform duration-300" id="icon-bio-vicente"></i>
+          </button>
+
+          <div id="bio-vicente" class="hidden mt-4 text-left w-full bg-slate-50 p-5 rounded-lg border border-slate-100 shadow-inner text-sm text-slate-600 space-y-3 transition-all duration-500 ease-in-out">
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Focus:" data-es="Enfoque:">Enfoque:</span>
+              <span data-en="Legal support for strategic litigation and field research." data-es="Apoyo jurídico en litigación estratégica e investigación de campo.">Apoyo jurídico en litigación estratégica e investigación de campo.</span>
+            </div>
+            <div>
+              <span class="font-bold text-hmblue-900 block" data-en="Expertise:" data-es="Experiencia Clave:">Experiencia Clave:</span>
+              <ul class="list-disc pl-4 space-y-1 mt-1">
+                <li data-en="Analysis of indigenous law jurisprudence." data-es="Análisis de jurisprudencia indígena.">Análisis de jurisprudencia indígena.</li>
+                <li data-en="Community liaison and field work." data-es="Vinculación comunitaria y trabajo en terreno.">Vinculación comunitaria y trabajo en terreno.</li>
+                <li data-en="Administrative procedures (CONADI/DGA)." data-es="Trámites administrativos (CONADI/DGA).">Trámites administrativos (CONADI/DGA).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- METODOLOGIA -->
+  <section id="metodologia" class="py-20 bg-hmblue-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4" data-en="Our Methodology" data-es="Nuestra Metodología">Nuestra Metodología</h2>
+        <p class="text-slate-300" data-en="We don't just litigate. We defend territory with irrefutable evidence." data-es="No solo litigamos. Defendemos territorio con evidencia irrefutable.">No solo litigamos. Defendemos territorio con evidencia irrefutable.</p>
+      </div>
+
+      <div class="relative">
+        <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-hmblue-800 -translate-y-1/2 z-0"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+          <div class="bg-hmblue-800 p-6 rounded-lg text-center border border-slate-700">
+            <div class="w-12 h-12 bg-hmgold-500 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+            <h3 class="font-bold mb-2" data-en="Territorial Diagnosis" data-es="Diagnóstico Territorial">Diagnóstico Territorial</h3>
+            <p class="text-sm text-slate-300" data-en="Initial legal and technical analysis." data-es="Análisis jurídico y técnico inicial del conflicto.">Análisis jurídico y técnico inicial del conflicto.</p>
+          </div>
+          <div class="bg-hmblue-800 p-6 rounded-lg text-center border border-slate-700">
+            <div class="w-12 h-12 bg-hmgold-500 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+            <h3 class="font-bold mb-2" data-en="Scientific Survey" data-es="Levantamiento Científico">Levantamiento Científico</h3>
+            <p class="text-sm text-slate-300" data-en="Interdisciplinary team deployment in the field." data-es="Despliegue de equipo interdisciplinario en terreno.">Despliegue de equipo interdisciplinario en terreno.</p>
+          </div>
+          <div class="bg-hmblue-800 p-6 rounded-lg text-center border border-slate-700">
+            <div class="w-12 h-12 bg-hmgold-500 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+            <h3 class="font-bold mb-2" data-en="Precautionary Strategy" data-es="Estrategia Cautelar">Estrategia Cautelar</h3>
+            <p class="text-sm text-slate-300" data-en="Emergency measures to stop damages." data-es="Medidas de urgencia para paralizar daños.">Medidas de urgencia para paralizar daños.</p>
+          </div>
+          <div class="bg-hmblue-800 p-6 rounded-lg text-center border border-slate-700">
+            <div class="w-12 h-12 bg-hmgold-500 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+            <h3 class="font-bold mb-2" data-en="Complex Litigation" data-es="Litigación Compleja">Litigación Compleja</h3>
+            <p class="text-sm text-slate-300" data-en="Defense in court with scientific proof." data-es="Defensa en juicio con prueba científica.">Defensa en juicio con prueba científica.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS RECIENTES -->
+  <section id="casos" class="py-20 bg-hmgray">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-hmblue-900 mb-4" data-en="Recent Results" data-es="Resultados Recientes">Resultados Recientes</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto" data-en="Real cases where our strategic defense has protected territory and rights." data-es="Casos reales donde nuestra defensa estratégica ha protegido territorio y derechos.">Casos reales donde nuestra defensa estratégica ha protegido territorio y derechos.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Caso 1 -->
+        <div class="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden flex flex-col group hover:shadow-xl transition-shadow duration-300">
+          <div class="relative h-48 overflow-hidden">
+            <img src="/territorioindigena/imagenes/01%20parque%20e%C3%B3lico.jpg" alt="Parque Eólico" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+            <div class="absolute top-4 left-4 bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Tribunal Ambiental</div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col">
+            <h3 class="text-xl font-serif font-bold text-hmblue-900 mb-2 leading-tight" data-en="Wind Farm Stoppage" data-es="Paralización Parque Eólico Viento Sur">Paralización Parque Eólico Viento Sur</h3>
+            <p class="text-xs text-slate-500 mb-4 font-bold uppercase tracking-wide">3° Tribunal Ambiental de Valdivia - R-3-2025</p>
+            <p class="text-sm text-slate-600 mb-4 flex-grow" data-en="Project execution halted. Claim filed against RCA awaiting final ruling." data-es="Se logra la paralización de la ejecución del proyecto durante la tramitación del reclamo contra la RCA.">Se logra la paralización de la ejecución del proyecto durante la tramitación del reclamo contra la RCA.</p>
+
+            <button type="button" onclick="toggleCase('case-ambiental')" class="text-hmgold-600 text-sm font-bold hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1 mt-auto">
+              <span data-en="See Details & Documents" data-es="Ver Detalle y Documentos">Ver Detalle y Documentos</span>
+              <i class="fas fa-chevron-down transition-transform duration-300" id="icon-case-ambiental"></i>
+            </button>
+
+            <div id="case-ambiental" class="hidden mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600 animate-fadeIn">
+              <p class="mb-3 italic"
+                 data-en="Summary: Claim of illegality filed against the Environmental Qualification Resolution (RCA). The court admitted the claim (R-3-2025), suspending execution while the merits are resolved."
+                 data-es="Resumen: Se interpone reclamo de ilegalidad en contra de la Resolución de Calificación Ambiental (RCA) del proyecto. El Tribunal admitió a trámite la reclamación (R-3-2025), logrando suspender la ejecución mientras se resuelve el fondo.">
+                Resumen: Se interpone reclamo de ilegalidad en contra de la Resolución de Calificación Ambiental (RCA) del proyecto. El Tribunal admitió a trámite la reclamación (R-3-2025), logrando suspender la ejecución mientras se resuelve el fondo.
+              </p>
+              <a href="/RESULTADOS/R3-2025%20AMBIENTAL.pdf" target="_blank" rel="noopener noreferrer"
+                 class="block w-full py-2 bg-slate-100 text-hmblue-900 text-center font-bold rounded hover:bg-slate-200 transition text-xs">
+                <i class="fas fa-file-pdf mr-2 text-red-600"></i> Descargar Reclamo Íntegro
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caso 2 -->
+        <div class="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden flex flex-col group hover:shadow-xl transition-shadow duration-300">
+          <div class="relative h-48 overflow-hidden">
+            <img src="/territorioindigena/imagenes/02%20persecuci%C3%B3n%20penal.jpg" alt="Justicia Territorial" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+            <div class="absolute top-4 left-4 bg-hmblue-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Corte de Apelaciones</div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col">
+            <h3 class="text-xl font-serif font-bold text-hmblue-900 mb-2 leading-tight" data-en="Criminal Persecution Halted" data-es="Fin a Persecución Penal a Comuneros">Fin a Persecución Penal a Comuneros</h3>
+            <p class="text-xs text-slate-500 mb-4 font-bold uppercase tracking-wide">C.A. Concepción - Rol 841-2025</p>
+            <p class="text-sm text-slate-600 mb-4 flex-grow" data-en="Court confirms that Usurpation cannot exist while land ownership is unclear." data-es="La Corte ratifica que no se configura el delito de usurpación existiendo controversia legítima sobre el dominio.">La Corte ratifica que no se configura el delito de usurpación existiendo controversia legítima sobre el dominio.</p>
+
+            <button type="button" onclick="toggleCase('case-penal-ca')" class="text-hmgold-600 text-sm font-bold hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1 mt-auto">
+              <span data-en="See Details & Documents" data-es="Ver Detalle y Documentos">Ver Detalle y Documentos</span>
+              <i class="fas fa-chevron-down transition-transform duration-300" id="icon-case-penal-ca"></i>
+            </button>
+
+            <div id="case-penal-ca" class="hidden mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600 animate-fadeIn">
+              <p class="mb-3 italic"
+                 data-en="Summary: The Court of Appeals accepted our defense arguments, establishing a key precedent: the crime of usurpation is not configured when there is a legitimate dispute over land ownership title."
+                 data-es="Resumen: La I. Corte de Apelaciones acogió nuestros argumentos de defensa, estableciendo un precedente clave: no se configura el delito de usurpación cuando existe una disputa legítima sobre la titularidad del dominio de la tierra.">
+                Resumen: La I. Corte de Apelaciones acogió nuestros argumentos de defensa, estableciendo un precedente clave: no se configura el delito de usurpación cuando existe una disputa legítima sobre la titularidad del dominio de la tierra.
+              </p>
+              <a href="/RESULTADOS/841-2025%20CA%20CONCEPCI%C3%93N.pdf" target="_blank" rel="noopener noreferrer"
+                 class="block w-full py-2 bg-slate-100 text-hmblue-900 text-center font-bold rounded hover:bg-slate-200 transition text-xs">
+                <i class="fas fa-file-pdf mr-2 text-red-600"></i> Descargar Fallo Íntegro
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caso 3 -->
+        <div class="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden flex flex-col group hover:shadow-xl transition-shadow duration-300">
+          <div class="relative h-48 overflow-hidden">
+            <img src="/territorioindigena/imagenes/03%20cierre%20de%20querella.jpg" alt="Celebración Comunitaria" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+            <div class="absolute top-4 left-4 bg-hmgold-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Juzgado de Garantía</div>
+          </div>
+          <div class="p-6 flex-grow flex flex-col">
+            <h3 class="text-xl font-serif font-bold text-hmblue-900 mb-2 leading-tight" data-en="Forestry Lawsuit Closed" data-es="Cierre de Querella Forestal Arauco">Cierre de Querella Forestal Arauco</h3>
+            <p class="text-xs text-slate-500 mb-4 font-bold uppercase tracking-wide">JG Arauco - Causa O-1228-2021</p>
+            <p class="text-sm text-slate-600 mb-4 flex-grow" data-en="Case closed without formal charges after extensive persecution against Mapuche community members." data-es="Se cierra sin formalizados querella en contra Comuneros Mapuches, luego de extensa persecución.">Se cierra sin formalizados querella en contra Comuneros Mapuches, luego de extensa persecución.</p>
+
+            <button type="button" onclick="toggleCase('case-penal-jg')" class="text-hmgold-600 text-sm font-bold hover:text-hmgold-500 transition focus:outline-none flex items-center gap-1 mt-auto">
+              <span data-en="See Details & Documents" data-es="Ver Detalle y Documentos">Ver Detalle y Documentos</span>
+              <i class="fas fa-chevron-down transition-transform duration-300" id="icon-case-penal-jg"></i>
+            </button>
+
+            <div id="case-penal-jg" class="hidden mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600 animate-fadeIn">
+              <p class="mb-3 italic"
+                 data-en="Summary: Successful defense against criminal lawsuit filed by forestry company. After years of investigation, the court ordered the closure without any formal charges against community members."
+                 data-es="Resumen: Defensa exitosa frente a querella criminal. Tras años de investigación, el tribunal decretó el cierre de la causa sin que se lograra formalizar a ningún comunero, desestimando la pretensión punitiva de la empresa.">
+                Resumen: Defensa exitosa frente a querella criminal. Tras años de investigación, el tribunal decretó el cierre de la causa sin que se lograra formalizar a ningún comunero, desestimando la pretensión punitiva de la empresa.
+              </p>
+              <a href="/RESULTADOS/1228-2021%20JG%20ARAUCO.pdf" target="_blank" rel="noopener noreferrer"
+                 class="block w-full py-2 bg-slate-100 text-hmblue-900 text-center font-bold rounded hover:bg-slate-200 transition text-xs">
+                <i class="fas fa-file-pdf mr-2 text-red-600"></i> Descargar Resolución
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-hmblue-900 rounded-2xl p-8 md:p-12 shadow-2xl overflow-hidden relative">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-hmgold-500 rounded-full opacity-20"></div>
+
+        <div class="relative z-10 text-center text-white mb-12">
+          <h2 class="text-3xl font-serif font-bold mb-4" data-en="Need to protect your territory?" data-es="¿Necesitas proteger tu territorio?">¿Necesitas proteger tu territorio?</h2>
+          <p class="text-slate-300 max-w-2xl mx-auto" data-en="Request an initial evaluation or schedule a meeting directly with our team." data-es="Solicita una evaluación inicial o agenda una reunión directamente con nuestro equipo.">Solicita una evaluación inicial o agenda una reunión directamente con nuestro equipo.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
+          <!-- Formulario -->
+          <div class="lg:col-span-2">
+            <form id="contactForm" onsubmit="sendEmail(event)" class="space-y-4 bg-white/10 p-6 rounded-lg backdrop-blur-sm border border-white/20 h-full">
+              <div class="bg-white/5 p-4 rounded border border-white/10 mb-6 transition-all duration-300" id="urgencia-container">
+                <label for="tipo_urgencia" class="block text-sm font-bold text-hmgold-500 mb-2 uppercase tracking-wide" data-en="Case Urgency / Type" data-es="Nivel de Urgencia / Tipo de Caso">Nivel de Urgencia / Tipo de Caso</label>
+                <select id="tipo_urgencia" class="w-full px-4 py-2 rounded bg-white text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-hmgold-500 border-2 border-transparent transition-all">
+                  <option value="Consulta General" data-en="General Inquiry" data-es="Consulta General">Consulta General</option>
+                  <option value="Evaluación de Caso" data-en="Case Evaluation" data-es="Evaluación de Caso">Evaluación de Caso</option>
+                  <option value="URGENTE" class="text-red-600 font-bold" data-en="🚨 URGENT REVIEW (Imminent Threat)" data-es="🚨 REVISIÓN URGENTE (Amenaza Inminente)">🚨 REVISIÓN URGENTE (Amenaza Inminente)</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="nombre" class="block text-sm font-medium text-slate-200 mb-1" data-en="Full Name" data-es="Nombre Completo">Nombre Completo</label>
+                  <input type="text" id="nombre" required class="w-full px-4 py-2 rounded bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-hmgold-500">
+                </div>
+                <div>
+                  <label for="comunidad" class="block text-sm font-medium text-slate-200 mb-1" data-en="Community / Organization" data-es="Comunidad / Organización">Comunidad / Organización</label>
+                  <input type="text" id="comunidad" class="w-full px-4 py-2 rounded bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-hmgold-500">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="telefono" class="block text-sm font-medium text-slate-200 mb-1" data-en="Phone" data-es="Teléfono">Teléfono</label>
+                  <input type="tel" id="telefono" required class="w-full px-4 py-2 rounded bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-hmgold-500" placeholder="+56 9 ...">
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-slate-200 mb-1" data-en="Email" data-es="Correo Electrónico">Correo Electrónico</label>
+                  <input type="email" id="email" required class="w-full px-4 py-2 rounded bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-hmgold-500" placeholder="correo@ejemplo.com">
+                </div>
+              </div>
+
+              <div>
+                <label for="mensaje" class="block text-sm font-medium text-slate-200 mb-1" data-en="Brief description of the case" data-es="Breve descripción del caso">Breve descripción del caso</label>
+                <textarea id="mensaje" rows="3" required class="w-full px-4 py-2 rounded bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-hmgold-500" placeholder="..."></textarea>
+              </div>
+
+              <!-- CAPTCHA (checkbox simple + honeypot) -->
+              <div class="mt-4">
+                <input type="text" name="website_url" class="hidden-visually" tabindex="-1" autocomplete="off">
+                <div class="flex items-center gap-3 bg-white px-4 py-2 rounded border border-slate-300 w-fit">
+                  <input type="checkbox" id="captcha-check" required class="w-5 h-5 text-hmblue-900 rounded border-slate-300 focus:ring-hmblue-900">
+                  <label for="captcha-check" class="text-sm text-slate-600 select-none" data-en="I am not a robot" data-es="No soy un robot">No soy un robot</label>
+                  <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" class="h-5 w-5 ml-2 opacity-50">
+                </div>
+              </div>
+
+              <button type="submit" class="w-full py-3 px-6 mt-4 bg-hmgold-500 hover:bg-hmgold-600 text-white font-bold rounded shadow-lg transition transform hover:-translate-y-1" data-en="Send Evaluation Request" data-es="Enviar Solicitud de Evaluación">
+                Enviar Solicitud de Evaluación
+              </button>
+
+              <p class="text-xs text-center text-slate-400 mt-2" data-en="Your data is confidential and protected under professional secrecy." data-es="Sus datos son confidenciales y están protegidos bajo secreto profesional.">Sus datos son confidenciales y están protegidos bajo secreto profesional.</p>
+            </form>
+          </div>
+
+          <!-- Calendly -->
+          <div class="lg:col-span-1 flex flex-col h-full">
+            <div class="bg-white/10 border border-white/20 rounded-lg p-8 shadow-lg h-full flex flex-col items-center text-center justify-center relative overflow-hidden backdrop-blur-sm group hover:bg-white/15 transition">
+              <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-hmblue-900 text-3xl mb-6 shadow-md z-10">
+                <i class="far fa-calendar-alt"></i>
+              </div>
+
+              <h3 class="text-xl font-serif font-bold text-white mb-2 z-10" data-en="Schedule Meeting" data-es="Agendar Reunión">Agendar Reunión</h3>
+              <p class="text-slate-300 text-sm mb-8 z-10 px-2" data-en="Prefer a direct conversation? Schedule a 15-minute introductory call." data-es="¿Prefiere conversar directamente? Agende una reunión introductoria de 15 minutos con nuestro equipo.">¿Prefiere conversar directamente? Agende una reunión introductoria de 15 minutos con nuestro equipo.</p>
+
+              <a href="https://calendly.com/contacto-hmlegal" target="_blank" rel="noopener noreferrer"
+                 class="z-10 w-full py-3 px-6 bg-white text-hmblue-900 font-bold rounded hover:bg-hmgold-500 hover:text-white transition shadow-sm flex items-center justify-center gap-2">
+                <span>Calendly</span> <i class="fas fa-external-link-alt text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-hmblue-900 border-t border-slate-800 text-slate-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-center md:text-left">
+        <h3 class="text-xl font-serif font-bold text-white mb-1">TerritorioIndigena.cl</h3>
+        <p class="text-sm mb-4" data-en="Subsidiary of HM Legal Ltda." data-es="Filial de HM Legal Ltda.">Filial de HM Legal Ltda.</p>
+        <div class="flex gap-4 justify-center md:justify-start">
+          <a href="#" class="hover:text-hmgold-500" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="hover:text-hmgold-500" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-hmgold-500" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="text-center md:text-right text-sm">
+        <p data-en="Science and Law for indigenous territorial defense." data-es="Ciencia y Derecho para la defensa territorial indígena.">Ciencia y Derecho para la defensa territorial indígena.</p>
+        <p class="mt-2">&copy; 2025 HM Legal. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">Todos los derechos reservados.</span></p>
+        <div class="mt-2 space-x-4">
+          <a href="https://hmlegal.cl" class="hover:text-white transition" data-en="Go to HM Legal" data-es="Ir a HM Legal">Ir a HM Legal</a>
+          <a href="#contacto" class="hover:text-white transition" data-en="Privacy" data-es="Privacidad">Privacidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODULO FLOTANTE IA (LINK INTERNO) -->
+  <a href="/territorioindigena/hmlegalIA.html"
+     class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-white text-hmblue-900 px-5 py-3 rounded-full shadow-2xl border-2 border-hmgold-500 hover:scale-105 hover:bg-slate-50 transition-all group animate-float cursor-pointer overflow-hidden">
+    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+
+    <div class="relative bg-hmblue-900 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-inner">
+      <i class="fas fa-robot text-lg"></i>
+      <span class="absolute -top-1 -right-1 flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-hmgold-500 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-hmgold-500"></span>
+      </span>
+    </div>
+
+    <div class="flex flex-col items-start relative z-10">
+      <span class="text-[10px] font-bold text-hmgold-600 uppercase tracking-wider bg-hmgold-100 px-2 rounded-full mb-0.5" data-en="New Tool" data-es="Nueva Herramienta">Nueva Herramienta</span>
+      <span class="text-sm font-bold leading-none text-hmblue-900" data-en="Access AI Legal Assistant" data-es="Acceder a Asistente IA">Acceder a Asistente IA</span>
+    </div>
+  </a>
+
+  <!-- Scripts -->
+  <script>
+    let currentLang = 'es';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      const elements = document.querySelectorAll('[data-' + currentLang + ']');
+
+      elements.forEach(el => {
+        const val = el.getAttribute('data-' + currentLang);
+        if (!val) return;
+        el.innerText = val;
+      });
+
+      const label = document.getElementById('lang-label');
+      if (label) label.innerText = currentLang === 'es' ? 'ES' : 'EN';
+
+      const labelMobile = document.getElementById('lang-label-mobile');
+      if (labelMobile) labelMobile.innerText = currentLang === 'es' ? 'ES/EN' : 'EN/ES';
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (!menu) return;
+      menu.classList.toggle('hidden');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (!menu) return;
+      menu.classList.add('hidden');
+    }
+
+    function activateUrgentMode() {
+      window.location.href = '#contacto';
+
+      const select = document.getElementById('tipo_urgencia');
+      if (select) select.value = 'URGENTE';
+
+      const container = document.getElementById('urgencia-container');
+      if (container) container.classList.add('bg-red-900/30', 'border-red-500');
+
+      if (select) {
+        select.classList.add('animate-flash');
+        setTimeout(() => select.classList.remove('animate-flash'), 1500);
+      }
+    }
+
+    function toggleBio(id) {
+      const bio = document.getElementById(id);
+      const icon = document.getElementById('icon-' + id);
+      if (!bio || !icon) return;
+
+      bio.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+
+    function toggleCase(id) {
+      const caseDiv = document.getElementById(id);
+      const icon = document.getElementById('icon-' + id);
+      if (!caseDiv || !icon) return;
+
+      caseDiv.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+
+    function sendEmail(e) {
+      e.preventDefault();
+
+      // Honeypot: si viene lleno, abortar silenciosamente
+      const hp = document.querySelector('input[name="website_url"]');
+      if (hp && hp.value) return;
+
+      const urgencia = document.getElementById('tipo_urgencia')?.value || '';
+      const nombre = document.getElementById('nombre')?.value || '';
+      const comunidad = document.getElementById('comunidad')?.value || '';
+      const telefono = document.getElementById('telefono')?.value || '';
+      const email = document.getElementById('email')?.value || '';
+      const mensaje = document.getElementById('mensaje')?.value || '';
+
+      const subject = `Contacto desde Web TerritorioIndigena.cl: ${urgencia}`;
+      const body =
+        `Origen: Formulario Web TerritorioIndigena.cl\n\n` +
+        `Nivel de Urgencia: ${urgencia}\n` +
+        `Nombre: ${nombre}\n` +
+        `Comunidad/Org: ${comunidad}\n` +
+        `Teléfono: ${telefono}\n` +
+        `Email: ${email}\n\n` +
+        `Mensaje:\n${mensaje}`;
+
+      window.location.href =
+        `mailto:contacto@hmlegal.cl?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+  </script>
+</body>
+</html>

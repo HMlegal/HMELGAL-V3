@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gracias | HM Legal</title>
+
+  <!-- Tailwind y fuentes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'azul-marino': '#0B2945',
+            'azul-petroleo': '#1E5E73',
+            'verde-azulado': '#1FA093',
+            'gris-oscuro': '#4A4A4A',
+            'gris-claro': '#F0F2F5',
+            'blanco': '#FFFFFF',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Gracias por contactarte con HM Legal. Tu mensaje ha sido recibido correctamente. Nuestro equipo responderá a la brevedad.">
+</head>
+
+<body class="bg-azul-marino text-blanco font-sans flex flex-col items-center justify-center min-h-screen text-center relative overflow-hidden">
+  <!-- Fondo -->
+  <div class="absolute inset-0 opacity-20" style="background: linear-gradient(135deg, #0B2945 0%, #1FA093 100%);"></div>
+
+  <!-- Contenedor principal -->
+  <div class="relative z-10 max-w-lg mx-auto p-10 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/10 animate-fade-in">
+    <!-- Logo -->
+    <div class="relative flex justify-center mb-10">
+      <svg width="130" height="90" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" style="stop-color:#CFE5EE;"/> <!-- más clara para la H -->
+            <stop offset="40%" style="stop-color:#1E5E73;"/>
+            <stop offset="100%" style="stop-color:#1FA093;"/>
+          </linearGradient>
+        </defs>
+        <!-- HM -->
+        <text x="50" y="42" text-anchor="middle" font-family="'Playfair Display', serif"
+              font-size="52" font-weight="700" fill="url(#logoGradient)"
+              style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));">
+          HM
+        </text>
+        <!-- LEGAL -->
+        <text x="50" y="68" text-anchor="middle" font-family="'Inter', sans-serif"
+              font-size="15" font-weight="600" fill="#FFFFFF" letter-spacing="0.25em"
+              style="filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));">
+          LEGAL
+        </text>
+      </svg>
+    </div>
+
+    <!-- Mensaje principal -->
+    <h1 class="text-4xl font-serif font-bold text-white mb-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
+      ¡Gracias por tu mensaje!
+    </h1>
+    <p class="text-lg text-gray-200 leading-relaxed mb-8">
+      Tu solicitud fue enviada correctamente. Nuestro equipo revisará tu caso y te responderá a la brevedad.
+    </p>
+
+    <!-- Botón volver -->
+    <a href="/" class="inline-block bg-gradient-to-r from-azul-marino via-azul-petroleo to-verde-azulado text-white font-semibold py-3 px-8 rounded-full hover:brightness-110 transition-all duration-300 shadow-lg">
+      Volver al inicio
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative z-10 mt-12 text-gray-400 text-sm">
+    <p>&copy; <span id="year"></span> HM Legal. Todos los derechos reservados.</p>
+  </footer>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+  </style>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

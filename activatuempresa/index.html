@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es-CL" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activa Tu Empresa | Diagnóstico Societario Profesional con IA</title>
+
+  <meta name="description" content="Diagnóstico preliminar de estatutos societarios chilenos. Tecnología legal apoyada por HM Legal." />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Outfit', 'sans-serif'] },
+          colors: {
+            primary: '#1B2978',
+            accent: '#009dbd',
+            cta: '#f97316',
+            tech: '#F9F9FF',
+          },
+          animation: { 'float': 'float 6s ease-in-out infinite' },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { color: #393e61; -webkit-font-smoothing: antialiased; }
+    .bg-tech-pattern {
+      background-color: #F9F9FF;
+      background-image: radial-gradient(#CEE0F5 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+    }
+    .drag-active {
+      border-color: #009dbd !important;
+      background-color: #E0F7FA !important;
+      transform: scale(1.02);
+    }
+    .whatsapp-float { animation: pulse-border 2s infinite; }
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+  </style>
+</head>
+
+<body class="bg-tech-pattern relative flex flex-col min-h-screen">
+
+  <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-indigo-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-20 items-center">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg">A</div>
+          <div class="flex flex-col">
+            <span class="text-xl font-bold tracking-tight text-primary leading-none">ACTIVA<span class="font-light text-accent">TUEMPRESA</span></span>
+            <span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">By HM Legal</span>
+          </div>
+        </a>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#diagnostico" class="bg-primary hover:bg-blue-900 text-white px-6 py-2.5 rounded-lg font-semibold transition duration-200 text-sm shadow-md">
+            Diagnóstico Gratis
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content" class="flex-grow">
+    
+    <header class="relative py-16 lg:py-24 overflow-hidden bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+          <div class="mb-12 lg:mb-0 text-center lg:text-left">
+            <h1 class="text-4xl lg:text-6xl font-extrabold text-primary leading-tight mb-6">
+              Diagnóstico Societario <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary">Inteligente y Seguro.</span>
+            </h1>
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+              Detectamos riesgos en sus estatutos en segundos. Combine la velocidad de la IA con la certeza jurídica de HM Legal.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a href="#diagnostico" class="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:-translate-y-1 transition-all">
+                Iniciar Diagnóstico Ahora
+              </a>
+            </div>
+          </div>
+
+          <div class="relative group perspective-1000">
+            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+            <div class="relative bg-white p-2 rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-[1.01]">
+                <div id="drop-zone" class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-8 lg:p-12 text-center transition-all duration-300 hover:bg-blue-50 hover:border-accent cursor-pointer h-96 flex flex-col justify-center items-center relative">
+                  <input id="heroFile" name="heroFile" type="file" accept=".pdf,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" />
+                  <div class="z-10 pointer-events-none">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md border border-gray-100 animate-float">
+                      <svg class="w-12 h-12 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    </div>
+                    <h3 class="text-primary font-bold text-xl mb-2">Subir Estatutos (PDF)</h3>
+                    <p class="text-gray-500 text-sm mb-4">Arrastre su archivo aquí o haga clic para explorar</p>
+                    <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-semibold rounded-md border border-teal-100">Máx 10 MB</span>
+                  </div>
+                  <div id="file-success-overlay" class="absolute inset-0 bg-white z-30 flex-col justify-center items-center rounded-xl hidden">
+                      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                      </div>
+                      <p class="font-bold text-primary text-lg" id="filename-display">archivo.pdf</p>
+                      <p class="text-sm text-gray-500 mb-4">Listo para analizar</p>
+                      <button type="button" id="change-file-btn" class="text-accent text-sm underline hover:text-primary z-40 relative pointer-events-auto">Cambiar archivo</button>
+                  </div>
+                </div>
+            </div>
+            <p id="heroFileHint" class="mt-4 text-center text-sm font-bold text-red-500 hidden bg-red-50 py-2 px-4 rounded-lg border border-red-100"></p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="py-20 bg-tech-pattern text-center">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-accent font-bold tracking-widest text-sm uppercase mb-3">Solución Integral</h2>
+        <h3 class="text-3xl lg:text-4xl font-bold text-primary mb-12">Seguridad Legal en 3 Pasos</h3>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 text-accent"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <h4 class="text-xl font-bold text-primary mb-3">1. Análisis IA</h4>
+                <p class="text-gray-600 text-sm">Nuestro algoritmo revisa patrones comunes de error en estatutos.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 text-primary"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg></div>
+                <h4 class="text-xl font-bold text-primary mb-3">2. Reporte de Riesgo</h4>
+                <p class="text-gray-600 text-sm">Obtenga un semáforo de riesgo bancario y operativo al instante.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 text-cta"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
+                <h4 class="text-xl font-bold text-primary mb-3">3. Solución Experta</h4>
+                <p class="text-gray-600 text-sm">Validación e implementación de correcciones por expertos.</p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnostico" class="py-24 bg-white relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-primary rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden border border-indigo-900">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-[100px] opacity-20 -mr-20 -mt-20"></div>
+          <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-900 rounded-full blur-[80px] opacity-40 -ml-20 -mb-20"></div>
+
+          <div class="relative z-10">
+            <div class="text-center mb-10">
+                <span class="bg-white/10 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-sm border border-white/10">Gratuito y Confidencial</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-5 mb-4">Complete su perfil</h2>
+            </div>
+
+            <form id="leadForm" class="space-y-8" novalidate>
+              <div class="bg-white p-3 rounded-2xl shadow-lg">
+                  <div class="grid md:grid-cols-2 gap-3 p-1">
+                    <div class="md:col-span-1">
+                        <select id="societyType" class="w-full h-14 px-5 rounded-xl border border-gray-200 bg-tech text-gray-800 font-medium focus:border-accent focus:ring-1 focus:ring-accent outline-none cursor-pointer appearance-none">
+                            <option value="" disabled selected>Tipo de Sociedad</option>
+                            <option value="SpA">SpA (Acciones)</option>
+                            <option value="Ltda">Limitada (Ltda)</option>
+                            <option value="EIRL">E.I.R.L.</option>
+                            <option value="Otra">Otra / No sé</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-1">
+                      <input id="email" name="email" type="email" required placeholder="Correo Corporativo" class="w-full h-14 px-5 rounded-xl border border-gray-200 bg-tech text-gray-800 placeholder-gray-400 font-medium focus:border-accent focus:ring-1 focus:ring-accent outline-none" />
+                    </div>
+                    <div class="md:col-span-2">
+                         <div id="form-file-status" class="w-full h-14 px-5 rounded-xl border border-gray-200 bg-tech flex items-center justify-between text-gray-500 font-medium">
+                            <span id="form-file-name" class="truncate">Ningún archivo seleccionado (subir arriba)</span>
+                            <button type="button" onclick="document.getElementById('drop-zone').scrollIntoView({behavior:'smooth', block:'center'})" class="text-accent text-sm font-bold hover:underline ml-2 whitespace-nowrap">Subir PDF</button>
+                         </div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="flex items-start gap-3 px-2 justify-center">
+                  <div class="flex items-center h-6">
+                    <input id="consent" type="checkbox" required class="w-5 h-5 rounded border-gray-300 text-accent focus:ring-accent cursor-pointer" />
+                  </div>
+                  <div class="text-sm">
+                    <label for="consent" class="font-medium text-blue-100 cursor-pointer select-none">Acepto los términos y ser contactado por HM Legal.</label>
+                    <p id="consentError" class="text-xs text-orange-300 mt-1 font-bold hidden animate-pulse">⚠️ Debe aceptar para continuar.</p>
+                  </div>
+              </div>
+
+              <div class="text-center">
+                  <button id="submitBtn" type="submit" class="group relative w-full md:w-auto px-12 bg-gradient-to-r from-orange-500 to-orange-600 hover:to-orange-500 text-white font-bold py-5 rounded-xl transition-all duration-300 shadow-xl shadow-orange-900/20 hover:shadow-orange-900/40 hover:-translate-y-1 text-lg disabled:opacity-70 disabled:cursor-not-allowed">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        Generar Diagnóstico
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </span>
+                  </button>
+              </div>
+              
+              <div id="formStatus" class="hidden p-4 bg-white/10 border border-white/20 rounded-xl text-blue-100 text-center font-medium animate-pulse"></div>
+            </form>
+          </div>
+        </div>
+
+        <div id="report" class="hidden mt-12 bg-white rounded-2xl p-8 md:p-10 text-gray-800 shadow-2xl border-l-8 border-accent transform transition-all duration-700 translate-y-10 opacity-0">
+            <div class="flex flex-col md:flex-row md:items-center gap-4 mb-8 border-b border-gray-100 pb-6">
+                <div class="bg-blue-50 p-3 rounded-xl w-14 h-14 flex items-center justify-center text-2xl">📊</div>
+                <div>
+                    <h3 id="reportTitle" class="text-2xl font-bold text-primary">Pre-diagnóstico Referencial</h3>
+                    <p class="text-sm text-gray-500">Análisis basado en reglas de cumplimiento v2.4</p>
+                </div>
+                <div id="globalRiskContainer" class="md:ml-auto"></div>
+            </div>
+            
+            <div id="reportContent" class="space-y-4 text-sm text-gray-600 mb-8"></div>
+            
+            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h4 class="text-primary font-bold mb-2">Siguientes Pasos</h4>
+                <p class="text-gray-600 text-sm mb-4">Este es un análisis preliminar. Para profundizar, utilice nuestra herramienta de IA conversacional.</p>
+                <a href="https://chatgpt.com/g/g-69725a603214819188b13d6c3b2cf2fd-hm-legal-auditor-inteligente-de-estatutos" target="_blank" class="inline-flex items-center text-white bg-primary hover:bg-blue-900 px-6 py-3 rounded-lg font-bold transition text-sm">
+                    Auditoría Profunda con GPT
+                </a>
+            </div>
+        </div>
+
+        <div id="delayedReport" class="hidden mt-12 bg-white rounded-2xl p-8 md:p-10 shadow-2xl border-l-8 border-amber-500 transform transition-all duration-700 translate-y-10 opacity-0">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="bg-amber-50 p-3 rounded-xl text-amber-600"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <h3 class="text-2xl font-bold text-gray-800">Análisis Humano Requerido</h3>
+            </div>
+            <p class="text-gray-600 mb-6">Hemos recibido su documento. Dada la complejidad del tipo de sociedad, nuestro equipo legal revisará manualmente el archivo y le enviará un informe en <strong>24 horas hábiles</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-primary text-white py-12 border-t border-indigo-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+              <div class="text-center md:text-left">
+                  <span class="text-xl font-bold tracking-tight">ACTIVA<span class="font-light text-accent">TUEMPRESA</span></span>
+                  <p class="text-xs text-indigo-300 mt-2">Tecnología desarrollada por HM Legal Chile.</p>
+              </div>
+              <div class="flex gap-6 text-sm font-medium text-indigo-200">
+                  <a href="#" class="hover:text-white transition">Términos</a>
+                  <a href="#" class="hover:text-white transition">Privacidad</a>
+              </div>
+          </div>
+          <div class="mt-8 text-center text-[10px] text-indigo-400 border-t border-indigo-900 pt-4">
+              &copy; <span id="year"></span> Todos los derechos reservados.
+          </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // --- Configuración y Estado ---
+    const CONFIG = {
+        MAX_SIZE_MB: 10,
+        ACCEPTED_TYPES: ['application/pdf'],
+        RULES: {
+            COMMON: [
+                { id: "C1", error: "Capital por enterar", severity: "Grave", msg: "Capital pendiente genera incertidumbre bancaria.", risk: "Alto" },
+                { id: "C2", error: "Objeto social amplio", severity: "Media", msg: "Giro demasiado genérico ('cajón de sastre').", risk: "Medio" },
+                { id: "C3", error: "Delegación escritura pública", severity: "Grave", msg: "Exige solemnidad excesiva para poderes.", risk: "Alto" }
+            ],
+            SPA: [
+                { id: "S1", error: "1 sola acción", severity: "Grave", msg: "División del capital en una única acción.", risk: "Objeción Frecuente" },
+                { id: "S2", error: "Administración conjunta", severity: "Leve", msg: "Exige firma de todos para operar.", risk: "Parálisis Operativa" }
+            ]
+        }
+    };
+    
+    let state = { file: null };
+
+    // --- Elementos DOM ---
+    const els = {
+        dropZone: document.getElementById('drop-zone'),
+        heroInput: document.getElementById('heroFile'),
+        heroHint: document.getElementById('heroFileHint'),
+        overlay: document.getElementById('file-success-overlay'),
+        filenameDisplay: document.getElementById('filename-display'),
+        changeFileBtn: document.getElementById('change-file-btn'),
+        formFileName: document.getElementById('form-file-name'),
+        formFileStatus: document.getElementById('form-file-status'),
+        form: document.getElementById('leadForm'),
+        societyType: document.getElementById('societyType'),
+        submitBtn: document.getElementById('submitBtn'),
+        consent: document.getElementById('consent'),
+        consentError: document.getElementById('consentError'),
+        report: document.getElementById('report'),
+        delayedReport: document.getElementById('delayedReport'),
+        email: document.getElementById('email'),
+        formStatus: document.getElementById('formStatus')
+    };
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- Helpers ---
+    const formatSize = bytes => `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+
+    const validateFile = (file) => {
+        if (!file) return { valid: false, msg: "No se detectó archivo." };
+        if (!CONFIG.ACCEPTED_TYPES.includes(file.type) && !file.name.endsWith('.pdf')) {
+            return { valid: false, msg: "❌ Solo aceptamos archivos PDF." };
+        }
+        if (file.size > CONFIG.MAX_SIZE_MB * 1024 * 1024) {
+            return { valid: false, msg: `⚠️ El archivo excede los ${CONFIG.MAX_SIZE_MB} MB.` };
+        }
+        return { valid: true };
+    };
+
+    // --- Lógica de UI ---
+    const updateUI = () => {
+        if (state.file) {
+            els.overlay.classList.remove('hidden');
+            els.overlay.classList.add('flex');
+            els.filenameDisplay.textContent = state.file.name;
+            els.heroHint.classList.add('hidden');
+            els.formFileName.textContent = `✅ ${state.file.name} (${formatSize(state.file.size)})`;
+            els.formFileName.classList.add('text-primary', 'font-bold');
+            els.formFileStatus.classList.add('border-accent', 'bg-blue-50');
+        } else {
+            els.overlay.classList.add('hidden');
+            els.overlay.classList.remove('flex');
+            els.heroInput.value = ""; 
+            els.formFileName.textContent = "Ningún archivo seleccionado (subir arriba)";
+            els.formFileName.classList.remove('text-primary', 'font-bold');
+            els.formFileStatus.classList.remove('border-accent', 'bg-blue-50');
+        }
+    };
+
+    const handleFile = (file) => {
+        const validation = validateFile(file);
+        if (!validation.valid) {
+            els.heroHint.textContent = validation.msg;
+            els.heroHint.classList.remove('hidden');
+            state.file = null;
+        } else {
+            state.file = file;
+            
+            // PATCH 2: Limpiar reportes anteriores
+            els.report.classList.add('hidden');
+            els.delayedReport.classList.add('hidden');
+            els.report.classList.add('translate-y-10', 'opacity-0');
+            els.delayedReport.classList.add('translate-y-10', 'opacity-0');
+            
+            setTimeout(() => {
+                document.getElementById('diagnostico').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        }
+        updateUI();
+    };
+
+    // --- Drag & Drop ---
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        els.dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+    });
+    ['dragenter', 'dragover'].forEach(eventName => {
+        els.dropZone.addEventListener(eventName, () => els.dropZone.classList.add('drag-active'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        els.dropZone.addEventListener(eventName, () => els.dropZone.classList.remove('drag-active'), false);
+    });
+
+    els.dropZone.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0]));
+    els.heroInput.addEventListener('change', function() { handleFile(this.files[0]); });
+
+    // PATCH 1: Limpiar Hint Rojo al cambiar archivo
+    els.changeFileBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        state.file = null; 
+        els.heroHint.classList.add('hidden');
+        els.heroHint.textContent = "";
+        updateUI(); 
+    });
+
+    // --- Submit del Formulario ---
+    els.form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        els.consentError.classList.add('hidden');
+        if (els.formStatus) els.formStatus.classList.add('hidden');
+
+        // Reset botón por si re-envían
+        // PATCH 3: Robustez si el span no existe
+        const btnText = els.submitBtn.querySelector('span') || els.submitBtn;
+        els.submitBtn.classList.add('bg-gradient-to-r', 'from-orange-500', 'to-orange-600', 'hover:to-orange-500');
+        els.submitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+        if(btnText !== els.submitBtn) {
+            btnText.innerHTML = `Generar Diagnóstico <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
+        }
+
+        // PATCH 4: Reemplazo de Alerts por formStatus
+        if (!state.file) {
+            els.formStatus.textContent = "⚠️ Por favor suba sus estatutos en PDF arriba.";
+            els.formStatus.classList.remove('hidden');
+            document.getElementById('drop-zone').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+        if (!els.consent.checked) {
+            els.consentError.classList.remove('hidden');
+            return;
+        }
+        if (!els.societyType.value) {
+            els.formStatus.textContent = "⚠️ Seleccione el tipo de sociedad para continuar.";
+            els.formStatus.classList.remove('hidden');
+            els.societyType.focus();
+            return;
+        }
+
+        // Validación Email
+        if (!els.email.value || !els.email.checkValidity()) {
+            els.formStatus.textContent = "📧 Ingrese un correo válido para continuar.";
+            els.formStatus.classList.remove('hidden');
+            els.email.focus();
+            return;
+        } else {
+             if (els.formStatus) {
+                els.formStatus.classList.add('hidden');
+                els.formStatus.textContent = "";
+             }
+        }
+
+        // Simulación
+        els.submitBtn.disabled = true;
+        if(btnText !== els.submitBtn) {
+            btnText.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Analizando...`;
+        } else {
+            els.submitBtn.textContent = "Analizando...";
+        }
+
+        setTimeout(() => {
+            els.submitBtn.disabled = false;
+            if(btnText !== els.submitBtn) btnText.innerHTML = "Diagnóstico Completado";
+            else els.submitBtn.textContent = "Diagnóstico Completado";
+            
+            els.submitBtn.classList.remove('from-orange-500','to-orange-600','hover:to-orange-500','bg-gradient-to-r');
+            els.submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            
+            generateReport(els.societyType.value);
+        }, 2000);
+    });
+
+    const generateReport = (type) => {
+        els.report.classList.add('hidden');
+        els.delayedReport.classList.add('hidden');
+
+        if (type === 'Otra') {
+            els.delayedReport.classList.remove('hidden');
+            setTimeout(() => els.delayedReport.classList.remove('translate-y-10', 'opacity-0'), 50);
+            return;
+        }
+
+        const styleBySeverity = {
+            "Grave": { box: "border-red-100 bg-red-50", pill: "text-red-600 border-red-200", risk: "text-red-700" },
+            "Media": { box: "border-orange-100 bg-orange-50", pill: "text-orange-600 border-orange-200", risk: "text-orange-700" },
+            "Leve": { box: "border-yellow-100 bg-yellow-50", pill: "text-yellow-700 border-yellow-200", risk: "text-yellow-700" }
+        };
+
+        const findings = [...CONFIG.RULES.COMMON];
+        if (type === 'SpA') findings.push(...CONFIG.RULES.SPA);
+        
+        const content = document.getElementById('reportContent');
+        content.innerHTML = '';
+        
+        findings.forEach(f => {
+            const s = styleBySeverity[f.severity] || styleBySeverity["Leve"];
+            content.innerHTML += `
+                <div class="p-4 rounded-xl border ${s.box}">
+                    <div class="flex justify-between items-start mb-1">
+                        <strong class="text-primary">${f.error}</strong>
+                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-white border ${s.pill}">${f.severity}</span>
+                    </div>
+                    <p class="text-gray-600 mb-2">${f.msg}</p>
+                    <p class="text-xs ${s.risk} font-semibold">Riesgo Bancario: ${f.risk}</p>
+                </div>
+            `;
+        });
+
+        const riskContainer = document.getElementById('globalRiskContainer');
+        riskContainer.innerHTML = `<span class="px-4 py-2 bg-red-100 text-red-700 border border-red-200 rounded-lg font-bold text-sm">RIESGO GLOBAL: ALTO</span>`;
+
+        els.report.classList.remove('hidden');
+        setTimeout(() => {
+            els.report.classList.remove('translate-y-10', 'opacity-0');
+            els.report.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    };
+  </script>
+</body>
+</html>

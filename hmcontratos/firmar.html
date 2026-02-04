@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>HM Contratos | Firmar ahora</title>
+  <meta name="description" content="Sube tu PDF, define firmantes y envía el documento para iniciar firma.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'azul-marino': '#0B2945',
+            'azul-petroleo': '#1E5E73',
+            'verde-azulado': '#1FA093',
+            'gris-oscuro': '#4A4A4A',
+            'gris-claro': '#F0F2F5',
+            'blanco': '#FFFFFF',
+          },
+          fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'system-ui', 'sans-serif'] },
+          boxShadow: { soft: '0 12px 30px rgba(0,0,0,.08)' }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- PDF.js (preview) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.1.392/pdf.min.js"></script>
+
+  <style>
+    .no-zoom-jank { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    .modal-backdrop { background: rgba(11, 41, 69, 0.55); }
+  </style>
+</head>
+
+<body class="no-zoom-jank bg-gris-claro text-gris-oscuro font-sans">
+  <header class="sticky top-0 z-40 bg-blanco/90 backdrop-blur border-b border-black/5">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+      <a href="/hmcontratos/index.html" class="flex items-center gap-3">
+        <img src="/hmcontratos/imagenes/logo1.png" alt="HM Legal" class="h-10 w-auto">
+        <span class="hidden sm:inline font-semibold text-azul-marino">HM Contratos</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-5 py-10">
+    <section class="bg-blanco rounded-2xl shadow-soft border border-black/5 overflow-hidden">
+      <div class="px-6 py-8 md:px-10 md:py-10 bg-gradient-to-r from-azul-marino to-azul-petroleo text-blanco">
+        <p class="text-xs tracking-widest uppercase font-bold text-white/80">Flujo de firma</p>
+        <h1 class="mt-2 text-3xl md:text-4xl font-serif font-bold">Firmar ahora</h1>
+        <p class="mt-3 text-white/90 max-w-3xl leading-relaxed">
+          Suba su documento en PDF e indique los datos de contacto de quienes firmarán. Luego envíe la solicitud y realice el pago según el número de firmantes.
+        </p>
+      </div>
+
+      <div class="p-6 md:p-10 grid lg:grid-cols-2 gap-8">
+        <!-- PASO 1 + PASO 3 -->
+        <section>
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="text-xl font-bold text-azul-marino">Paso 1: Documento y firmantes</h2>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-gris-claro border border-black/5 text-azul-marino">
+              PDF • 1–3 firmantes
+            </span>
+          </div>
+
+          <form id="signForm" class="mt-6 space-y-6" enctype="multipart/form-data" novalidate>
+            <!-- PDF upload -->
+            <div class="bg-gris-claro rounded-xl p-4 border border-black/5">
+              <label class="block text-sm font-semibold mb-2 text-azul-marino" for="pdfFile">
+                Documento (solo PDF)
+              </label>
+
+              <input id="pdfFile" name="pdf" type="file" accept="application/pdf" required
+                     class="w-full text-sm border border-black/10 rounded-lg bg-white p-3
+                            file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0
+                            file:font-semibold file:bg-verde-azulado file:text-blanco hover:file:bg-azul-petroleo" />
+
+              <p class="mt-2 text-xs text-gris-oscuro/80">
+                Recomendado máx: 15MB. Solo se aceptan archivos PDF.
+              </p>
+
+              <p id="pdfError" class="mt-2 text-sm text-red-600 font-semibold hidden"></p>
+            </div>
+
+            <!-- signer count + resumen -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="signerCount" class="block text-sm font-semibold mb-2 text-azul-marino">
+                  Número de firmantes
+                </label>
+
+                <select id="signerCount" name="signerCount"
+                        class="w-full p-3 rounded-lg border border-black/10 bg-white focus:ring-2 focus:ring-verde-azulado">
+                  <option value="1">1 firmante</option>
+                  <option value="2">2 firmantes</option>
+                  <option value="3">3 firmantes</option>
+                </select>
+
+                <p class="mt-2 text-xs text-gris-oscuro/80">Esto define el link de pago.</p>
+              </div>
+
+              <!-- RESUMEN -->
+              <div class="bg-gris-claro rounded-xl p-4 border border-black/5">
+                <div class="text-xs uppercase tracking-widest font-bold text-azul-marino/70">Resumen</div>
+
+                <div class="mt-3 text-sm space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-azul-marino font-semibold">Firmantes</span>
+                    <span id="summarySigners" class="font-bold text-azul-marino">1</span>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <span class="text-azul-marino font-semibold">Total gestión</span>
+                    <span id="summaryTotal" class="font-extrabold text-azul-marino">$3.000.-</span>
+                  </div>
+
+                  <div class="pt-2 border-t border-black/5 flex items-center justify-between">
+                    <span class="text-azul-marino font-semibold">Pago</span>
+                    <span class="font-bold text-verde-azulado">Mercado Pago</span>
+                  </div>
+
+                  <p class="text-[11px] text-gris-oscuro/70 leading-snug">
+                    1 firma $3.000.- • 2 firmas $6.000.- • 3 firmas $9.000.-
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- dynamic signers -->
+            <div>
+              <h3 class="text-sm font-bold text-azul-marino">Datos de los firmantes</h3>
+              <p class="mt-1 text-xs text-gris-oscuro/80">
+                Ingrese nombre completo, RUT y correo electrónico de cada firmante.
+              </p>
+              <div id="signersWrap" class="mt-3 space-y-4"></div>
+              <p id="signersError" class="mt-2 text-sm text-red-600 font-semibold hidden"></p>
+            </div>
+
+            <!-- PASO 3 -->
+            <div class="pt-2">
+              <h2 class="text-xl font-bold text-azul-marino">Paso 3: Envío de documento</h2>
+              <p class="mt-2 text-sm text-gris-oscuro/80 leading-relaxed">
+                Al enviar, se abrirá el recuadro de pago según el número de firmantes.
+                La comprobación del pago se realizará directamente al recibir el correo. En caso de no existir pago, no se procesará la solicitud.
+              </p>
+
+              <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                <button type="button" id="sendBtn"
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                               bg-gradient-to-r from-azul-marino via-azul-petroleo to-verde-azulado
+                               text-blanco font-bold hover:brightness-110 transition shadow-soft">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  Enviar solicitud
+                </button>
+
+                <button type="button" id="resetBtn"
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                               border border-azul-marino/15 bg-white text-azul-marino font-bold
+                               hover:bg-gris-claro transition">
+                  <i class="fa-solid fa-rotate-right"></i>
+                  Limpiar
+                </button>
+              </div>
+
+              <p id="statusMsg" class="mt-3 text-sm font-semibold hidden"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- PASO 2 -->
+        <section>
+          <h2 class="text-xl font-bold text-azul-marino">Paso 2: Vista previa del PDF</h2>
+
+          <div class="mt-6 bg-white rounded-2xl border border-black/5 shadow-soft overflow-hidden">
+            <div class="p-4 bg-gris-claro border-b border-black/5 flex items-center justify-between">
+              <span id="pdfName" class="text-sm font-semibold text-azul-marino truncate">Sin PDF cargado</span>
+              <span class="text-xs font-bold text-azul-marino/60">PDF.js</span>
+            </div>
+
+            <div class="p-4">
+              <div class="rounded-xl overflow-auto border border-black/5 bg-gris-claro">
+                <canvas id="pdfCanvas" class="block mx-auto bg-white"></canvas>
+              </div>
+              <div id="pdfPreviewHint" class="mt-3 text-sm text-gris-oscuro/80">
+                Suba un PDF para verlo aquí.
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL PAGO -->
+  <div id="payModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 modal-backdrop"></div>
+
+    <div class="relative max-w-xl mx-auto mt-24 bg-blanco rounded-2xl shadow-soft border border-black/10 overflow-hidden">
+      <div class="p-6 bg-gradient-to-r from-azul-marino to-azul-petroleo text-blanco">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs tracking-widest uppercase font-bold text-white/80">Pago</p>
+            <h3 class="mt-1 text-2xl font-serif font-bold">Complete el pago</h3>
+            <p class="mt-2 text-white/90 text-sm">
+              Selección detectada: <span class="font-extrabold" id="modalSignerCount">1</span> firmante(s).
+            </p>
+            <p class="mt-1 text-white/90 text-sm">
+              Total: <span class="font-extrabold" id="modalTotal">$3.000.-</span>
+            </p>
+          </div>
+          <button type="button" id="closeModal" class="text-white/90 hover:text-white text-xl" aria-label="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="bg-gris-claro rounded-xl p-4 border border-black/5">
+          <p class="text-sm text-gris-oscuro/90 leading-relaxed">
+            Haga clic en el botón para pagar. La comprobación se realizará al recibir el correo.
+            <strong>Sin pago, no se procesará la solicitud.</strong>
+          </p>
+        </div>
+
+        <div class="mt-5 flex flex-col sm:flex-row gap-3">
+          <a id="payLink" href="#" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                    bg-verde-azulado text-blanco font-bold hover:brightness-110 transition shadow-soft">
+            <i class="fa-solid fa-up-right-from-square"></i>
+            Ir a pagar
+          </a>
+
+          <a href="/hmcontratos/gracias/index.html"
+             class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                    border border-azul-marino/15 bg-white text-azul-marino font-bold hover:bg-gris-claro transition">
+            <i class="fa-solid fa-circle-check"></i>
+            Ya pagué
+          </a>
+        </div>
+
+        <p class="mt-4 text-xs text-gris-oscuro/70">
+          Si usted no realiza el pago, la solicitud no será procesada.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Links de pago por cantidad de firmantes
+    const PAY_LINKS = {
+      1: "https://mpago.la/1vyMBLN",
+      2: "https://mpago.la/1TnG363",
+      3: "https://mpago.la/1DJAuv5"
+    };
+
+    // Precios por cantidad de firmantes
+    const PRICES = {
+      1: "$3.000.-",
+      2: "$6.000.-",
+      3: "$9.000.-"
+    };
+
+    // DOM
+    const signerCountEl = document.getElementById('signerCount');
+    const signersWrap = document.getElementById('signersWrap');
+    const signersError = document.getElementById('signersError');
+
+    const pdfFileEl = document.getElementById('pdfFile');
+    const pdfError = document.getElementById('pdfError');
+
+    const pdfName = document.getElementById('pdfName');
+    const pdfPreviewHint = document.getElementById('pdfPreviewHint');
+
+    const summarySigners = document.getElementById('summarySigners');
+    const summaryTotal = document.getElementById('summaryTotal');
+
+    const sendBtn = document.getElementById('sendBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    // Modal
+    const payModal = document.getElementById('payModal');
+    const closeModal = document.getElementById('closeModal');
+    const payLinkEl = document.getElementById('payLink');
+    const modalSignerCount = document.getElementById('modalSignerCount');
+    const modalTotal = document.getElementById('modalTotal');
+
+    // PDF canvas
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // PDF.js init (blindado: si falla pdf.js, el resto sigue funcionando)
+    let PDFJS_READY = false;
+    try {
+      if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.1.392/pdf.worker.min.js";
+        PDFJS_READY = true;
+      }
+    } catch (e) {
+      PDFJS_READY = false;
+    }
+
+    // Cap (front)
+    const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
+    }
+
+    // RUT (DV)
+    function cleanRut(rut) {
+      return String(rut || "").replace(/\./g, "").replace(/-/g, "").trim().toUpperCase();
+    }
+    function validateRut(rut) {
+      const r = cleanRut(rut);
+      if (!/^\d{7,8}[0-9K]$/.test(r)) return false;
+      const body = r.slice(0, -1);
+      const dv = r.slice(-1);
+
+      let sum = 0, mult = 2;
+      for (let i = body.length - 1; i >= 0; i--) {
+        sum += parseInt(body[i], 10) * mult;
+        mult = mult === 7 ? 2 : mult + 1;
+      }
+      const mod = 11 - (sum % 11);
+      const dvCalc = (mod === 11) ? "0" : (mod === 10) ? "K" : String(mod);
+      return dv === dvCalc;
+    }
+
+    function setStatus(text, ok=true) {
+      statusMsg.textContent = text;
+      statusMsg.classList.remove('hidden');
+      statusMsg.classList.toggle('text-red-600', !ok);
+      statusMsg.classList.toggle('text-verde-azulado', ok);
+    }
+
+    function updateSummary() {
+      const count = parseInt(signerCountEl.value, 10);
+      summarySigners.textContent = String(count);
+      summaryTotal.textContent = PRICES[count] || "$—";
+    }
+
+    function renderSigners(count) {
+      signersWrap.innerHTML = "";
+      for (let i = 1; i <= count; i++) {
+        signersWrap.insertAdjacentHTML('beforeend', `
+          <div class="bg-gris-claro rounded-xl p-4 border border-black/5">
+            <div class="text-sm font-bold text-azul-marino">Firmante #${i}</div>
+            <div class="mt-3 grid sm:grid-cols-2 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-azul-marino mb-1">Nombre completo</label>
+                <input type="text" name="signer_name_${i}" required
+                       class="w-full p-3 rounded-lg border border-black/10 bg-white focus:ring-2 focus:ring-verde-azulado"
+                       placeholder="Ej: Juan Pérez">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-azul-marino mb-1">RUT</label>
+                <input type="text" name="signer_rut_${i}" required
+                       class="w-full p-3 rounded-lg border border-black/10 bg-white focus:ring-2 focus:ring-verde-azulado"
+                       placeholder="Ej: 12.345.678-5">
+                <p class="mt-1 text-[11px] text-gris-oscuro/70">Formato sugerido: 12.345.678-5</p>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-azul-marino mb-1">Correo electrónico</label>
+                <input type="email" name="signer_email_${i}" required
+                       class="w-full p-3 rounded-lg border border-black/10 bg-white focus:ring-2 focus:ring-verde-azulado"
+                       placeholder="correo@empresa.cl">
+              </div>
+            </div>
+          </div>
+        `);
+      }
+    }
+
+    async function renderFirstPage(arrayBuffer) {
+      if (!PDFJS_READY) {
+        pdfPreviewHint.textContent = "No se pudo cargar la vista previa (PDF.js). Igual puede enviar el PDF.";
+        pdfPreviewHint.classList.remove('hidden');
+        return;
+      }
+
+      const doc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const page = await doc.getPage(1);
+
+      const container = canvas.parentElement;
+      const desiredWidth = Math.min(container.clientWidth - 16, 900);
+
+      const viewport = page.getViewport({ scale: 1 });
+      const scale = desiredWidth / viewport.width;
+      const scaledViewport = page.getViewport({ scale });
+
+      canvas.height = scaledViewport.height;
+      canvas.width = scaledViewport.width;
+
+      await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+    }
+
+    function validateAll() {
+      pdfError.classList.add('hidden');
+      signersError.classList.add('hidden');
+
+      const file = pdfFileEl.files?.[0];
+      if (!file) return { ok:false, msg:"Debe subir un PDF." };
+      if (file.type !== "application/pdf") return { ok:false, msg:"Solo se permiten archivos PDF." };
+      if (file.size > MAX_FILE_SIZE) return { ok:false, msg:"El PDF excede 15MB (recomendado). Reduzca tamaño e intente nuevamente." };
+
+      const count = Math.max(1, Math.min(3, parseInt(signerCountEl.value, 10) || 1));
+
+      for (let i = 1; i <= count; i++) {
+        const n = document.querySelector(`input[name="signer_name_${i}"]`)?.value?.trim();
+        const r = document.querySelector(`input[name="signer_rut_${i}"]`)?.value?.trim();
+        const em = document.querySelector(`input[name="signer_email_${i}"]`)?.value?.trim();
+
+        if (!n) return { ok:false, msg:`Firmante #${i}: falta nombre.` };
+        if (!r) return { ok:false, msg:`Firmante #${i}: falta RUT.` };
+        if (!validateRut(r)) return { ok:false, msg:`Firmante #${i}: RUT inválido.` };
+        if (!em) return { ok:false, msg:`Firmante #${i}: falta correo.` };
+        if (!isValidEmail(em)) return { ok:false, msg:`Firmante #${i}: correo inválido.` };
+      }
+
+      return { ok:true, count };
+    }
+
+    function openPayModal(count) {
+      modalSignerCount.textContent = String(count);
+      modalTotal.textContent = PRICES[count] || "$—";
+      payLinkEl.href = PAY_LINKS[count] || "#";
+
+      payModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePayModal() {
+      payModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // --- EVENTS ---
+
+    // Interacción: selector -> recuadros firmantes + resumen
+    signerCountEl.addEventListener('change', () => {
+      const count = parseInt(signerCountEl.value, 10);
+      renderSigners(count);
+      updateSummary();
+    });
+
+    pdfFileEl.addEventListener('change', async (e) => {
+      statusMsg.classList.add('hidden');
+
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (file.type !== "application/pdf") {
+        pdfError.textContent = "Solo se permiten archivos PDF.";
+        pdfError.classList.remove('hidden');
+        pdfFileEl.value = "";
+        return;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        pdfError.textContent = "El PDF excede 15MB (recomendado). Reduzca tamaño e intente nuevamente.";
+        pdfError.classList.remove('hidden');
+        pdfFileEl.value = "";
+        return;
+      }
+
+      pdfName.textContent = file.name;
+      pdfPreviewHint.classList.add('hidden');
+
+      const buf = await file.arrayBuffer();
+      await renderFirstPage(buf);
+    });
+
+    sendBtn.addEventListener('click', async () => {
+      const v = validateAll();
+      if (!v.ok) { setStatus(v.msg, false); return; }
+
+      const formData = new FormData();
+      formData.append("pdf", pdfFileEl.files[0]);
+      formData.append("signerCount", String(v.count));
+      formData.append("source", "hmcontratos/firmar.html");
+
+      for (let i = 1; i <= v.count; i++) {
+        formData.append(`signer_name_${i}`, document.querySelector(`input[name="signer_name_${i}"]`).value.trim());
+        formData.append(`signer_rut_${i}`, document.querySelector(`input[name="signer_rut_${i}"]`).value.trim());
+        formData.append(`signer_email_${i}`, document.querySelector(`input[name="signer_email_${i}"]`).value.trim());
+      }
+
+      setStatus("Enviando solicitud...", true);
+      sendBtn.disabled = true;
+
+      try {
+        const res = await fetch("/.netlify/functions/send-hmcontratos-pdf", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!res.ok) {
+          const t = await res.text();
+          throw new Error(t || "Error enviando.");
+        }
+
+        setStatus("Solicitud enviada. Continúe con el pago para que la solicitud sea procesada.", true);
+        openPayModal(v.count);
+
+      } catch (err) {
+        sendBtn.disabled = false;
+        setStatus("No se pudo enviar la solicitud. " + (err?.message || ""), false);
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      document.getElementById('signForm').reset();
+
+      // reset firmantes/resumen
+      renderSigners(1);
+      updateSummary();
+
+      statusMsg.classList.add('hidden');
+
+      // limpiar preview
+      pdfName.textContent = "Sin PDF cargado";
+      pdfPreviewHint.textContent = "Suba un PDF para verlo aquí.";
+      pdfPreviewHint.classList.remove('hidden');
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = 0;
+      canvas.height = 0;
+
+      sendBtn.disabled = false;
+    });
+
+    // Modal close
+    closeModal.addEventListener('click', closePayModal);
+    payModal.addEventListener('click', (e) => {
+      if (e.target === payModal) closePayModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !payModal.classList.contains('hidden')) closePayModal();
+    });
+
+    // INIT (importante: asegurar interacción desde el primer render)
+    renderSigners(parseInt(signerCountEl.value, 10) || 1);
+    updateSummary();
+  </script>
+</body>
+</html>

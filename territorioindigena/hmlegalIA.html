@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM Legal IA – Asistentes Jurídicos Inteligentes</title>
+    <meta name="description" content="Acceso a asistentes de Inteligencia Artificial especializados en Derecho Indígena, supervisados por HM Legal.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hmblue: {
+                            950: '#020617',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            50: '#f8fafc',
+                        },
+                        hmgold: {
+                            500: '#d97706',
+                            600: '#b45309',
+                            700: '#92400e',
+                            100: '#fef3c7',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'gold': '0 4px 14px 0 rgba(217, 119, 6, 0.39)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hidden-visually { display: none; visibility: hidden; }
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Chat Styles */
+        .chat-bubble { max-width: 90%; border-radius: 0.5rem; padding: 0.75rem 1rem; position: relative; margin-bottom: 0.75rem; font-size: 0.9rem; line-height: 1.6; }
+        .chat-user { background-color: #0f172a; color: white; margin-left: auto; }
+        .chat-ai { background-color: #f1f5f9; color: #334155; margin-right: auto; border-left: 3px solid #b45309; }
+        .typing-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background-color: #94a3b8; animation: typing 1.4s infinite ease-in-out both; margin: 0 2px; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        /* Markdown override */
+        .prose p { margin-bottom: 0.5em; }
+        .prose ul { list-style-type: disc; margin-left: 1.2em; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- HEADER INSTITUCIONAL -->
+    <header class="bg-white border-b-2 border-hmblue-900 py-6 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-serif font-bold text-hmblue-900 tracking-tight">
+                    HM Legal<span class="text-hmgold-600">.AI</span>
+                </span>
+                <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Unidad de Inteligencia Artificial</span>
+            </div>
+            <a href="index.html" class="text-sm font-bold text-hmblue-900 hover:text-hmgold-600 transition flex items-center gap-2 border border-slate-200 px-4 py-2 rounded-full hover:border-hmgold-600">
+                <i class="fas fa-home"></i> <span>Volver al Inicio</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow flex items-center justify-center py-16 px-4 bg-slate-50">
+        <div class="max-w-6xl mx-auto w-full">
+            
+            <!-- PASO 1: RECEPCIÓN VIRTUAL (DISEÑO AMIGABLE E INSTITUCIONAL) -->
+            <div id="access-panel" class="max-w-4xl mx-auto fade-in">
+                
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-hmblue-900 mb-4">Bienvenido a su Asistente Legal</h1>
+                    <div class="h-1 w-24 bg-hmgold-500 mx-auto rounded-full mb-6"></div>
+                    <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+                        Hemos entrenado una Inteligencia Artificial avanzada para potenciar el análisis y la defensa del Derecho Indígena y Territorial.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <!-- Columna Imagen / Bienvenida -->
+                    <div class="md:w-5/12 bg-hmblue-900 text-white p-10 flex flex-col justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                        <!-- Elementos decorativos sutiles -->
+                        <div class="absolute -top-10 -left-10 w-40 h-40 bg-hmgold-600 rounded-full opacity-20 blur-3xl"></div>
+                        
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-bold mb-6 font-serif border-l-4 border-hmgold-500 pl-4">Antes de comenzar</h3>
+                            <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">
+                                Esta plataforma es una herramienta de apoyo gratuita diseñada para empoderar a comunidades, dirigentes y personas naturales con información jurídica de calidad.
+                            </p>
+                            <ul class="space-y-4 text-sm text-slate-200">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-gavel text-hmgold-500 mt-1"></i>
+                                    <span class="font-medium">Respuestas inmediatas sobre defensa territorial y derecho indígena.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-file-alt text-hmgold-500 mt-1"></i>
+                                    <span class="font-medium">Simplificación de textos legales complejos.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-clock text-hmgold-500 mt-1"></i>
+                                    <span class="font-medium">Acceso 24/7 sin costo.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Columna Formulario -->
+                    <div class="md:w-7/12 p-10 md:p-12">
+                        <form id="iaAccessForm" onsubmit="unlockIA(event)" class="space-y-6">
+                            
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-hmblue-900 uppercase tracking-wide mb-2">Nombre Completo</label>
+                                    <input type="text" id="ia_nombre" required class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-hmblue-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-hmblue-900 focus:border-transparent transition placeholder-slate-400" placeholder="Ingrese su nombre">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-hmblue-900 uppercase tracking-wide mb-2">Correo Electrónico</label>
+                                    <input type="email" id="ia_email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-hmblue-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-hmblue-900 focus:border-transparent transition placeholder-slate-400" placeholder="correo@ejemplo.com">
+                                </div>
+                            </div>
+
+                            <!-- Disclaimer Amigable -->
+                            <div class="bg-hmgold-100/50 p-4 rounded-lg border border-hmgold-100 text-xs text-hmgold-700 flex gap-3 items-start">
+                                <div class="shrink-0 pt-0.5">
+                                    <i class="fas fa-info-circle text-hmgold-600 text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold mb-1 text-hmgold-800">Aviso Legal:</p>
+                                    <div class="flex items-start gap-2">
+                                        <input type="checkbox" id="terms-check" required class="mt-0.5 w-4 h-4 text-hmgold-600 rounded border-hmgold-300 focus:ring-hmgold-500 cursor-pointer">
+                                        <label for="terms-check" class="leading-relaxed opacity-90 cursor-pointer">
+                                            Entiendo que la IA es una herramienta de apoyo referencial y sus respuestas <strong>no reemplazan la asesoría de un abogado</strong> ni constituyen una opinión legal vinculante.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Captcha Oculto / Honeypot -->
+                            <input type="text" name="website_url" class="hidden-visually" tabindex="-1" autocomplete="off">
+
+                            <button type="submit" class="w-full py-4 bg-hmblue-900 hover:bg-hmblue-800 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition transform active:scale-[0.99] flex justify-center items-center gap-3 text-lg border-b-4 border-hmblue-950">
+                                <span>Ingresar al Asistente</span> <i class="fas fa-arrow-right text-hmgold-500"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <p class="text-center text-slate-400 text-xs mt-8 font-medium">
+                    <i class="fas fa-lock text-slate-300 mr-1"></i> HM Legal protege sus datos bajo estricta confidencialidad.
+                </p>
+            </div>
+
+            <!-- PASO 2: PANEL DE ASISTENTES (OCULTO INICIALMENTE) -->
+            <div id="assistants-panel" class="hidden space-y-12 fade-in pb-12">
+                
+                <!-- Barra de Estado -->
+                <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 class="text-3xl font-serif font-bold text-hmblue-900">Panel de Herramientas</h2>
+                        <p class="text-slate-500 mt-1">Seleccione la herramienta especializada que mejor se adapte a su necesidad.</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-4 py-2 rounded-full mt-4 md:mt-0 shadow-sm">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        SISTEMA ACTIVO
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 1: ASISTENTE GPT (Principal) -->
+                <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden relative group">
+                    <div class="absolute top-0 right-0 bg-hmblue-900 text-hmgold-500 text-xs font-bold px-6 py-2 rounded-bl-xl z-10 border-l border-b border-white shadow-md">IA RECOMENDADA</div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 h-full">
+                        <div class="p-10 md:p-14 flex flex-col justify-center bg-gradient-to-br from-white to-slate-50">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 bg-hmblue-900 text-white rounded-xl flex items-center justify-center shadow-lg border-2 border-hmgold-500">
+                                    <i class="fas fa-scale-balanced text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl font-bold text-hmblue-900 font-serif leading-tight">HM Legal <br>Derecho Indígena</h3>
+                                </div>
+                            </div>
+                            
+                            <p class="text-slate-700 mb-8 leading-relaxed text-lg">
+                                Nuestro modelo más potente con base en GPT de OpenAI. Entrenado para razonar sobre conflictos territoriales, analizar documentos extensos y responder preguntas complejas sobre <strong>Derecho Indígena y defensa territorial</strong>.
+                            </p>
+                            
+                            <div class="space-y-4 mb-10 bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">Consultas Jurídicas Estratégicas:</h4>
+                                <div class="flex items-start gap-3 text-slate-800">
+                                    <i class="fas fa-check-circle text-hmgold-600 mt-1"></i> 
+                                    <span class="font-medium">Paralización de obras en zonas de patrimonio cultural y ceremonial.</span>
+                                </div>
+                                <div class="flex items-start gap-3 text-slate-800">
+                                    <i class="fas fa-check-circle text-hmgold-600 mt-1"></i> 
+                                    <span class="font-medium">Acciones legales ante alteración de deslindes y ocupación de territorio ancestral.</span>
+                                </div>
+                                <div class="flex items-start gap-3 text-slate-800">
+                                    <i class="fas fa-check-circle text-hmgold-600 mt-1"></i> 
+                                    <span class="font-medium">Mecanismos para la exigibilidad de la Consulta Indígena (Convenio 169).</span>
+                                </div>
+                            </div>
+
+                            <a href="https://chatgpt.com/g/g-lIgSNJuC4-hm-legal-derecho-indigena-territorioindigena-cl" target="_blank" class="inline-flex items-center justify-center gap-3 w-full py-4 bg-hmblue-900 text-white font-bold rounded-xl hover:bg-hmblue-800 transition shadow-gold transform hover:-translate-y-1 text-lg">
+                                <span>Iniciar Asistente en ChatGPT</span> 
+                                <i class="fas fa-external-link-alt text-sm text-hmgold-500"></i>
+                            </a>
+                            <p class="text-xs text-slate-400 mt-3 text-center">Entorno seguro de OpenAI.</p>
+                        </div>
+
+                        <!-- Columna Agendamiento (Integrada Visualmente) -->
+                        <div class="bg-hmblue-50 p-10 md:p-14 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-200 relative overflow-hidden">
+                            <!-- Patrón de fondo -->
+                            <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                            
+                            <div class="relative z-10 text-center">
+                                <div class="w-20 h-20 bg-white text-hmblue-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md border-4 border-white">
+                                    <i class="fas fa-user-tie text-3xl"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-hmblue-900 mb-3">¿Requiere Validación Experta?</h4>
+                                <p class="text-slate-600 mb-8 px-4 leading-relaxed">
+                                    La inteligencia artificial es una herramienta poderosa, pero la estrategia final requiere criterio humano experto. 
+                                    <br><strong class="text-hmblue-900">Agende una revisión prioritaria con nuestro equipo.</strong>
+                                </p>
+                                <a href="https://calendly.com/contacto-hmlegal" target="_blank" class="block w-full py-4 bg-white border-2 border-hmblue-900 text-hmblue-900 font-bold rounded-xl hover:bg-hmblue-900 hover:text-white transition shadow-sm mb-6 uppercase tracking-wide text-sm">
+                                    <i class="far fa-calendar-alt mr-2"></i> Agendar Reunión (15 min)
+                                </a>
+                                
+                                <div class="text-sm text-slate-500 pt-6 border-t border-slate-200/60 w-full">
+                                    <p class="mb-1">Soporte y contacto directo:</p>
+                                    <a href="mailto:contacto@hmlegal.cl" class="font-bold text-hmgold-600 hover:text-hmgold-700 transition">contacto@hmlegal.cl</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 2: HERRAMIENTAS RÁPIDAS (GRID) -->
+                <div class="flex items-center gap-4 mt-16 mb-8">
+                    <h3 class="text-xl font-bold text-hmblue-900 whitespace-nowrap">Herramientas de Apoyo Rápido</h3>
+                    <div class="h-px bg-slate-200 w-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Tarjeta: Chat Rápido -->
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 flex flex-col h-[500px] overflow-hidden group hover:shadow-xl transition-shadow">
+                        <div class="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                            <h3 class="font-bold text-hmblue-900 flex items-center gap-3">
+                                <span class="bg-hmblue-100 text-hmblue-900 p-2 rounded-lg"><i class="fas fa-bolt"></i></span>
+                                Consultas Rápidas
+                            </h3>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Gemini 2.5 Flash</span>
+                        </div>
+                        
+                        <div id="chat-messages" class="flex-grow p-6 overflow-y-auto bg-white space-y-4">
+                            <div class="chat-bubble chat-ai shadow-sm">
+                                <p>¡Hola! Soy el asistente rápido. Ideal para definiciones legales breves o dudas puntuales sobre trámites.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-slate-50 border-t border-slate-100">
+                            <form onsubmit="handleChatSubmit(event)" class="relative">
+                                <input type="text" id="chat-input" class="w-full pl-5 pr-14 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-hmblue-900 focus:border-transparent text-sm shadow-sm transition placeholder-slate-400" placeholder="Escribe tu consulta aquí...">
+                                <button type="submit" id="chat-btn" class="absolute right-2 top-2 w-10 h-10 bg-hmblue-900 text-white rounded-lg flex items-center justify-center hover:bg-hmgold-600 transition shadow-md">
+                                    <i class="fas fa-paper-plane text-sm"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta: Simplificador -->
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 flex flex-col h-[500px] overflow-hidden group hover:shadow-xl transition-shadow">
+                        <div class="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                            <h3 class="font-bold text-hmblue-900 flex items-center gap-3">
+                                <span class="bg-hmgold-100 text-hmgold-700 p-2 rounded-lg"><i class="fas fa-glasses"></i></span>
+                                Traductor Jurídico
+                            </h3>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Simplificación</span>
+                        </div>
+                        
+                        <div class="p-6 flex flex-col h-full overflow-y-auto bg-white">
+                            <p class="text-sm text-slate-500 mb-4 font-medium">Pegue aquí un texto legal complejo (sentencia, carta, ley) y lo traduciremos a lenguaje sencillo y claro.</p>
+                            <textarea id="simplifier-input" class="w-full h-40 p-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-hmblue-900 focus:border-transparent text-sm mb-4 resize-none transition placeholder-slate-400" placeholder="Pegue el texto legal aquí..."></textarea>
+                            
+                            <button onclick="handleSimplify()" id="simplify-btn" class="w-full py-3 bg-white border-2 border-slate-200 text-hmblue-900 font-bold rounded-xl hover:border-hmblue-900 hover:bg-hmblue-50 transition mb-4 text-sm flex justify-center items-center gap-2 shadow-sm">
+                                <i class="fas fa-magic text-hmgold-600"></i> Simplificar Ahora
+                            </button>
+                            
+                            <div id="simplifier-output" class="flex-grow bg-emerald-50 border border-emerald-100 rounded-xl p-4 text-sm text-slate-700 overflow-y-auto hidden shadow-inner">
+                                <div id="simplifier-content" class="prose prose-sm max-w-none text-xs"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center pt-12 pb-6 border-t border-slate-200 mt-12">
+                    <p class="text-xs text-slate-400 font-medium">
+                        HM Legal Ltda. &copy; 2025. Todos los derechos reservados.
+                        <span class="mx-2">•</span>
+                        Desarrollado para TerritorioIndigena.cl
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- CONFIGURACIÓN API ---
+        const apiKey = ""; // Inyectada por el entorno
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // --- GATEKEEPER ---
+        function unlockIA(e) {
+            e.preventDefault();
+            // Animación simple de salida y entrada
+            const panel = document.getElementById('access-panel');
+            panel.style.opacity = '0';
+            panel.style.transform = 'translateY(-20px)';
+            panel.style.transition = 'all 0.6s ease-in-out';
+            
+            setTimeout(() => {
+                panel.classList.add('hidden');
+                const content = document.getElementById('assistants-panel');
+                content.classList.remove('hidden');
+                // Scroll al inicio suavemente
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+
+        // --- CHAT GEMINI INTEGRADO ---
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            const btn = document.getElementById('chat-btn');
+            
+            if (!message) return;
+
+            addMessageToChat(message, 'user');
+            input.value = '';
+            input.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            const loadingId = addLoadingIndicator();
+
+            try {
+                const response = await callGeminiAPI(message, "chat");
+                removeMessage(loadingId);
+                addMessageToChat(response, 'ai');
+            } catch (error) {
+                removeMessage(loadingId);
+                addMessageToChat("Lo siento, tuve un problema de conexión. Inténtalo de nuevo.", 'ai');
+            } finally {
+                input.disabled = false;
+                input.focus();
+                btn.innerHTML = '<i class="fas fa-paper-plane text-sm"></i>';
+            }
+        }
+
+        function addMessageToChat(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = `chat-bubble ${sender === 'user' ? 'chat-user' : 'chat-ai shadow-sm'}`;
+            if (sender === 'ai') div.innerHTML = marked.parse(text);
+            else div.textContent = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            return div.id;
+        }
+
+        function addLoadingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = 'chat-bubble chat-ai shadow-sm';
+            div.id = 'loading-' + Date.now();
+            div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            return div.id;
+        }
+
+        function removeMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // --- SIMPLIFICADOR ---
+        async function handleSimplify() {
+            const input = document.getElementById('simplifier-input');
+            const textToSimplify = input.value.trim();
+            const btn = document.getElementById('simplify-btn');
+            const outputContainer = document.getElementById('simplifier-output');
+            const outputContent = document.getElementById('simplifier-content');
+
+            if (!textToSimplify) return;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traduciendo...';
+            outputContainer.classList.add('hidden');
+
+            try {
+                const prompt = `Simplifica este texto legal para que cualquier persona pueda entenderlo, usa un tono respetuoso y claro: "${textToSimplify}"`;
+                const response = await callGeminiAPI(prompt, "simplify");
+                outputContent.innerHTML = marked.parse(response);
+                outputContainer.classList.remove('hidden');
+            } catch (error) {
+                alert("Error al procesar el texto.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-magic text-hmgold-600"></i> Simplificar Ahora';
+            }
+        }
+
+        // --- API CALL ---
+        async function callGeminiAPI(promptText, type) {
+            const systemInstruction = type === "chat" 
+                ? "Eres un asistente legal experto en Derecho Indígena Chileno (Ley 19.253, Convenio 169). Responde de forma breve, clara y amable. Tu objetivo es orientar, no litigar."
+                : ""; 
+
+            const payload = { contents: [{ parts: [{ text: promptText }] }] };
+            if (type === 'chat') payload.contents[0].parts[0].text = systemInstruction + "\n\nUsuario: " + promptText;
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error('Error API');
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
+        }
+    </script>
+</body>
+</html>

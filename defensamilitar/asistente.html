@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Asistente Jurídico | HM Legal</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Markdown Parser (Para formatear respuestas de IA) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3 { font-family: 'Merriweather', serif; }
+
+    .military-gradient { background: linear-gradient(160deg, #0f1f16 0%, #1a3c2b 100%); }
+
+    /* Animaciones */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+
+    /* Scrollbar personalizada */
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f5f5f4; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #c5a059; border-radius: 3px; }
+
+    /* Evita “descuadres” por palabras largas/markdown */
+    .safe-wrap, .safe-wrap * {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            military: {
+              950: '#05100a',
+              900: '#0f1f16',
+              800: '#1a3c2b',
+              50:  '#f0fdf4'
+            },
+            insignia: {
+              600: '#8a6a2e',
+              500: '#c5a059',
+              400: '#dcc68f',
+              100: '#fcf8eb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-stone-100 min-h-screen relative overflow-x-hidden">
+
+  <!-- Fondos -->
+  <div class="fixed inset-0 military-gradient opacity-95 -z-10"></div>
+  <div class="fixed inset-0 -z-10 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+
+  <!-- LAYOUT FULL WIDTH -->
+  <div class="relative z-10 min-h-screen flex flex-col">
+
+    <!-- Top nav (simple) -->
+    <header class="w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <a href="/defensamilitar/index.html"
+           class="inline-flex items-center text-stone-300 hover:text-white text-sm transition group">
+          <i class="fa-solid fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
+          Volver a HM Legal
+        </a>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="w-full flex-1">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+
+        <!-- Contenedor principal: ahora ancho y con scroll natural -->
+        <div class="bg-white/95 backdrop-blur shadow-2xl border-t-4 border-insignia-500 rounded-sm overflow-visible">
+
+          <!-- HEADER -->
+          <div class="p-8 text-center border-b border-stone-100 bg-white relative">
+            <img src="/defensamilitar/imagenes/logo.png" alt="Logo HM Legal"
+                 class="h-14 w-auto mx-auto mb-4 object-contain">
+            <h1 class="text-2xl font-bold text-military-900">Centro de Operaciones Legal IA</h1>
+            <p class="text-stone-500 text-xs mt-2 uppercase tracking-widest">
+              Defensa Militar &bull; Derecho Administrativo
+            </p>
+          </div>
+
+          <!-- VISTA 1: LOGIN -->
+          <section id="view-login" class="p-8">
+            <div class="grid lg:grid-cols-2 gap-10 items-start">
+              <div class="max-w-xl">
+                <p class="text-stone-600 text-sm mb-6 text-justify leading-relaxed">
+                  Acceda a nuestra suite de herramientas de inteligencia artificial diseñadas para el análisis de reglamentos, sumarios y estrategia de defensa.
+                </p>
+
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6">
+                  <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-shield-halved text-amber-600 mt-1"></i>
+                    <div>
+                      <h4 class="text-xs font-bold text-amber-800 uppercase">Protocolo de Seguridad</h4>
+                      <p class="text-[11px] text-amber-700 mt-1 text-justify">
+                        No ingrese nombres reales, RUTs ni información clasificada ("Secreto Militar") en las herramientas de IA.
+                        Utilice nombres ficticios (ej: "Capitán X").
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="max-w-xl">
+                <form onsubmit="unlockSystem(event)" class="space-y-4">
+                  <div>
+                    <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Credencial (Nombre)</label>
+                    <input type="text" id="userName" required
+                           class="w-full px-4 py-3 border border-stone-200 bg-stone-50 rounded-sm focus:border-military-900 focus:ring-1 focus:ring-military-900 outline-none transition text-sm text-military-900 font-semibold">
+                  </div>
+
+                  <div>
+                    <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Correo Institucional / Personal</label>
+                    <input type="email" required
+                           class="w-full px-4 py-3 border border-stone-200 bg-stone-50 rounded-sm focus:border-military-900 outline-none transition text-sm">
+                  </div>
+
+                  <div class="py-2">
+                    <div class="inline-flex items-center gap-3 px-3 py-2 bg-white border border-stone-200 rounded shadow-sm w-full">
+                      <input type="checkbox" id="captcha-check"
+                             class="w-4 h-4 text-military-900 rounded border-stone-300 focus:ring-military-900">
+                      <label for="captcha-check" class="text-xs text-stone-600 select-none cursor-pointer flex-1">
+                        Verificación Humana
+                      </label>
+                      <div class="opacity-50"><i class="fa-solid fa-robot"></i></div>
+                    </div>
+                  </div>
+
+                  <button type="submit"
+                          class="w-full bg-military-900 hover:bg-military-800 text-white font-bold py-4 rounded-sm shadow-lg transition flex items-center justify-center gap-2 text-sm tracking-widest uppercase group">
+                    Acceder al Panel
+                    <i class="fa-solid fa-lock-open group-hover:text-insignia-500 transition"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          <!-- VISTA 2: DASHBOARD -->
+          <section id="view-dashboard" class="hidden bg-stone-50 animate-fade-in">
+            <!-- Barra Superior Usuario -->
+            <div class="bg-white border-b border-stone-200 px-6 py-3 flex justify-between items-center sticky top-0 z-20">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-xs font-bold text-military-900 uppercase">
+                  Sesión Activa: <span id="displayUser" class="text-stone-500 font-normal">Usuario</span>
+                </span>
+              </div>
+              <button onclick="location.reload()"
+                      class="text-[10px] text-stone-400 hover:text-red-600 transition uppercase tracking-wider">
+                <i class="fa-solid fa-power-off mr-1"></i> Salir
+              </button>
+            </div>
+
+            <!-- Contenido: ahora a ancho completo y con mejor distribución -->
+            <div class="p-6 lg:p-8 grid gap-6 lg:grid-cols-2 items-start">
+
+              <!-- MÓDULO 1 -->
+              <div class="bg-gradient-to-r from-military-900 to-military-800 rounded-sm shadow-lg p-6 text-white relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition transform group-hover:scale-110 duration-500">
+                  <i class="fa-solid fa-brain text-9xl"></i>
+                </div>
+                <div class="relative z-10">
+                  <div class="inline-block bg-insignia-600 text-[10px] font-bold px-2 py-0.5 rounded mb-3 text-white">RECOMENDADO</div>
+                  <h3 class="text-xl font-serif font-bold mb-2 text-insignia-500">Asistente Estratégico (GPT-4)</h3>
+                  <p class="text-sm text-stone-300 mb-6 max-w-xl text-justify">
+                    Modelo entrenado específicamente en la jurisprudencia de HM Legal. Ideal para construir teoría del caso y analizar estrategia de defensa.
+                  </p>
+                  <a href="https://chatgpt.com/g/g-693ef9a40c308191b641277149dda68d-hm-legal-abogado-senior-en-defensa-militar"
+                     target="_blank"
+                     class="inline-flex items-center bg-white text-military-900 px-5 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wide hover:bg-insignia-100 transition shadow-md gap-2">
+                    Abrir Chat Seguro <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- MÓDULO 2 -->
+              <div class="bg-white border border-stone-200 rounded-sm shadow-sm p-6">
+                <div class="flex items-center gap-3 mb-4 border-b border-stone-100 pb-3">
+                  <div class="w-8 h-8 bg-blue-50 text-blue-700 rounded flex items-center justify-center">
+                    <i class="fa-solid fa-file-shield"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-military-900 uppercase">Decodificador de Resoluciones</h3>
+                    <p class="text-[10px] text-stone-500">Tecnología Gemini Flash</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <label class="block text-xs text-stone-600 font-medium">
+                    Pegue aquí el extracto del dictamen, resolución o notificación:
+                  </label>
+
+                  <textarea id="inputText" rows="6"
+                            class="w-full p-3 bg-stone-50 border border-stone-300 rounded-sm text-xs text-military-900 focus:border-insignia-500 focus:ring-0 transition custom-scroll resize-y"
+                            placeholder="Ej: 'Se resuelve aplicar la medida disciplinaria de...'"></textarea>
+
+                  <button id="analyzeBtn" onclick="analyzeTextMock()"
+                          class="w-full bg-white border border-stone-300 text-stone-600 hover:text-insignia-600 hover:border-insignia-500 font-bold py-2 rounded-sm transition text-xs flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Analizar e Interpretar
+                  </button>
+
+                  <!-- Resultado -->
+                  <div id="outputArea"
+                       class="hidden mt-4 bg-insignia-100/50 border border-insignia-200 rounded-sm p-4 animate-fade-in custom-scroll overflow-auto max-h-[46vh]">
+                    <h4 class="text-xs font-bold text-insignia-600 mb-2 uppercase">
+                      <i class="fa-solid fa-check-circle mr-1"></i> Análisis Simplificado:
+                    </h4>
+
+                    <!-- safe-wrap: evita descuadres por markdown/palabras -->
+                    <div id="outputText"
+                         class="safe-wrap text-xs text-stone-700 text-justify leading-relaxed prose prose-sm max-w-none"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Footer Interno -->
+            <div class="bg-stone-100 p-3 text-center border-t border-stone-200">
+              <p class="text-[9px] text-stone-400">HM Legal &copy; 2026 | Sistema en fase Beta</p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    function unlockSystem(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('userName').value;
+      const captcha = document.getElementById('captcha-check');
+      const btn = e.target.querySelector('button');
+
+      if (!captcha.checked) {
+        alert("Por favor confirme que no es un robot.");
+        return;
+      }
+
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> AUTENTICANDO...';
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+
+      setTimeout(() => {
+        document.getElementById('view-login').classList.add('hidden');
+        document.getElementById('view-dashboard').classList.remove('hidden');
+        document.getElementById('displayUser').textContent = nameInput;
+      }, 900);
+    }
+
+    async function analyzeTextMock() {
+      const input = document.getElementById('inputText').value;
+      const btn = document.getElementById('analyzeBtn');
+      const outputArea = document.getElementById('outputArea');
+      const outputText = document.getElementById('outputText');
+
+      if (!input.trim()) {
+        alert("Por favor ingrese un texto para analizar.");
+        return;
+      }
+
+      btn.disabled = true;
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-insignia-600"></i> Procesando con Gemini...';
+
+      await new Promise(r => setTimeout(r, 1200));
+
+      const mockResponse = `
+**Interpretación Técnica:**
+El texto ingresado refiere a un procedimiento administrativo sancionatorio.
+
+**Puntos Clave:**
+1. **Hecho:** Se está notificando una sanción o inicio de proceso.
+2. **Plazo:** Recuerde que tiene 5 días fatales para presentar descargos o reposición.
+3. **Acción Recomendada:** No firme conformidad sin leer. Ponga "Recibido conforme" e inmediatamente contacte a defensa técnica.
+
+*Nota: Este análisis es automático y preliminar.*
+      `;
+
+      outputText.innerHTML = marked.parse(mockResponse);
+      outputArea.classList.remove('hidden');
+
+      btn.innerHTML = originalContent;
+      btn.disabled = false;
+
+      // Opcional: bajar hacia el resultado en pantallas chicas
+      outputArea.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+</body>
+</html>

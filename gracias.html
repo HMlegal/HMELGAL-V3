@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud Recibida | HM Legal Group</title>
+    <meta name="description" content="Hemos recibido su solicitud. Un especialista de HM Legal Group le contactará a la brevedad.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hm: {
+                            dark: '#020617',  // Slate 950
+                            primary: '#0f172a', // Slate 900
+                            accent: '#c5a059', // Gold
+                            light: '#f8fafc',
+                            surface: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-color: #020617;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .success-icon-bg {
+            background: radial-gradient(circle, rgba(197, 160, 89, 0.2) 0%, rgba(2, 6, 23, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-hm-dark text-slate-300 font-sans antialiased h-full flex flex-col">
+
+    <!-- HERO SECTION / MAIN CONTENT -->
+    <section class="flex-grow relative flex items-center justify-center overflow-hidden hero-pattern p-6">
+        <!-- Abstract Decoration -->
+        <div class="absolute top-1/4 right-0 w-[600px] h-[600px] bg-hm-accent/5 rounded-full blur-[120px] -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[100px] -z-10"></div>
+
+        <div class="max-w-xl w-full relative z-10 text-center animate-fade-in-up">
+            
+            <!-- Logo -->
+            <div class="flex items-center justify-center gap-3 mb-10">
+                <div class="w-12 h-12 bg-gradient-to-br from-hm-accent to-amber-700 rounded-sm flex items-center justify-center text-white font-serif font-bold text-2xl shadow-lg border border-white/10">
+                    H
+                </div>
+                <div class="flex flex-col text-left">
+                    <span class="text-white font-bold text-xl tracking-tight leading-none">HM LEGAL</span>
+                    <span class="text-[10px] text-hm-accent uppercase tracking-[0.2em]">Group</span>
+                </div>
+            </div>
+
+            <!-- Success Card -->
+            <div class="glass-card rounded-2xl p-10 shadow-2xl border-t border-white/10 relative overflow-hidden">
+                <!-- Top Accent Line -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-hm-accent to-transparent"></div>
+                
+                <!-- Icon -->
+                <div class="w-20 h-20 mx-auto rounded-full border-2 border-emerald-500/30 flex items-center justify-center text-emerald-400 text-3xl mb-6 success-icon-bg shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <h1 class="text-3xl font-serif font-bold text-white mb-4">¡Solicitud Recibida!</h1>
+                
+                <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                    Gracias por contactar a <strong>HM Legal Group</strong>. Hemos recibido sus datos correctamente.
+                    <br><br>
+                    Un especialista en infraestructura legal analizará su requerimiento y se pondrá en contacto con usted dentro de las próximas <strong>24 horas hábiles</strong> para coordinar los siguientes pasos.
+                </p>
+
+                <div class="flex flex-col gap-4">
+                    <a href="index.html" class="w-full px-8 py-3 bg-hm-accent hover:bg-white hover:text-hm-dark text-hm-dark font-bold rounded transition shadow-lg flex items-center justify-center gap-2 group">
+                        <span>Volver al Inicio</span> <i class="fas fa-home group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    
+                    <a href="https://calendly.com/contacto-hmlegal" target="_blank" rel="noopener noreferrer" class="w-full px-8 py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-medium rounded transition flex items-center justify-center gap-2 text-sm">
+                        <i class="far fa-calendar-alt"></i> Agendar reunión directamente ahora
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer links -->
+            <div class="mt-8 text-xs text-slate-500">
+                <p>&copy; <span id="year"></span> HM Legal Group. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

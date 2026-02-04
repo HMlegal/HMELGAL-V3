@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM Legal | El Derecho Evolucionado</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .active-nav {
+            background-color: #1e293b;
+            color: white;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        /* Estilo tipo expediente papel para el Ebook */
+        .ebook-page {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-image: linear-gradient(to right, #f1f5f9 0%, #ffffff 5%, #ffffff 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-screen flex overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-400 flex flex-col flex-shrink-0 transition-all duration-300 z-30 shadow-xl">
+        <div class="p-6 border-b border-slate-800">
+            <div class="flex items-center gap-3 text-white cursor-pointer" onclick="router('dashboard')">
+                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg font-bold text-lg">HM</div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-tight">HM Legal</h1>
+                    <p class="text-[10px] text-blue-400 uppercase tracking-widest font-semibold">Derecho Evolucionado</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-6 space-y-1">
+            <div class="px-4 mb-2 text-xs font-bold uppercase tracking-wider text-slate-600">Gestión</div>
+            <button onclick="router('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors">
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard
+            </button>
+            <button onclick="router('pjud')" id="nav-pjud" class="nav-item w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors">
+                <i data-lucide="scale" size="18"></i> Control Causas
+            </button>
+            <button onclick="router('firmas')" id="nav-firmas" class="nav-item w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors">
+                <i data-lucide="pen-tool" size="18"></i> Centro de Firmas
+            </button>
+
+            <div class="px-4 mt-6 mb-2 text-xs font-bold uppercase tracking-wider text-slate-600">Inteligencia</div>
+            <button onclick="router('ai')" id="nav-ai" class="nav-item w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors">
+                <i data-lucide="bot" size="18"></i> Iuris AI
+            </button>
+            <button onclick="router('commercial')" id="nav-commercial" class="nav-item w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors">
+                <i data-lucide="database" size="18"></i> Data Corp
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-slate-800 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">AD</div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-white truncate">Administrador</p>
+                <p class="text-xs text-slate-500 truncate">admin@hmlegal.cl</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-100">
+        <!-- Topbar -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shadow-sm z-20">
+            <div class="flex items-center gap-4 text-slate-500">
+                <span id="page-title" class="text-lg font-bold text-slate-800">Vista General</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-slate-400 hover:text-slate-600">
+                    <i data-lucide="bell" size="20"></i>
+                    <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dynamic View -->
+        <div id="app-view" class="flex-1 overflow-y-auto p-8 relative">
+            <!-- Content Injected via JS -->
+        </div>
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- 1. MOCK DATA ---
+        
+        const CAUSAS = [
+            { id: 101, rit: "C-1234-2023", tribunal: "1º Juzgado Civil Santiago", caratula: "Banco Santander / Constructora Andes", estado: "Término Probatorio", ultTramite: "Interlocutoria de Prueba", fecha: "Hoy 09:30", alerta: true, tipo: "Civil" },
+            { id: 102, rit: "O-550-2024", tribunal: "Juzgado Letras del Trabajo", caratula: "Pérez / Inversiones Norte", estado: "Audiencia Preparatoria", ultTramite: "Citación a Audiencia", fecha: "Ayer 15:45", alerta: true, tipo: "Laboral" },
+            { id: 103, rit: "P-440-2024", tribunal: "4º Garantía Santiago", caratula: "MP / González", estado: "Investigación", ultTramite: "Ampliación plazo", fecha: "18 Ene", alerta: false, tipo: "Penal" }
+        ];
+
+        const AUDIENCIAS = [
+            { date: "Hoy", time: "11:00", tribunal: "1º JC Stgo", caratula: "Santander / Andes", tipo: "Comparendo" },
+            { date: "Mañana", time: "09:30", tribunal: "JL Trabajo", caratula: "Pérez / Inv. Norte", tipo: "Preparatoria" },
+            { date: "22 Ene", time: "10:00", tribunal: "C. Apelaciones", caratula: "Recurso Protección", tipo: "Alegatos" },
+            { date: "25 Ene", time: "12:00", tribunal: "2º JC", caratula: "Ejecutivo Cobro", tipo: "Remate" }
+        ];
+
+        const AI_MODELS = {
+            militar: { name: "Abogado Senior en Defensa Militar", desc: "Especialista en defensa administrativa y disciplinaria militar. Análisis de Códigos de Justicia Militar y reglamentos institucionales.", color: "bg-green-600" },
+            indigena: { name: "Derecho Indígena y Territorial", desc: "Experto en Ley Indígena 19.253, Convenio 169 OIT y defensa territorial.", color: "bg-orange-600" },
+            penal: { name: "Litigante Penal & DD.HH.", desc: "Construcción de teoría del caso, litigación estratégica y garantías fundamentales.", color: "bg-red-600" }
+        };
+
+        let currentPjudTab = 'alertas';
+
+        // --- 2. ROUTING ---
+
+        function router(view, params = null) {
+            const container = document.getElementById('app-view');
+            const title = document.getElementById('page-title');
+            
+            // Nav Active State
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('active-nav', 'bg-slate-800', 'text-white');
+                el.classList.add('text-slate-400');
+            });
+            const active = document.getElementById(`nav-${view}`);
+            if(active) {
+                active.classList.add('active-nav');
+                active.classList.remove('text-slate-400');
+            }
+
+            container.innerHTML = ''; // Clear
+
+            if(view === 'dashboard') {
+                title.textContent = 'Dashboard Ejecutivo';
+                renderDashboard(container);
+            } else if (view === 'pjud') {
+                title.textContent = 'Control de Causas PJUD';
+                renderPjud(container);
+            } else if (view === 'pjud-detail') {
+                title.textContent = `Expediente Digital: ${params.rit}`;
+                renderPjudDetail(container, params);
+            } else if (view === 'firmas') {
+                title.textContent = 'Centro de Firmas';
+                renderFirmas(container);
+            } else if (view === 'trazabilidad') {
+                title.textContent = 'Trazabilidad Documental';
+                renderTrazabilidad(container, params);
+            } else if (view === 'ai') {
+                title.textContent = 'Iuris AI';
+                renderAI(container);
+            } else if (view === 'commercial') {
+                title.textContent = 'Data Corp (InfoCheck)';
+                renderCommercial(container);
+            }
+            lucide.createIcons();
+        }
+
+        // --- 3. VIEWS ---
+
+        // DASHBOARD
+        function renderDashboard(container) {
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 fade-in">
+                    <!-- Column 1: Stats & Alerts -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
+                                <i data-lucide="activity" class="text-blue-500"></i> Resumen Diario
+                            </h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <span class="text-3xl font-bold text-blue-700">12</span>
+                                    <p class="text-xs text-blue-600 font-medium uppercase mt-1">Notificaciones</p>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <span class="text-3xl font-bold text-red-600">3</span>
+                                    <p class="text-xs text-red-500 font-medium uppercase mt-1">Plazos Fatales</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
+                                <i data-lucide="alert-triangle" class="text-orange-500"></i> Alertas Críticas
+                            </h3>
+                            <div class="space-y-3">
+                                ${CAUSAS.filter(c => c.alerta).map(c => `
+                                    <div class="flex items-start gap-3 p-3 bg-orange-50/50 rounded-lg border border-orange-100">
+                                        <div class="mt-1"><i data-lucide="clock" size="14" class="text-orange-600"></i></div>
+                                        <div>
+                                            <p class="text-sm font-bold text-slate-800">${c.rit}</p>
+                                            <p class="text-xs text-slate-600">${c.ultTramite}</p>
+                                            <button onclick="router('pjud-detail', {rit:'${c.rit}', id:${c.id}})" class="text-xs text-blue-600 underline mt-1">Ver Causa</button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Calendar Expanded -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                                <i data-lucide="calendar-days" class="text-purple-500"></i> Agenda de Audiencias
+                            </h3>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1 rounded text-slate-600 transition">Ver Calendario Completo</button>
+                        </div>
+                        <div class="space-y-4">
+                            ${AUDIENCIAS.map(aud => `
+                                <div class="flex items-center gap-4 p-4 border-l-4 border-purple-500 bg-slate-50 rounded-r-lg hover:bg-white hover:shadow-md transition-all">
+                                    <div class="w-16 text-center">
+                                        <p class="text-xs font-bold text-slate-400 uppercase">${aud.date}</p>
+                                        <p class="text-lg font-bold text-slate-800">${aud.time}</p>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-slate-800">${aud.caratula}</h4>
+                                        <p class="text-sm text-slate-500">${aud.tribunal} • ${aud.tipo}</p>
+                                    </div>
+                                    <button class="p-2 text-slate-400 hover:text-purple-600"><i data-lucide="more-horizontal"></i></button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // CONTROL DE CAUSAS (PJUD)
+        function renderPjud(container) {
+            const isAlertas = currentPjudTab === 'alertas';
+            
+            const alertasContent = `
+                <div class="space-y-3">
+                    ${CAUSAS.map(c => `
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-all flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">
+                                    ${c.tipo.substring(0,2).toUpperCase()}
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-slate-800">${c.rit}</span>
+                                        <span class="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded">${c.tribunal}</span>
+                                    </div>
+                                    <p class="text-sm text-slate-600 mt-0.5">Nuevo Movimiento: <strong>${c.ultTramite}</strong></p>
+                                    <p class="text-xs text-slate-400">${c.fecha}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded hover:bg-slate-50">
+                                    <i data-lucide="download" size="14"></i> Escrito
+                                </button>
+                                <button onclick="router('pjud-detail', {rit:'${c.rit}', id:${c.id}})" class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
+                                    Ver Caso
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            const manualContent = `
+                <div class="space-y-4">
+                    <div class="flex gap-2 bg-white p-2 rounded-lg border border-slate-200">
+                        <input type="text" placeholder="Buscar por RIT, Carátula o RUT..." class="flex-1 bg-transparent px-4 py-2 text-sm outline-none">
+                        <button class="bg-slate-900 text-white px-4 py-2 rounded text-sm font-medium flex items-center gap-2">
+                            <i data-lucide="search" size="16"></i> Buscar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-3">RIT</th>
+                                    <th class="px-6 py-3">Carátula</th>
+                                    <th class="px-6 py-3">Estado</th>
+                                    <th class="px-6 py-3 text-right">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${CAUSAS.map(c => `
+                                    <tr class="hover:bg-slate-50 group">
+                                        <td class="px-6 py-3 font-medium text-slate-900">${c.rit}</td>
+                                        <td class="px-6 py-3 text-slate-600">${c.caratula}</td>
+                                        <td class="px-6 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">${c.estado}</span></td>
+                                        <td class="px-6 py-3 text-right">
+                                            <div class="relative inline-block text-left">
+                                                <button class="text-slate-400 hover:text-blue-600"><i data-lucide="more-horizontal"></i></button>
+                                                <!-- Mock Dropdown (visible on hover for demo) -->
+                                                <div class="hidden group-hover:block absolute right-0 z-10 mt-0 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                    <div class="py-1">
+                                                        <a href="#" class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Delegar Caso</a>
+                                                        <a href="#" class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Revisar Escritos</a>
+                                                        <a href="#" class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100">Presentar Escrito</a>
+                                                        <a href="#" onclick="router('pjud-detail', {rit:'${c.rit}', id:${c.id}})" class="block px-4 py-2 text-xs text-blue-700 font-bold hover:bg-gray-100">Ir al Ebook</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = `
+                <div class="flex flex-col gap-6 fade-in">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">Control de Causas</h2>
+                            <p class="text-slate-500 text-sm">Conexión directa Poder Judicial</p>
+                        </div>
+                        <button class="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 font-medium">
+                            <i data-lucide="refresh-cw" size="16"></i> Actualizar PJUD
+                        </button>
+                    </div>
+
+                    <div class="border-b border-slate-200">
+                        <nav class="-mb-px flex space-x-8">
+                            <button onclick="currentPjudTab='alertas'; router('pjud')" class="${isAlertas ? 'border-blue-500 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2">
+                                <i data-lucide="bell" size="16"></i> Alertas y Movimientos
+                            </button>
+                            <button onclick="currentPjudTab='manual'; router('pjud')" class="${!isAlertas ? 'border-blue-500 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'} whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2">
+                                <i data-lucide="search" size="16"></i> Seguimiento por Caso
+                            </button>
+                        </nav>
+                    </div>
+
+                    ${isAlertas ? alertasContent : manualContent}
+                </div>
+            `;
+        }
+
+        // DETALLE DE CAUSA (EBOOK)
+        function renderPjudDetail(container, params) {
+            const causa = CAUSAS.find(c => c.id === params.id) || CAUSAS[0];
+            
+            container.innerHTML = `
+                <div class="fade-in h-full flex flex-col">
+                    <div class="mb-4 flex items-center gap-2 text-sm text-slate-500">
+                        <button onclick="router('pjud')" class="hover:text-slate-800">Control de Causas</button>
+                        <i data-lucide="chevron-right" size="14"></i>
+                        <span>${causa.rit}</span>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden">
+                        <!-- Header Expediente -->
+                        <div class="bg-slate-800 text-white p-6 flex justify-between items-start">
+                            <div>
+                                <h2 class="text-2xl font-bold">${causa.caratula}</h2>
+                                <div class="flex items-center gap-4 mt-2 text-sm text-slate-300">
+                                    <span class="bg-slate-700 px-2 py-1 rounded text-xs font-mono">${causa.rit}</span>
+                                    <span>${causa.tribunal}</span>
+                                    <span class="flex items-center gap-1"><div class="w-2 h-2 bg-green-400 rounded-full"></div> ${causa.estado}</span>
+                                </div>
+                            </div>
+                            <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition">
+                                <i data-lucide="book-open" size="16"></i> Abrir Ebook Completo
+                            </button>
+                        </div>
+
+                        <div class="flex flex-1 overflow-hidden">
+                            <!-- Sidebar Expediente -->
+                            <div class="w-64 bg-slate-50 border-r border-slate-200 overflow-y-auto p-4">
+                                <h4 class="font-bold text-slate-700 text-xs uppercase mb-3">Índice del Expediente</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center gap-2 text-blue-600 font-medium bg-blue-50 p-2 rounded cursor-pointer">
+                                        <i data-lucide="file-text" size="14"></i> 1. Demanda
+                                    </li>
+                                    <li class="flex items-center gap-2 text-slate-600 hover:bg-slate-100 p-2 rounded cursor-pointer">
+                                        <i data-lucide="file" size="14"></i> 2. Resolución
+                                    </li>
+                                    <li class="flex items-center gap-2 text-slate-600 hover:bg-slate-100 p-2 rounded cursor-pointer">
+                                        <i data-lucide="mail" size="14"></i> 3. Notificación
+                                    </li>
+                                    <li class="flex items-center gap-2 text-slate-600 hover:bg-slate-100 p-2 rounded cursor-pointer">
+                                        <i data-lucide="file-text" size="14"></i> 4. Contestación
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Viewer (Simulado) -->
+                            <div class="flex-1 bg-slate-200 p-8 overflow-y-auto flex justify-center">
+                                <div class="ebook-page bg-white w-full max-w-3xl min-h-[800px] p-12 text-slate-800">
+                                    <div class="text-center mb-8 border-b border-slate-800 pb-4">
+                                        <h3 class="text-xl font-serif font-bold uppercase">En Lo Principal: Demanda Ordinaria</h3>
+                                        <p class="font-serif italic mt-2">S.J.L en lo Civil (${causa.tribunal})</p>
+                                    </div>
+                                    <div class="text-justify font-serif text-sm leading-relaxed space-y-4">
+                                        <p><strong>JUAN PÉREZ</strong>, abogado, por la parte demandante en autos caratulados <strong>"${causa.caratula}"</strong>, RIT <strong>${causa.rit}</strong>, a US. respetuosamente digo:</p>
+                                        <p>Que vengo en interponer demanda...</p>
+                                        <div class="h-32 bg-slate-50 border border-dashed border-slate-300 flex items-center justify-center text-slate-400 mt-8">
+                                            [Vista Previa del Documento]
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // CENTRO DE FIRMAS
+        function renderFirmas(container) {
+            const docs = [
+                { id: 1, name: "Contrato Prestación Servicios", type: "Contrato", signers: ["Juan Pérez", "Maria Soto"], status: "Pendiente", date: "Hace 2 horas" },
+                { id: 2, name: "Mandato Judicial Amplio", type: "Mandato", signers: ["Roberto Gómez"], status: "Firmado", date: "Ayer" },
+                { id: 3, name: "NDA - Proyecto Fusión", type: "Acuerdo", signers: ["Empresa A", "Empresa B"], status: "Firmado", date: "05 Ene" }
+            ];
+
+            container.innerHTML = `
+                <div class="space-y-6 fade-in">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-slate-800">Centro de Firmas</h2>
+                        <button class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-slate-800">
+                            <i data-lucide="plus" size="16"></i> Nuevo Envío
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4">Documento</th>
+                                    <th class="px-6 py-4">Tipo</th>
+                                    <th class="px-6 py-4">Firmantes</th>
+                                    <th class="px-6 py-4">Estado</th>
+                                    <th class="px-6 py-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${docs.map(d => `
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-6 py-4 font-medium flex items-center gap-3">
+                                            <div class="p-2 bg-red-50 text-red-600 rounded"><i data-lucide="file-text" size="16"></i></div>
+                                            ${d.name}
+                                        </td>
+                                        <td class="px-6 py-4 text-slate-500">${d.type}</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex -space-x-2">
+                                                ${d.signers.map(s => `<div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-[10px] font-bold" title="${s}">${s.charAt(0)}</div>`).join('')}
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 rounded text-xs font-bold ${d.status === 'Firmado' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}">${d.status}</span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button onclick="router('trazabilidad', {id:${d.id}, name:'${d.name}'})" class="text-blue-600 hover:underline text-xs font-medium">Ver Trazabilidad</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTrazabilidad(container, params) {
+            container.innerHTML = `
+                <div class="fade-in max-w-4xl mx-auto space-y-6">
+                    <button onclick="router('firmas')" class="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800">
+                        <i data-lucide="arrow-left" size="16"></i> Volver
+                    </button>
+
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-8">
+                        <div class="flex justify-between items-start border-b border-slate-100 pb-6 mb-8">
+                            <div>
+                                <h2 class="text-2xl font-bold text-slate-800">${params.name}</h2>
+                                <p class="text-sm text-slate-500 mt-1">ID Auditoría: 9988-ASD-22</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50">
+                                    <i data-lucide="file" size="16"></i> Ver Documento
+                                </button>
+                                <button class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+                                    <i data-lucide="shield-check" size="16"></i> Certificado Firma
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-8 border-l-2 border-slate-200 space-y-8">
+                            <div class="relative">
+                                <div class="absolute -left-[39px] top-0 w-6 h-6 bg-green-500 rounded-full border-4 border-white shadow-sm"></div>
+                                <h4 class="font-bold text-slate-800">Proceso Completado</h4>
+                                <p class="text-xs text-slate-500">Hoy, 10:30 AM</p>
+                                <p class="text-sm text-slate-600 mt-1">Documento sellado con estampa de tiempo notarial.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[39px] top-0 w-6 h-6 bg-blue-500 rounded-full border-4 border-white shadow-sm"></div>
+                                <h4 class="font-bold text-slate-800">Firma Juan Pérez</h4>
+                                <p class="text-xs text-slate-500">Ayer, 18:45 PM • IP 192.168.1.1</p>
+                                <p class="text-sm text-slate-600 mt-1">Validación biometría facial exitosa.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[39px] top-0 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm"></div>
+                                <h4 class="font-bold text-slate-800">Envío Realizado</h4>
+                                <p class="text-xs text-slate-500">Ayer, 09:00 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // IURIS AI
+        function renderAI(container) {
+            container.innerHTML = `
+                <div class="fade-in h-[calc(100vh-140px)] flex flex-col bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="bg-slate-50 p-4 border-b border-slate-200 flex justify-between items-center">
+                        <div class="flex items-center gap-2 font-bold text-slate-700">
+                            <i data-lucide="sparkles" class="text-purple-600"></i> Iuris AI
+                        </div>
+                        <select id="ai-selector" class="bg-white border border-slate-300 text-sm rounded-lg p-2 outline-none w-64" onchange="updateAIContext()">
+                            <option value="militar">Abogado Defensa Militar</option>
+                            <option value="indigena">Derecho Indígena</option>
+                            <option value="penal">Litigante Penal Estratégico</option>
+                        </select>
+                    </div>
+
+                    <div id="chat-box" class="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/50">
+                        <!-- Mensaje Inicial Dinámico -->
+                    </div>
+
+                    <div class="p-4 bg-white border-t border-slate-200">
+                        <div class="relative">
+                            <input type="text" id="ai-input" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-12 py-3 text-sm focus:ring-2 focus:ring-purple-500 outline-none" placeholder="Escribe tu consulta jurídica aquí...">
+                            <button onclick="sendAIMessage()" class="absolute right-2 top-2 p-1.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                                <i data-lucide="send" size="16"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            updateAIContext(); // Init
+        }
+
+        function updateAIContext() {
+            const modelKey = document.getElementById('ai-selector').value;
+            const model = AI_MODELS[modelKey];
+            const chatBox = document.getElementById('chat-box');
+            
+            chatBox.innerHTML = `
+                <div class="flex gap-4">
+                    <div class="w-8 h-8 rounded-full ${model.color} flex items-center justify-center text-white flex-shrink-0">
+                        <i data-lucide="bot" size="16"></i>
+                    </div>
+                    <div class="space-y-2 max-w-[80%]">
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm text-sm text-slate-700">
+                            <p class="font-bold mb-1">${model.name}</p>
+                            <p>${model.desc}</p>
+                            <p class="mt-2 text-slate-500 text-xs">Desarrollado por HM Legal. <a href="#" class="text-blue-500 underline">Ver ficha técnica</a></p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('ai-input');
+            const chatBox = document.getElementById('chat-box');
+            if(!input.value) return;
+
+            // User
+            chatBox.insertAdjacentHTML('beforeend', `
+                <div class="flex gap-4 flex-row-reverse fade-in">
+                    <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 flex-shrink-0"><i data-lucide="user" size="16"></i></div>
+                    <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-none text-sm shadow-sm max-w-[80%]">${input.value}</div>
+                </div>
+            `);
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Bot Thinking
+            setTimeout(() => {
+                const modelKey = document.getElementById('ai-selector').value;
+                let reply = "Analizando jurisprudencia...";
+                if(modelKey === 'militar') reply = "Según el Código de Justicia Militar, debemos revisar la competencia del tribunal en base a la naturaleza del delito.";
+                if(modelKey === 'indigena') reply = "Basado en el Convenio 169 de la OIT, es fundamental acreditar la ocupación ancestral del predio para la defensa territorial.";
+                if(modelKey === 'penal') reply = "Para la teoría del caso, sugiero solicitar la exclusión de prueba por vulneración de garantías fundamentales en la cadena de custodia.";
+
+                chatBox.insertAdjacentHTML('beforeend', `
+                    <div class="flex gap-4 fade-in">
+                        <div class="w-8 h-8 rounded-full ${AI_MODELS[modelKey].color} flex items-center justify-center text-white flex-shrink-0"><i data-lucide="bot" size="16"></i></div>
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm text-sm text-slate-700 max-w-[80%]">
+                            ${reply}
+                        </div>
+                    </div>
+                `);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                lucide.createIcons();
+            }, 1000);
+        }
+
+        // DATA CORP
+        function renderCommercial(container) {
+            container.innerHTML = `
+                <div class="fade-in space-y-6 max-w-5xl mx-auto">
+                    <!-- Search -->
+                    <div class="flex flex-col items-center py-8">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Inteligencia Comercial (InfoCheck)</h2>
+                        <div class="relative w-full max-w-xl mt-4">
+                            <input type="text" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 shadow-lg shadow-blue-900/5 outline-none focus:ring-2 focus:ring-blue-500" placeholder="RUT Empresa o Persona...">
+                            <i data-lucide="search" class="absolute left-3 top-3.5 text-slate-400" size="18"></i>
+                            <button onclick="document.getElementById('report-result').classList.remove('hidden')" class="absolute right-2 top-2 bg-slate-900 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-800">Consultar</button>
+                        </div>
+                    </div>
+
+                    <!-- Report Result (Hidden initially) -->
+                    <div id="report-result" class="hidden fade-in space-y-6">
+                        <!-- Header Report -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex justify-between items-start">
+                            <div class="flex gap-4">
+                                <div class="w-16 h-16 bg-slate-100 rounded-lg flex items-center justify-center"><i data-lucide="building-2" size="32" class="text-slate-400"></i></div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800">INVERSIONES Y CONSTRUCCIONES LOS ALERCES SPA</h3>
+                                    <p class="text-sm text-slate-500">RUT: 76.555.444-9</p>
+                                    <div class="flex gap-2 mt-2">
+                                        <span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold">Activa SII</span>
+                                        <span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded text-xs font-bold">Riesgo Medio</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-slate-400">Puntaje Crediticio</p>
+                                <p class="text-3xl font-bold text-slate-800">750<span class="text-sm text-slate-400 font-normal">/999</span></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Activos -->
+                            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 mb-4 flex items-center gap-2"><i data-lucide="briefcase" class="text-blue-500"></i> Activos Consolidados</h4>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                                        <div class="flex items-center gap-3">
+                                            <div class="bg-green-100 p-2 rounded"><i data-lucide="home" size="16" class="text-green-600"></i></div>
+                                            <div>
+                                                <p class="text-xs font-bold uppercase text-slate-500">Propiedades (5)</p>
+                                                <p class="font-bold text-slate-800">$1.240.000.000</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                                        <div class="flex items-center gap-3">
+                                            <div class="bg-blue-100 p-2 rounded"><i data-lucide="truck" size="16" class="text-blue-600"></i></div>
+                                            <div>
+                                                <p class="text-xs font-bold uppercase text-slate-500">Vehículos (8)</p>
+                                                <p class="font-bold text-slate-800">$86.500.000</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2 border-t border-slate-100 flex justify-between text-sm">
+                                        <span class="font-medium text-slate-600">Total Activos</span>
+                                        <span class="font-bold text-slate-900">$1.326.500.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Morosidad -->
+                            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                <h4 class="font-bold text-slate-700 mb-4 flex items-center gap-2"><i data-lucide="alert-circle" class="text-red-500"></i> Comportamiento Financiero</h4>
+                                <div class="space-y-4">
+                                    <div class="p-3 border border-red-100 bg-red-50/50 rounded-lg">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="font-bold text-red-700">Morosidad Bancaria</span>
+                                            <span class="font-bold text-red-700">$15.450.000</span>
+                                        </div>
+                                        <p class="text-xs text-red-600">Banco de Chile • 45 días mora</p>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                                        <span class="text-slate-600">Boletín Concursal</span>
+                                        <span class="text-green-600 font-bold">Sin Antecedentes</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                                        <span class="text-slate-600">Infracciones Laborales</span>
+                                        <span class="text-slate-800 font-bold">2 ($1.5M)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Socios -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-slate-700 mb-4">Malla Societaria</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-3 border border-slate-200 rounded-lg flex justify-between items-center">
+                                    <span class="text-sm font-medium text-slate-700">Juan Pérez Cotapos</span>
+                                    <span class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">60%</span>
+                                </div>
+                                <div class="p-3 border border-slate-200 rounded-lg flex justify-between items-center">
+                                    <span class="text-sm font-medium text-slate-700">Inversiones Sur Ltda.</span>
+                                    <span class="text-xs bg-slate-100 px-2 py-1 rounded font-bold">40%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="text-sm text-blue-600 font-medium hover:underline flex items-center justify-center gap-1">
+                                <i data-lucide="download" size="14"></i> Descargar Informe PDF Completo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            router('dashboard');
+        });
+
+    </script>
+</body>
+</html>
