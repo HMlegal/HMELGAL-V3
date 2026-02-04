@@ -1,604 +1,495 @@
 <!DOCTYPE html>
-<html lang="es-CL" class="scroll-smooth">
+<html lang="es-CL">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM Legal | Defensa Militar Especializada</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Asesoría jurídica integral en defensa administrativa y disciplinaria militar. Especializada para oficiales y personal militar.">
+    <meta name="keywords" content="abogado militar concepcion, defensa sumario administrativo ejercito, descargos disciplinarios, justicia militar, corte marcial">
+    <meta name="author" content="HM Legal">
+    <meta name="robots" content="index, follow">
 
-  <title data-es="HM Legal | Defensa Militar" data-en="HM Legal | Military Defense">
-    HM Legal | Defensa Militar
-  </title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Calendly Widget CSS -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
-  <meta name="description"
-        content="Defensa administrativa y disciplinaria para personal militar. Estrategia, plazos y prueba." />
+    <!-- Fonts: Merriweather (Serif) & Inter (Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'azul-marino': '#0B2945',
-            'azul-petroleo': '#1E5E73',
-            'verde-azulado': '#1FA093',
-            'gris-oscuro': '#4A4A4A',
-            'gris-claro': '#F0F2F5',
-            'blanco': '#FFFFFF',
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'system-ui', 'sans-serif']
-          },
-          boxShadow: { soft: '0 12px 30px rgba(0,0,0,.08)' }
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Merriweather', serif; }
+        
+        /* --- PALETA MILITAR CHILENA --- */
+        .military-gradient { 
+            background: linear-gradient(160deg, #0f1f16 0%, #1a3c2b 100%); 
         }
-      }
-    }
-  </script>
+        
+        /* Efecto de Fondo Militar (Ruta Actualizada) */
+        .hero-bg {
+            background-image: url('/defensamilitar/imagenes/fondo1.png');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+        }
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+        /* Botón Flotante Asistente */
+        .fab-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            animation: pulse-gold 3s infinite;
+        }
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+        
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
 
-  <style>
-    section[id]{ scroll-margin-top: 96px; }
+        /* Custom File Input */
+        .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; cursor: pointer; }
+        .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer;}
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
 
-    /* Hero background: MISMA LÓGICA (imagen + overlay) */
-    .hero {
-      background-image: url('/defensamilitar/imagenes/fondo1.png');
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(11,41,69,.88) 0%, rgba(11,41,69,.70) 55%, rgba(11,41,69,.55) 100%);
-    }
-
-    /* Floating assistant */
-    .fab-assistant{
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 60;
-      box-shadow: 0 12px 30px rgba(0,0,0,.22);
-    }
-  </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        military: {
+                            950: '#05100a',
+                            900: '#0f1f16',
+                            800: '#1a3c2b',
+                            700: '#2e5040',
+                            100: '#f0fdf4',
+                        },
+                        insignia: {
+                            600: '#8a6a2e',
+                            500: '#c5a059',
+                            400: '#dcc68f',
+                            100: '#fcf8eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Calendly Script -->
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-military-900 selection:text-white">
 
-<body class="bg-gris-claro text-gris-oscuro font-sans">
+    <!-- Navbar (Blanca y sin "HM Legal") -->
+    <nav class="bg-white border-b border-stone-200 fixed w-full z-50 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center gap-4 group">
+                        <!-- Logo Image (Ruta Actualizada) -->
+                        <img src="/defensamilitar/imagenes/logo.png" alt="Logo HM Legal" class="h-16 w-auto object-contain drop-shadow-sm group-hover:opacity-90 transition">
+                        
+                        <div class="flex flex-col justify-center border-l border-stone-300 pl-4 h-10">
+                            <!-- Solo "Defensa Militar" -->
+                            <span class="font-serif font-bold text-military-900 text-xl leading-none tracking-tight uppercase">Defensa Militar</span>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#servicios" class="text-sm font-semibold text-stone-600 hover:text-military-900 transition tracking-wide">SERVICIOS</a>
+                    
+                    <!-- Enlace Asistente (Ruta Actualizada) -->
+                    <a href="/defensamilitar/asistente.html" class="text-sm font-semibold text-stone-600 hover:text-insignia-600 transition tracking-wide flex items-center gap-2 group">
+                        <i class="fa-solid fa-robot text-stone-400 group-hover:text-insignia-500 transition"></i> ASISTENTE JURÍDICO
+                    </a>
 
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 bg-blanco/90 backdrop-blur border-b border-black/5">
-    <div class="max-w-7xl mx-auto px-5 lg:px-8">
-      <div class="h-20 flex items-center justify-between gap-4">
+                    <!-- Calendly -->
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contacto-hmlegal'});return false;" class="text-sm font-semibold text-stone-600 hover:text-military-900 transition flex items-center gap-2 tracking-wide">
+                        AGENDAR HORA
+                    </button>
 
-        <!-- Brand -->
-        <a href="/desfensamilitar/index.html" class="flex items-center gap-3">
-          <img src="/defensamilitar/imagenes/logo.png" alt="HM Legal" class="h-10 w-auto">
-          <div class="hidden sm:block leading-tight">
-            <div class="font-serif font-bold text-azul-marino"
-                 data-es="Defensa Militar"
-                 data-en="Military Defense">Defensa Militar</div>
-            <div class="text-xs text-gris-oscuro/70"
-                 data-es="Defensa administrativa y disciplinaria"
-                 data-en="Administrative & disciplinary defense">
-              Defensa administrativa y disciplinaria
+                    <!-- CTA Principal -->
+                    <a href="#contacto-opciones" class="bg-military-900 text-white px-6 py-3 rounded-sm text-sm font-medium hover:bg-military-800 transition shadow-lg flex items-center gap-2 border border-military-900 tracking-wide">
+                        <i class="fa-solid fa-file-contract text-insignia-400"></i> EVALUAR CASO
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-stone-600 hover:text-military-900 p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-          </div>
-        </a>
-
-        <!-- Desktop menu -->
-        <nav class="hidden md:flex items-center gap-7 text-sm font-bold">
-          <a href="#servicios" class="text-azul-marino/80 hover:text-azul-marino transition"
-             data-es="Servicios" data-en="Services">Servicios</a>
-
-          <a href="#metodo" class="text-azul-marino/80 hover:text-azul-marino transition"
-             data-es="Método" data-en="Method">Método</a>
-
-          <a href="#contacto" class="text-azul-marino/80 hover:text-azul-marino transition"
-             data-es="Contacto" data-en="Contact">Contacto</a>
-
-          <a href="/defensamilitar/asistente.html"
-             class="inline-flex items-center gap-2 text-azul-marino/80 hover:text-verde-azulado transition">
-            <i class="fa-solid fa-robot"></i>
-            <span data-es="Asistente" data-en="Assistant">Asistente</span>
-          </a>
-
-          <button type="button" onclick="toggleLanguage()"
-                  class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-black/10 bg-white hover:bg-gris-claro transition text-xs font-extrabold"
-                  aria-label="Cambiar idioma">
-            <i class="fa-solid fa-globe text-azul-marino"></i>
-            <span id="langBadge">EN</span>
-          </button>
-        </nav>
-
-        <!-- Mobile button -->
-        <button type="button" class="md:hidden text-azul-marino p-2" onclick="toggleMobileMenu()" aria-label="Abrir menú">
-          <i class="fa-solid fa-bars text-2xl"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-black/5">
-      <div class="max-w-7xl mx-auto px-5 py-5 space-y-4">
-        <a href="#servicios" class="block font-bold text-azul-marino"
-           data-es="Servicios" data-en="Services">Servicios</a>
-        <a href="#metodo" class="block font-bold text-azul-marino"
-           data-es="Método" data-en="Method">Método</a>
-        <a href="#contacto" class="block font-bold text-azul-marino"
-           data-es="Contacto" data-en="Contact">Contacto</a>
-        <a href="/defensamilitar/asistente.html" class="block font-bold text-azul-marino">
-          <i class="fa-solid fa-robot mr-2 text-verde-azulado"></i>
-          <span data-es="Asistente" data-en="Assistant">Asistente</span>
-        </a>
-        <button type="button" onclick="toggleLanguage()"
-                class="w-full inline-flex items-center justify-center gap-2 px-3 py-3 rounded-full border border-black/10 bg-gris-claro hover:bg-white transition text-xs font-extrabold">
-          <i class="fa-solid fa-globe text-azul-marino"></i>
-          <span id="langBadgeMobile" data-es="Cambiar a Inglés" data-en="Switch to Spanish">Cambiar a Inglés</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero" id="inicio">
-    <div class="relative max-w-7xl mx-auto px-5 lg:px-8 py-20 lg:py-28">
-      <div class="grid lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/10 text-xs font-extrabold text-white/90">
-            <i class="fa-solid fa-shield-halved text-verde-azulado"></i>
-            <span data-es="Estrategia, prueba y plazos" data-en="Strategy, evidence & deadlines">Estrategia, prueba y plazos</span>
-          </div>
-
-          <h1 class="mt-5 text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-            <span data-es="Defensa Militar" data-en="Military Defense">Defensa Militar</span>
-            <span class="block text-white/85 text-2xl md:text-3xl font-serif font-bold mt-2"
-                  data-es="Administrativa y disciplinaria"
-                  data-en="Administrative & disciplinary">
-              Administrativa y disciplinaria
-            </span>
-          </h1>
-
-          <p class="mt-5 text-white/85 text-lg leading-relaxed max-w-2xl"
-             data-es="Asesoría y representación en investigaciones, sumarios y procedimientos disciplinarios. Enfoque sobrio: hechos verificables, control de plazos y estrategia probatoria."
-             data-en="Counsel and representation in investigations and disciplinary proceedings. A sober approach: verifiable facts, deadline control, and evidence strategy.">
-            Asesoría y representación en investigaciones, sumarios y procedimientos disciplinarios. Enfoque sobrio: hechos verificables, control de plazos y estrategia probatoria.
-          </p>
-
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="#contacto"
-               class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-verde-azulado text-blanco font-extrabold hover:bg-azul-petroleo transition shadow-soft">
-              <i class="fa-solid fa-file-signature"></i>
-              <span data-es="Evaluar mi caso" data-en="Review my case">Evaluar mi caso</span>
-            </a>
-
-            <a href="/defensamilitar/asistente.html"
-               class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/10 text-white font-extrabold hover:bg-white/15 transition border border-white/10">
-              <i class="fa-solid fa-robot"></i>
-              <span data-es="Usar asistente" data-en="Use assistant">Usar asistente</span>
-            </a>
-          </div>
-
-          <div class="mt-10 grid sm:grid-cols-3 gap-4">
-            <div class="bg-white/10 border border-white/10 rounded-xl p-4 text-white/90">
-              <div class="font-extrabold" data-es="Plazos" data-en="Deadlines">Plazos</div>
-              <div class="text-sm text-white/75" data-es="Identificación de hitos y fechas críticas." data-en="Critical dates and milestones mapping.">
-                Identificación de hitos y fechas críticas.
-              </div>
-            </div>
-            <div class="bg-white/10 border border-white/10 rounded-xl p-4 text-white/90">
-              <div class="font-extrabold" data-es="Prueba" data-en="Evidence">Prueba</div>
-              <div class="text-sm text-white/75" data-es="Plan probatorio y narrativa coherente." data-en="Evidence plan and coherent narrative.">
-                Plan probatorio y narrativa coherente.
-              </div>
-            </div>
-            <div class="bg-white/10 border border-white/10 rounded-xl p-4 text-white/90">
-              <div class="font-extrabold" data-es="Estrategia" data-en="Strategy">Estrategia</div>
-              <div class="text-sm text-white/75" data-es="Ruta realista según riesgos y objetivos." data-en="Realistic route based on risks and goals.">
-                Ruta realista según riesgos y objetivos.
-              </div>
-            </div>
-          </div>
         </div>
-
-        <div class="lg:col-span-5">
-          <div class="bg-blanco/95 rounded-2xl shadow-soft border border-black/5 p-8">
-            <div class="text-xs font-extrabold tracking-widest uppercase text-azul-marino/70"
-                 data-es="Qué incluye la evaluación"
-                 data-en="What the assessment includes">
-              Qué incluye la evaluación
-            </div>
-
-            <h2 class="mt-3 text-2xl font-serif font-bold text-azul-marino"
-                data-es="Diagnóstico y ruta"
-                data-en="Diagnosis and route">
-              Diagnóstico y ruta
-            </h2>
-
-            <ul class="mt-6 space-y-3 text-sm text-gris-oscuro">
-              <li class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-verde-azulado mt-1"></i>
-                <span data-es="Revisión del estado del procedimiento y competencia."
-                      data-en="Review of the current stage and jurisdiction.">
-                  Revisión del estado del procedimiento y competencia.
-                </span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-verde-azulado mt-1"></i>
-                <span data-es="Identificación de plazos y riesgos inmediatos."
-                      data-en="Identification of deadlines and immediate risks.">
-                  Identificación de plazos y riesgos inmediatos.
-                </span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-verde-azulado mt-1"></i>
-                <span data-es="Estrategia probatoria y próximos pasos."
-                      data-en="Evidence strategy and next steps.">
-                  Estrategia probatoria y próximos pasos.
-                </span>
-              </li>
-            </ul>
-
-            <a href="#servicios"
-               class="mt-8 inline-flex items-center gap-2 font-extrabold text-azul-petroleo hover:text-verde-azulado transition">
-              <span data-es="Ver servicios" data-en="See services">Ver servicios</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="py-20 bg-blanco" id="servicios">
-    <div class="max-w-7xl mx-auto px-5 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-3xl md:text-4xl font-serif font-bold text-azul-marino"
-            data-es="Servicios" data-en="Services">Servicios</h2>
-        <p class="mt-5 text-gris-oscuro/80 leading-relaxed"
-           data-es="Defensa orientada a resultados: hechos, prueba y control de plazos."
-           data-en="Outcome-oriented defense: facts, evidence, and deadline control.">
-          Defensa orientada a resultados: hechos, prueba y control de plazos.
-        </p>
-      </div>
-
-      <div class="mt-12 grid md:grid-cols-3 gap-8">
-        <div class="p-8 bg-gris-claro rounded-2xl border border-black/5 shadow-soft">
-          <div class="text-3xl text-azul-marino"><i class="fa-solid fa-scale-balanced"></i></div>
-          <h3 class="mt-5 font-extrabold text-azul-marino"
-              data-es="Defensa en sumarios"
-              data-en="Defense in proceedings">Defensa en sumarios</h3>
-          <p class="mt-3 text-sm text-gris-oscuro/80"
-             data-es="Descargos, acompañamiento y estrategia probatoria según expediente."
-             data-en="Written defenses, support, and evidence strategy based on the file.">
-            Descargos, acompañamiento y estrategia probatoria según expediente.
-          </p>
-        </div>
-
-        <div class="p-8 bg-gris-claro rounded-2xl border border-black/5 shadow-soft">
-          <div class="text-3xl text-azul-marino"><i class="fa-solid fa-file-lines"></i></div>
-          <h3 class="mt-5 font-extrabold text-azul-marino"
-              data-es="Escritos y presentaciones"
-              data-en="Briefs & submissions">Escritos y presentaciones</h3>
-          <p class="mt-3 text-sm text-gris-oscuro/80"
-             data-es="Redacción técnica: hechos verificables + norma + prueba."
-             data-en="Technical drafting: verifiable facts + rules + evidence.">
-            Redacción técnica: hechos verificables + norma + prueba.
-          </p>
-        </div>
-
-        <div class="p-8 bg-gris-claro rounded-2xl border border-black/5 shadow-soft">
-          <div class="text-3xl text-azul-marino"><i class="fa-solid fa-shield"></i></div>
-          <h3 class="mt-5 font-extrabold text-azul-marino"
-              data-es="Estrategia de impugnación"
-              data-en="Appeal strategy">Estrategia de impugnación</h3>
-          <p class="mt-3 text-sm text-gris-oscuro/80"
-             data-es="Revisión de sanciones y rutas recursivas cuando proceda."
-             data-en="Review of sanctions and appeal routes when applicable.">
-            Revisión de sanciones y rutas recursivas cuando proceda.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- METHOD -->
-  <section class="py-20" id="metodo">
-    <div class="max-w-7xl mx-auto px-5 lg:px-8">
-      <div class="grid lg:grid-cols-12 gap-10 items-start">
-        <div class="lg:col-span-5">
-          <h2 class="text-3xl font-serif font-bold text-azul-marino"
-              data-es="Método de trabajo"
-              data-en="Working method">Método de trabajo</h2>
-          <p class="mt-4 text-gris-oscuro/80 leading-relaxed"
-             data-es="Ordenamos el caso en 3 pasos: diagnóstico, estrategia y ejecución. Sin humo: foco en hechos, prueba y plazos."
-             data-en="We structure the case in 3 steps: assessment, strategy, and execution. No fluff: focus on facts, evidence, and deadlines.">
-            Ordenamos el caso en 3 pasos: diagnóstico, estrategia y ejecución. Sin humo: foco en hechos, prueba y plazos.
-          </p>
-        </div>
-
-        <div class="lg:col-span-7">
-          <div class="grid md:grid-cols-3 gap-5">
-            <div class="bg-blanco rounded-2xl border border-black/5 shadow-soft p-6">
-              <div class="w-10 h-10 rounded-full bg-verde-azulado text-blanco font-extrabold flex items-center justify-center">1</div>
-              <div class="mt-4 font-extrabold text-azul-marino" data-es="Diagnóstico" data-en="Assessment">Diagnóstico</div>
-              <div class="mt-2 text-sm text-gris-oscuro/80" data-es="Antecedentes, fechas, riesgos y objetivos." data-en="Records, dates, risks, and goals.">
-                Antecedentes, fechas, riesgos y objetivos.
-              </div>
-            </div>
-
-            <div class="bg-blanco rounded-2xl border border-black/5 shadow-soft p-6">
-              <div class="w-10 h-10 rounded-full bg-verde-azulado text-blanco font-extrabold flex items-center justify-center">2</div>
-              <div class="mt-4 font-extrabold text-azul-marino" data-es="Estrategia" data-en="Strategy">Estrategia</div>
-              <div class="mt-2 text-sm text-gris-oscuro/80" data-es="Teoría del caso + plan probatorio + escritos." data-en="Case theory + evidence plan + submissions.">
-                Teoría del caso + plan probatorio + escritos.
-              </div>
-            </div>
-
-            <div class="bg-blanco rounded-2xl border border-black/5 shadow-soft p-6">
-              <div class="w-10 h-10 rounded-full bg-verde-azulado text-blanco font-extrabold flex items-center justify-center">3</div>
-              <div class="mt-4 font-extrabold text-azul-marino" data-es="Ejecución" data-en="Execution">Ejecución</div>
-              <div class="mt-2 text-sm text-gris-oscuro/80" data-es="Seguimiento, hitos, plazos y cierre." data-en="Follow-up, milestones, deadlines, and closure.">
-                Seguimiento, hitos, plazos y cierre.
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-7 bg-azul-marino text-white rounded-2xl p-6 shadow-soft flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <div class="text-xs uppercase tracking-widest font-extrabold text-white/70"
-                   data-es="Siguiente paso" data-en="Next step">Siguiente paso</div>
-              <div class="mt-1 font-semibold"
-                   data-es="Envíenos un mensaje o use el asistente para ordenar su situación."
-                   data-en="Send us a message or use the assistant to structure your situation.">
-                Envíenos un mensaje o use el asistente para ordenar su situación.
-              </div>
-            </div>
-            <a href="#contacto"
-               class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-verde-azulado text-blanco font-extrabold hover:bg-azul-petroleo transition">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span data-es="Iniciar evaluación" data-en="Start review">Iniciar evaluación</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="py-20 bg-blanco" id="contacto">
-    <div class="max-w-7xl mx-auto px-5 lg:px-8">
-      <div class="grid lg:grid-cols-12 gap-10 items-start">
-        <div class="lg:col-span-5">
-          <h2 class="text-3xl font-serif font-bold text-azul-marino" data-es="Contacto" data-en="Contact">Contacto</h2>
-          <p class="mt-4 text-gris-oscuro/80 leading-relaxed"
-             data-es="Cuéntenos su situación y le respondemos con pasos sugeridos. Si lo prefiere, use el asistente para ordenar antecedentes."
-             data-en="Tell us your situation and we’ll reply with suggested steps. If you prefer, use the assistant to organize your information.">
-            Cuéntenos su situación y le respondemos con pasos sugeridos. Si lo prefiere, use el asistente para ordenar antecedentes.
-          </p>
-
-          <div class="mt-8 space-y-4 text-sm">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-gris-claro border border-black/5 flex items-center justify-center text-azul-marino">
-                <i class="fa-solid fa-envelope"></i>
-              </div>
-              <div>
-                <div class="text-xs uppercase tracking-widest font-extrabold text-gris-oscuro/60" data-es="Correo" data-en="Email">Correo</div>
-                <a href="mailto:contacto@hmlegal.cl" class="font-extrabold text-azul-marino hover:text-verde-azulado transition">
-                  contacto@hmlegal.cl
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-100">
+            <div class="px-6 pt-4 pb-6 space-y-4">
+                <a href="#servicios" class="block text-stone-700 font-bold uppercase text-sm">Servicios</a>
+                <!-- Enlace Asistente Móvil (Ruta Actualizada) -->
+                <a href="/defensamilitar/asistente.html" class="block text-stone-700 font-bold uppercase text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-robot text-insignia-600"></i> Asistente Jurídico IA
                 </a>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-gris-claro border border-black/5 flex items-center justify-center text-azul-marino">
-                <i class="fa-solid fa-location-dot"></i>
-              </div>
-              <div>
-                <div class="text-xs uppercase tracking-widest font-extrabold text-gris-oscuro/60" data-es="Cobertura" data-en="Coverage">Cobertura</div>
-                <div class="font-semibold text-gris-oscuro/80"
-                     data-es="Chile (atención nacional online)"
-                     data-en="Chile (nationwide online service)">
-                  Chile (atención nacional online)
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-8">
-            <a href="/defensamilitar/asistente.html"
-               class="inline-flex items-center gap-2 font-extrabold text-azul-petroleo hover:text-verde-azulado transition">
-              <i class="fa-solid fa-robot"></i>
-              <span data-es="Ir al asistente" data-en="Go to assistant">Ir al asistente</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <div class="lg:col-span-7">
-          <div class="bg-gris-claro border border-black/5 rounded-2xl p-8 shadow-soft">
-            <div class="flex items-center justify-between gap-4">
-              <h3 class="text-xl font-extrabold text-azul-marino" data-es="Envíanos un mensaje" data-en="Send us a message">Envíanos un mensaje</h3>
-              <div class="text-xs font-extrabold text-gris-oscuro/60 uppercase tracking-widest"
-                   data-es="Defensa Militar" data-en="Military Defense">Defensa Militar</div>
-            </div>
-
-            <!-- Netlify Form -->
-            <form name="defensamilitar-contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="mt-6 space-y-5">
-              <input type="hidden" name="form-name" value="defensamilitar-contacto" />
-              <p class="hidden">
-                <label>Don’t fill this out: <input name="bot-field" /></label>
-              </p>
-
-              <div class="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-xs font-extrabold uppercase tracking-widest text-gris-oscuro/60"
-                         data-es="Nombre" data-en="Name">Nombre</label>
-                  <input name="nombre" required
-                         class="mt-2 w-full p-3 rounded-xl border border-black/10 bg-white focus:outline-none focus:ring-2 focus:ring-verde-azulado"
-                         placeholder="Juan Pérez">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-extrabold uppercase tracking-widest text-gris-oscuro/60"
-                         data-es="Correo" data-en="Email">Correo</label>
-                  <input name="correo" type="email" required
-                         class="mt-2 w-full p-3 rounded-xl border border-black/10 bg-white focus:outline-none focus:ring-2 focus:ring-verde-azulado"
-                         placeholder="correo@dominio.cl">
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold uppercase tracking-widest text-gris-oscuro/60"
-                       data-es="Mensaje" data-en="Message">Mensaje</label>
-                <textarea name="mensaje" rows="6" required
-                          class="mt-2 w-full p-3 rounded-xl border border-black/10 bg-white focus:outline-none focus:ring-2 focus:ring-verde-azulado"
-                          data-es-placeholder="Explique brevemente el contexto, el estado del procedimiento y fechas relevantes."
-                          data-en-placeholder="Briefly explain the context, the current stage, and relevant dates."
-                          placeholder="Explique brevemente el contexto, el estado del procedimiento y fechas relevantes."></textarea>
-              </div>
-
-              <div class="flex flex-col sm:flex-row gap-3">
-                <button type="submit"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-azul-marino text-white font-extrabold hover:bg-azul-petroleo transition shadow-soft">
-                  <i class="fa-solid fa-paper-plane text-verde-azulado"></i>
-                  <span data-es="Enviar" data-en="Send">Enviar</span>
+                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contacto-hmlegal'});return false;" class="block w-full text-left text-stone-700 font-bold uppercase text-sm">
+                    Agendar Reunión
                 </button>
-
-                <a href="/defensamilitar/asistente.html"
-                   class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white border border-black/10 text-azul-marino font-extrabold hover:bg-gris-claro transition">
-                  <i class="fa-solid fa-robot text-verde-azulado"></i>
-                  <span data-es="Usar asistente" data-en="Use assistant">Usar asistente</span>
+                <a href="#contacto-opciones" class="block w-full text-center bg-military-900 text-white px-4 py-3 rounded font-bold uppercase text-sm">
+                    Evaluar Caso
                 </a>
-              </div>
-
-              <p class="text-xs text-gris-oscuro/70 leading-relaxed"
-                 data-es="Aviso: orientación general. La estrategia final depende de la revisión del expediente y antecedentes."
-                 data-en="Notice: general guidance. Final strategy depends on reviewing the file and records.">
-                Aviso: orientación general. La estrategia final depende de la revisión del expediente y antecedentes.
-              </p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-azul-marino text-white/80 border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-12">
-      <div class="grid md:grid-cols-3 gap-10">
-        <div>
-          <div class="flex items-center gap-3">
-            <img src="/defensamilitar/imagenes/logo.png" alt="HM Legal" class="h-10 w-auto">
-            <div class="leading-tight">
-              <div class="font-serif font-bold text-white" data-es="Defensa Militar" data-en="Military Defense">Defensa Militar</div>
-              <div class="text-xs text-white/70">HM Legal</div>
             </div>
-          </div>
-          <p class="mt-4 text-sm text-white/70"
-             data-es="Asesoría y defensa en procedimientos administrativos y disciplinarios. Atención nacional online."
-             data-en="Counsel and defense in administrative and disciplinary procedures. Nationwide online service.">
-            Asesoría y defensa en procedimientos administrativos y disciplinarios. Atención nacional online.
-          </p>
         </div>
+    </nav>
 
-        <div>
-          <div class="text-xs font-extrabold uppercase tracking-widest text-white/70"
-               data-es="Accesos" data-en="Access">Accesos</div>
-          <ul class="mt-4 space-y-3 text-sm text-white/75">
-            <li><a class="hover:text-white transition" href="/desfensamilitar/index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
-            <li><a class="hover:text-white transition" href="/defensamilitar/asistente.html" data-es="Asistente" data-en="Assistant">Asistente</a></li>
-            <li><a class="hover:text-white transition" href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
-          </ul>
+    <!-- Botón Flotante (Asistente) (Ruta Actualizada) -->
+    <a href="/defensamilitar/asistente.html" class="fab-assistant bg-military-900 text-white w-14 h-14 rounded-full flex items-center justify-center hover:bg-military-800 transition hover:scale-110 group border-2 border-insignia-500" title="Abrir Asistente Jurídico">
+        <i class="fa-solid fa-robot text-2xl group-hover:rotate-12 transition"></i>
+        <!-- Tooltip -->
+        <span class="absolute right-16 bg-white text-military-900 text-xs font-bold px-3 py-2 rounded shadow-md w-max max-w-xs text-right opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none border border-stone-200">
+            Asistente IA: Análisis profundo Defensa Militar
+        </span>
+    </a>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-black">
+        <div class="absolute inset-0 hero-bg opacity-50"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-military-950 via-military-900/80 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <div class="inline-flex items-center gap-2 py-1 px-3 rounded bg-military-800/80 border border-military-600 backdrop-blur-sm mb-6">
+                        <span class="w-2 h-2 rounded-full bg-insignia-500 animate-pulse"></span>
+                        <span class="text-insignia-100 text-[10px] font-bold tracking-widest uppercase">Derecho Administrativo Militar &bull; Disciplinario</span>
+                    </div>
+                    
+                    <h1 class="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight font-serif shadow-sm">
+                        Defensa Jurídica Integral: <span class="text-transparent bg-clip-text bg-gradient-to-r from-insignia-400 to-insignia-600">Legalidad y Debido Proceso</span>.
+                    </h1>
+                    
+                    <!-- Texto Justificado -->
+                    <p class="text-lg text-stone-300 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light border-l-2 border-insignia-600 pl-4 text-justify">
+                        Estrategia legal especializada para oficiales y personal militar. Análisis riguroso de jurisprudencia administrativa y judicial para garantizar el ejercicio del derecho a defensa técnica.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contacto-opciones" class="px-8 py-4 bg-insignia-600 hover:bg-insignia-500 text-white font-semibold rounded-sm shadow-xl transition flex items-center justify-center gap-3 tracking-wide">
+                            <i class="fa-solid fa-file-pen"></i>
+                            INICIAR DEFENSA
+                        </a>
+                        
+                        <div class="relative group">
+                            <!-- Enlace Asistente (Ruta Actualizada) -->
+                            <a href="/defensamilitar/asistente.html" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/10 hover:border-insignia-500/50 text-white font-medium rounded-sm transition flex items-center justify-center gap-3 backdrop-blur-sm tracking-wide w-full sm:w-auto">
+                                <i class="fa-solid fa-robot text-insignia-500 group-hover:text-white transition"></i>
+                                PROBAR ASISTENTE IA
+                            </a>
+                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-64 bg-military-900 text-white text-xs p-3 rounded shadow-xl opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none text-center border border-insignia-500 z-20">
+                                Nuestro modelo más avanzado de asistente IA especializado en Defensa Militar.
+                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-8 border-transparent border-t-military-900"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div>
-          <div class="text-xs font-extrabold uppercase tracking-widest text-white/70"
-               data-es="Legales" data-en="Legal">Legales</div>
-          <ul class="mt-4 space-y-3 text-sm text-white/75">
-            <li><a class="hover:text-white transition" href="/defensamilitar/legales/terminos.html"
-                   data-es="Términos" data-en="Terms">Términos</a></li>
-            <li><a class="hover:text-white transition" href="/defensamilitar/legales/politica.html"
-                   data-es="Política" data-en="Privacy">Política</a></li>
-          </ul>
+    <!-- Value Proposition -->
+    <section class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-serif font-bold text-military-900 mb-4">Defensa Técnica y Sobria</h2>
+                <div class="h-1 w-20 bg-insignia-500 mx-auto rounded-full"></div>
+                <p class="text-stone-600 max-w-2xl mx-auto mt-6 text-justify lg:text-center">Nuestra defensa se construye sobre el estudio riguroso del expediente, los reglamentos institucionales y la normativa vigente.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Benefit 1 -->
+                <div class="p-8 bg-stone-50 rounded-sm border-l-4 border-military-900 hover:border-insignia-500 transition duration-300 group shadow-sm hover:shadow-lg">
+                    <div class="text-military-800 text-4xl mb-6 group-hover:scale-110 transition-transform duration-500"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h3 class="text-lg font-bold text-military-900 mb-3 uppercase tracking-wide">Jurisprudencia Actualizada</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed text-justify">Integración de los últimos criterios de la Corte Suprema y Contraloría General de la República en cada escrito.</p>
+                </div>
+                <!-- Benefit 2 -->
+                <div class="p-8 bg-stone-50 rounded-sm border-l-4 border-military-900 hover:border-insignia-500 transition duration-300 group shadow-sm hover:shadow-lg">
+                    <div class="text-military-800 text-4xl mb-6 group-hover:scale-110 transition-transform duration-500"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-lg font-bold text-military-900 mb-3 uppercase tracking-wide">Auditoría del Mando</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed text-justify">Defensa técnica ante imputaciones de responsabilidad, analizando nexo causal, delegación y subjetividad.</p>
+                </div>
+                <!-- Benefit 3 -->
+                <div class="p-8 bg-stone-50 rounded-sm border-l-4 border-military-900 hover:border-insignia-500 transition duration-300 group shadow-sm hover:shadow-lg">
+                    <div class="text-military-800 text-4xl mb-6 group-hover:scale-110 transition-transform duration-500"><i class="fa-solid fa-lock"></i></div>
+                    <h3 class="text-lg font-bold text-military-900 mb-3 uppercase tracking-wide">Reserva Absoluta</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed text-justify">Protocolos estrictos de confidencialidad y encriptación. Entendemos la sensibilidad de la carrera militar.</p>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/60">
-        <p>&copy; <span id="year"></span> HM Legal.</p>
-        <p data-es="Diseñado con estándares de ética profesional."
-           data-en="Designed with professional ethics standards.">
-          Diseñado con estándares de ética profesional.
-        </p>
-      </div>
-    </div>
-  </footer>
+    <!-- Services Section -->
+    <section id="servicios" class="py-24 bg-stone-100 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 flex flex-col md:flex-row md:items-start justify-between gap-10">
+                <div class="md:w-5/12">
+                    <span class="text-insignia-600 font-bold tracking-[0.2em] uppercase text-xs block mb-2">Áreas de Práctica</span>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-military-900">Servicios Jurídicos Especializados</h2>
+                </div>
+                <div class="md:w-7/12">
+                     <div class="border-l-4 border-insignia-500 pl-6 py-1">
+                        <p class="text-stone-600 text-sm leading-relaxed text-justify">
+                            Entendemos profundamente la <strong>cultura y doctrina militar</strong>. Nuestro enfoque preventivo y contencioso administrativo está diseñado para proteger su carrera funcionaria, ejerciendo una defensa técnica rigurosa que resguarde su <strong>imagen y honor</strong>, protegiendo en todo momento sus intereses de <strong>continuidad en el servicio</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-  <!-- Floating Assistant -->
-  <a href="/defensamilitar/asistente.html"
-     class="fab-assistant inline-flex items-center gap-2 px-5 py-3 rounded-full bg-verde-azulado text-white font-extrabold hover:bg-azul-petroleo transition">
-    <i class="fa-solid fa-robot"></i>
-    <span class="hidden sm:inline" data-es="Asistente" data-en="Assistant">Asistente</span>
-  </a>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service Cards -->
+                <div class="bg-white p-8 border border-stone-200 hover:border-insignia-500 transition hover:shadow-xl group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-stone-50 rounded-bl-full -mr-8 -mt-8 transition group-hover:bg-insignia-100"></div>
+                    <h3 class="text-lg font-bold text-military-900 mb-4 relative z-10">Descargos Disciplinarios</h3>
+                    <ul class="space-y-3 text-stone-600 text-sm relative z-10">
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Redacción de escritos.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Análisis fáctico y jurídico.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Solicitud de diligencias.</li>
+                    </ul>
+                </div>
 
-  <script>
-    // Mobile menu
-    function toggleMobileMenu(){
-      document.getElementById('mobileMenu').classList.toggle('hidden');
-    }
+                <div class="bg-white p-8 border border-stone-200 hover:border-insignia-500 transition hover:shadow-xl group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-stone-50 rounded-bl-full -mr-8 -mt-8 transition group-hover:bg-insignia-100"></div>
+                    <h3 class="text-lg font-bold text-military-900 mb-4 relative z-10">Recursos Administrativos</h3>
+                    <ul class="space-y-3 text-stone-600 text-sm relative z-10">
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Reposición y Apelación.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Reclamación CGR.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Vicios de Legalidad.</li>
+                    </ul>
+                </div>
 
-    // Bilingual
-    let CURRENT_LANG = 'es';
+                <div class="bg-white p-8 border border-stone-200 hover:border-insignia-500 transition hover:shadow-xl group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-stone-50 rounded-bl-full -mr-8 -mt-8 transition group-hover:bg-insignia-100"></div>
+                    <h3 class="text-lg font-bold text-military-900 mb-4 relative z-10">Defensa del Mando</h3>
+                    <ul class="space-y-3 text-stone-600 text-sm relative z-10">
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Imputación de responsabilidad.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Imposibilidad material.</li>
+                        <li class="flex items-start"><i class="fa-solid fa-angle-right text-insignia-500 mt-1 mr-2"></i> Principio de Confianza.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function applyPlaceholders() {
-      document.querySelectorAll('[data-es-placeholder],[data-en-placeholder]').forEach(el => {
-        const ph = (CURRENT_LANG === 'en') ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-es-placeholder');
-        if (ph) el.setAttribute('placeholder', ph);
-      });
-    }
+    <!-- SECCIÓN DIVIDIDA: AGENDAMIENTO Y EVALUACIÓN -->
+    <section id="contacto-opciones" class="py-24 bg-military-900 relative">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-insignia-500 font-bold tracking-widest uppercase text-xs">Atención Profesional</span>
+                <h2 class="text-3xl font-serif font-bold text-white mt-2">Seleccione su Modalidad de Atención</h2>
+                <div class="h-1 w-20 bg-insignia-500 mx-auto rounded-full mt-4"></div>
+            </div>
 
-    function setLanguage(lang){
-      CURRENT_LANG = lang;
-      document.documentElement.setAttribute('lang', (lang === 'en') ? 'en' : 'es-CL');
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- OPCIÓN 1: AGENDAMIENTO DIRECTO -->
+                <div class="bg-military-800 rounded-lg p-8 border border-military-700 shadow-xl flex flex-col items-center text-center">
+                    <div class="w-20 h-20 bg-military-900 rounded-full flex items-center justify-center border-2 border-insignia-500 mb-6">
+                        <i class="fa-solid fa-video text-3xl text-insignia-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-2">Agendamiento Directo</h3>
+                    <p class="text-insignia-400 font-bold text-sm uppercase tracking-wide mb-4">Reunión por Videollamada</p>
+                    <p class="text-stone-300 text-sm mb-8 text-justify leading-relaxed px-4">
+                        Ideal si requiere atención inmediata y conversar cara a cara con un abogado especialista. Reserve un bloque horario disponible en nuestra agenda digital para analizar su situación en tiempo real vía Zoom o Meet.
+                    </p>
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contacto-hmlegal'});return false;" class="w-full max-w-sm bg-insignia-600 hover:bg-insignia-500 text-white font-bold py-4 rounded-sm shadow-lg transition flex items-center justify-center gap-3">
+                        <i class="fa-regular fa-calendar-check"></i> AGENDAR VIDEOLLAMADA
+                    </button>
+                    <p class="text-[10px] text-stone-500 mt-4">Sincronización inmediata de horarios.</p>
+                </div>
 
-      // Text swap
-      document.querySelectorAll('[data-es][data-en]').forEach(el => {
-        el.textContent = (lang === 'en') ? el.getAttribute('data-en') : el.getAttribute('data-es');
-      });
+                <!-- OPCIÓN 2: FORMULARIO DE EVALUACIÓN -->
+                <div class="bg-white rounded-lg p-8 border border-stone-200 shadow-xl">
+                    <div class="flex items-center gap-4 mb-6 border-b border-stone-200 pb-4">
+                        <div class="w-12 h-12 bg-military-100 rounded-full flex items-center justify-center text-military-900">
+                            <i class="fa-solid fa-file-contract text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif font-bold text-military-900">Evaluación de Antecedentes</h3>
+                            <p class="text-stone-500 text-xs uppercase tracking-wide">Análisis Documental y Estrategia</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-stone-600 text-sm mb-6 text-justify leading-relaxed">
+                        Si prefiere un análisis previo de sus documentos antes de reunirse. Adjunte su notificación o dictamen y recibirá una evaluación preliminar en 48 horas hábiles.
+                    </p>
 
-      // Badge
-      const b = document.getElementById('langBadge');
-      const bm = document.getElementById('langBadgeMobile');
-      if (lang === 'en'){
-        if (b) b.textContent = 'ES';
-        if (bm) bm.textContent = 'Switch to Spanish';
-      } else {
-        if (b) b.textContent = 'EN';
-        if (bm) bm.textContent = 'Cambiar a Inglés';
-      }
+                    <form id="contactForm" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Nombre</label>
+                                <input type="text" class="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-sm focus:border-military-900 outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Teléfono</label>
+                                <input type="tel" class="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-sm focus:border-military-900 outline-none text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Correo</label>
+                            <input type="email" class="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-sm focus:border-military-900 outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Situación Actual</label>
+                            <textarea rows="3" class="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-sm focus:border-military-900 outline-none text-sm" placeholder="Describa brevemente su situación actual."></textarea>
+                        </div>
+                        
+                         <!-- File Upload Compacto -->
+                        <div class="border border-dashed border-stone-300 rounded-sm p-3 text-center bg-stone-50 relative file-upload-wrapper hover:bg-stone-100 transition cursor-pointer">
+                            <input type="file" name="file" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
+                            <div id="file-placeholder" class="flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paperclip text-stone-400"></i>
+                                <span class="text-xs text-stone-500 font-medium">Adjuntar Expediente (PDF/Word)</span>
+                            </div>
+                            <div id="file-name-display" class="hidden flex items-center justify-center gap-2 text-military-900 font-bold text-xs">
+                                <i class="fa-solid fa-check"></i> <span id="file-name-text"></span>
+                            </div>
+                        </div>
 
-      // Title tag (keeps SEO ok)
-      const t = document.querySelector('title');
-      if (t && t.dataset.es && t.dataset.en) t.textContent = (lang === 'en') ? t.dataset.en : t.dataset.es;
+                        <!-- CAPTCHA -->
+                        <div class="flex items-center gap-2 py-2">
+                            <input type="checkbox" id="captcha-check" class="w-4 h-4 text-blue-600 rounded border-gray-300">
+                            <label for="captcha-check" class="text-xs text-stone-600 select-none">No soy un robot</label>
+                            <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" class="h-5 w-5 opacity-60 ml-auto">
+                        </div>
 
-      applyPlaceholders();
-    }
+                        <button type="button" onclick="submitFormMock()" class="w-full bg-military-900 hover:bg-military-800 text-white font-bold py-3 rounded-sm shadow-md transition text-sm flex items-center justify-center gap-2">
+                            ENVIAR PARA EVALUACIÓN <i class="fa-solid fa-paper-plane text-insignia-500"></i>
+                        </button>
+                    </form>
 
-    function toggleLanguage(){
-      setLanguage(CURRENT_LANG === 'es' ? 'en' : 'es');
-    }
+                    <!-- Success Message -->
+                    <div id="form-success" class="hidden text-center py-10 animate-fade-in">
+                        <i class="fa-solid fa-check-circle text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-lg font-bold text-military-900">Enviado Correctamente</h3>
+                        <p class="text-stone-600 text-sm mt-2">Le contactaremos en 48 hrs hábiles.</p>
+                        <button onclick="location.reload()" class="text-insignia-600 text-xs font-bold mt-4 underline">Volver</button>
+                    </div>
+                </div>
 
-    // init
-    document.getElementById('year').textContent = new Date().getFullYear();
-    setLanguage('es');
-  </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-military-950 text-white border-t border-military-900">
+        <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                         <i class="fa-solid fa-scale-balanced text-insignia-500 text-xl"></i>
+                         <h2 class="text-lg font-serif font-bold text-white tracking-wide">HM LEGAL</h2>
+                    </div>
+                    <p class="text-stone-500 text-sm mb-4 leading-relaxed text-justify">
+                        Firma legal especializada exclusivamente en Derecho Administrativo Militar y Disciplinario para las Fuerzas Armadas de Chile.
+                    </p>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xs font-bold text-insignia-500 uppercase tracking-[0.2em] mb-6">Oficina Central</h3>
+                    <ul class="space-y-4 text-sm text-stone-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-white"></i>
+                            <span class="text-white">Av. O'Higgins 1186, Of. 1107,<br>Concepción, Chile.</span>
+                        </li>
+                        <li class="flex items-center gap-3 group">
+                            <i class="fa-solid fa-envelope text-white group-hover:text-insignia-500 transition"></i>
+                            <a href="mailto:contacto@hmlegal.cl?subject=Consulta%20Web:%20DEFENSA%20MILITAR" class="hover:text-white transition">contacto@hmlegal.cl</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-video text-white"></i>
+                            <a href="#" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contacto-hmlegal'});return false;" class="hover:text-insignia-500 transition">
+                                Atención Nacional (Vía Zoom/Meet)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Links Actualizados -->
+                <div>
+                    <h3 class="text-xs font-bold text-insignia-500 uppercase tracking-[0.2em] mb-6">Enlaces</h3>
+                    <ul class="space-y-3 text-sm text-stone-500">
+                        <!-- Enlace Asistente (Ruta Actualizada) -->
+                        <li><a href="/defensamilitar/asistente.html" class="hover:text-insignia-400 transition flex items-center gap-2"><i class="fa-solid fa-robot text-xs"></i> Asistente Jurídico IA</a></li>
+                        <!-- Enlaces Legales (Rutas Actualizadas) -->
+                        <li><a href="/defensamilitar/legales/politica.html" class="hover:text-white transition">Política de Privacidad</a></li>
+                        <li><a href="/defensamilitar/legales/terminos.html" class="hover:text-white transition">Términos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-600">
+                <p>&copy; 2025 HM Legal. Todos los derechos reservados.</p>
+                <p class="mt-2 md:mt-0">Diseñado con estándares de ética profesional.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function updateFileName(input) {
+            const fileName = input.files[0]?.name;
+            const placeholder = document.getElementById('file-placeholder');
+            const display = document.getElementById('file-name-display');
+            const text = document.getElementById('file-name-text');
+
+            if (fileName) {
+                placeholder.classList.add('hidden');
+                display.classList.remove('hidden');
+                text.textContent = fileName;
+            }
+        }
+
+        function submitFormMock() {
+            const btn = document.querySelector('#contactForm button');
+            const captcha = document.getElementById('captcha-check');
+            
+            if(!captcha.checked) {
+                alert("Por favor, verifique que no es un robot.");
+                return;
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> ENVIANDO...';
+            btn.disabled = true;
+            console.log("Enviando formulario con Asunto: DEFENSA MILITAR");
+            setTimeout(() => {
+                document.getElementById('contactForm').classList.add('hidden');
+                document.getElementById('form-success').classList.remove('hidden');
+            }, 1500);
+        }
+    </script>
 </body>
 </html>
